@@ -20,14 +20,16 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="/css/style6.css?v=4">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 
-<header class="header">
+<header>
 
     <div class="header_wrap">
 
@@ -67,23 +69,23 @@ AppAsset::register($this);
 
 			<div class="header_menu">
 
-				<a class="[!menuClass? &param = `katalog`!]" href="[!domainHref!]/katalog/">Каталог</a>
+				<a class="" href="/katalog/">Каталог</a>
 
 				<div class="main_menu_sub">
 				    <a class="[!menuClass? &param = `alyuminievaya_shina`!]" href="[!domainHref!]/katalog/alyuminievaya_shina/">Шина</a>
-		            <a class="[!menuClass? &param = `alyuminieviy_profnastil`!]" href="[!domainHref!]/katalog/alyuminieviy_profnastil/">Профнастил</a>
-		            <a class="[!menuClass? &param = `alyuminievye_listy`!]" href="[!domainHref!]/katalog/alyuminievye_listy/">Листы</a>
-		            <a class="[!menuClass? &param = `alyuminievye_prutki`!]" href="[!domainHref!]/katalog/alyuminievye_prutki/">Прутки</a>
-		            <a class="[!menuClass? &param = `alyuminievye_lenty`!]" href="[!domainHref!]/katalog/alyuminievye_lenty/">Ленты</a>
-		            <a class="[!menuClass? &param = `alyuminievye_plity`!]" href="[!domainHref!]/katalog/alyuminievye_plity/">Плиты</a>
-		            <a class="[!menuClass? &param = `alyuminievye_truby`!]" href="[!domainHref!]/katalog/alyuminievye_truby/">Трубы</a>
-		            <a class="[!menuClass? &param = `alyuminievye_profili`!]" href="[!domainHref!]/katalog/alyuminievye_profili/">Профили</a>
-		            <a class="[!menuClass? &param = `alyuminievye_pokovki_i_shtampovki`!]" href="[!domainHref!]/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
-		    	</div>
+						<a class="[!menuClass? &param = `alyuminieviy_profnastil`!]" href="[!domainHref!]/katalog/alyuminieviy_profnastil/">Профнастил</a>
+						<a class="[!menuClass? &param = `alyuminievye_listy`!]" href="[!domainHref!]/katalog/alyuminievye_listy/">Листы</a>
+						<a class="[!menuClass? &param = `alyuminievye_prutki`!]" href="[!domainHref!]/katalog/alyuminievye_prutki/">Прутки</a>
+						<a class="[!menuClass? &param = `alyuminievye_lenty`!]" href="[!domainHref!]/katalog/alyuminievye_lenty/">Ленты</a>
+						<a class="[!menuClass? &param = `alyuminievye_plity`!]" href="[!domainHref!]/katalog/alyuminievye_plity/">Плиты</a>
+						<a class="[!menuClass? &param = `alyuminievye_truby`!]" href="[!domainHref!]/katalog/alyuminievye_truby/">Трубы</a>
+						<a class="[!menuClass? &param = `alyuminievye_profili`!]" href="[!domainHref!]/katalog/alyuminievye_profili/">Профили</a>
+						<a class="[!menuClass? &param = `alyuminievye_pokovki_i_shtampovki`!]" href="[!domainHref!]/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
+				</div>
 
-		      	<a class="[!menuClass? &param = `teh_doc`!]" href="[!domainHref!]/teh_doc/">Техническая документация</a>
-		      	<a class="[!menuClass? &param = `delivery`!]" href="[!domainHref!]/delivery/">Доставка</a>
-				<a class="[!menuClass? &param = `kontact`!]" href="[!domainHref!]/kontact/">Контакты</a>
+					<a class="" href="/teh_doc/">Техническая документация</a>
+					<a class="" href="/delivery/">Доставка</a>
+					<a class="" href="/kontact/">Контакты</a>
 
 			</div>
 
@@ -113,29 +115,29 @@ AppAsset::register($this);
 
 		<div class="header_cart cart-total">
 			<a href="/cart/">Корзина</a>
-			[!cart_total!]
+			<!-- [!cart_total!] -->
 		</div>
 
 	</div>
 
-	<img class="arrow_scroll arrow_scroll_up" src="/assets/images/arrows/arrow_up.svg" alt="Наверх" title="Наверх" id="Go_Top">
-	<img class="arrow_scroll arrow_scroll_down" src="/assets/images/arrows/arrow_down.svg" alt="Вниз" title="Вниз" id="Go_Down">
+	<img class="arrow_scroll arrow_scroll_up" src="/images/arrows/arrow_up.svg" alt="Наверх" title="Наверх" id="Go_Top">
+	<img class="arrow_scroll arrow_scroll_down" src="/images/arrows/arrow_down.svg" alt="Вниз" title="Вниз" id="Go_Down">
 
 </header>
 
 
-<div class="container">
+<!-- <div class="container"> -->
     <?= $content ?>
-</div>
+<!-- </div> -->
 
-<footer class="footer">
+<footer>
 
     <div class="footer_wrap">
 
         <div class="footer_left">
 
-            <p>Copyrigth 2007-[!year!], Самарская алюминиевая компания</p>
-            <a href="https://samalco.ru/agreement/">Политика конфиденциальности</a>
+            <p>Copyrigth 2007-<?php echo date('Y') ?>, Самарская алюминиевая компания</p>
+            <a href="/agreement/">Политика конфиденциальности</a>
 
         </div>
 
@@ -149,13 +151,78 @@ AppAsset::register($this);
 
         <div class="footer_right">
 
-            <p>Продвигается «<a href="http://liderpoiska.ru/" target="_blank">Лидером Поиска</a>»</p>
+            <p>Продвигается «<a href="https://liderpoiska.ru/" target="_blank">Лидером Поиска</a>»</p>
 
         </div>
 
     </div>
 
 </footer>
+
+<div class="callback_popup order-form-ext" data-context="popup">
+	<div class="callback_layout"></div>
+	<div class="callback_popup_wrap">
+		<div class="callback_exit"></div>
+		<h2>Оставьте заявку</h2>
+		<form class="callback_form" action="/assets/snippets/mailer.php">
+			<div class="form-row">
+                <div class="form-group">
+                    <label for="name_true">Ваше имя</label>
+                    <input type="text" class="form-control" name="name_true" autocomplete="off" data-required="">
+                    <input type="text" name="name" class="xxx_">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Номер телефона</label>
+                    <input type="text" class="form-control" name="phone" autocomplete="off" data-required="" data-error="Пожалуйста, введите Ваш телефон">
+                </div>
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="text" class="form-control" name="email" autocomplete="off" data-required="" data-error="Пожалуйста, введите Ваш email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="org_name">Название организации с формой собственности</label>
+                    <input type="text" class="form-control org-name" name="org_name" autocomplete="off" data-required="">
+                </div>
+                <div class="form-group">
+                    <label for="org_address">Адрес организации</label>
+                    <input type="text" class="form-control org-address" name="org_address" autocomplete="off" data-required="">
+                </div>
+            </div>
+			<div class="form-row">
+                <div class="form-group form-group-fw">
+                    <label for="comment">Комментарий</label>
+                    <textarea class="form-control" name="comment" placeholder="Оставьте Ваш вопрос или комментарий"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="terms" checked="" data-required="">
+                            Я согласен на обработку <a href="https://samalco.ru/agreement/">моих персональных данных</a>
+                    </label>
+                </div>
+            </div>
+			<div class="g-recaptcha" data-sitekey="6LdAz-AUAAAAAPfqsfvShXH_tq5ZGKDjcj44YtCk"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LdAz-AUAAAAAPfqsfvShXH_tq5ZGKDjcj44YtCk&amp;co=aHR0cHM6Ly9zYW1hcmEuc2FtYWxjby5ydTo0NDM.&amp;hl=en-GB&amp;v=5mNs27FP3uLBP3KBPib88r1g&amp;size=normal&amp;cb=1uxqu5l6swa5" width="304" height="78" role="presentation" name="a-74yn1iojvxg7" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+            <div class="text-danger" id="recaptchaError"></div>
+		</form>
+		<div class="form-overlay_popup">
+			<div class="form-overlay-body">
+				<p><span id="overlay-name_popup">Username</span>, спасибо за заявку!</p>
+				<p>Наш менеджер свяжется с Вами в течение часа.</p>
+				<a class="close" id="hide-overlay_popup">Понял, спасибо</a>
+			</div>
+			<div class="form-overlay-close_popup"></div>
+			<div class="form-overlay-bg"></div>
+		</div>
+	</div>
+</div>
 
 <?php $this->endBody() ?>
 </body>

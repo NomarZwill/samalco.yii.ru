@@ -1,10 +1,10 @@
-{{headerAddStatic}}
+<!-- {{headerAddStatic}} -->
 <div class="main_wrap _main">
 
 	<div class="main_block">
-		<h1>[!domainHTitle!]</h1>
+		<h1><?= $currentPage['header'] ?></h1>
 		<div class="main_text">
-			[!domainHomeText1!]
+			<?= $currentPage['text_1'] ?>
 		</div>
 		<div class="calc_link_block">
 			<div class="calc_wrapper">
@@ -35,13 +35,13 @@
 				</div>
 			</div>
 		</div>
-		<h2>Каталог продукции [!in_city!]</h2>
+		<h2>Каталог продукции в <?= $currentSubdomen['name_dec'] ?></h2>
 		<div class="main_cat">
 			[!Ditto? &tpl=`special_blok_katalog_2018` &sortDir=`ASC` &sortBy=`menuindex` &startID=`2`!]
 		</div>
 		
 		<div class="main_text">
-			[!domainHomeText4!]
+			<?= $currentPage['text_4'] ?>
 		</div>
 	</div>
 	<div class="main_callback">
@@ -82,7 +82,7 @@
 					<img src="/images/main2018/ico4.png" alt=""/>
 				</div>
 				<div class="main_words_item_text">
-					<p>Собственный сервисный центр [!in_city!] <br/>с качественным оборудованием</p>
+					<p>Собственный сервисный центр в <?= $currentSubdomen['name_dec'] ?> <br/>с качественным оборудованием</p>
 				</div>
 			</div>
 			<div class="main_words_item">
@@ -95,7 +95,7 @@
 			</div>
 		</div>
 		<div class="main_text">
-			[!domainHomeText2!]
+			<?= $currentPage['text_2'] ?>
 		</div>
 	</div>
 
@@ -153,13 +153,22 @@
 
 	<div class="main_block">
 		<div class="main_text">
-			[!domainHomeText3!]
+			<?= $currentPage['text_3'] ?>
 		</div>
 	</div>
 
 	<div class="main_contacts">
 		<h2>Контакты</h2>
-		[!domainHomeContacts2018!]
+			<div class="main_contacts_wrap">
+				<div class="main_contacts_text">
+					<p class="main_contacts_address"><?= $currentBranch['addressLocality']?>,<br> <?= $currentBranch['postalCode']?>, <?= $currentBranch['streetAddress']?>.</p>
+					<p class="main_contacts_phone"><?= $currentBranch['phone']?></p>
+					<p class="main_contacts_mail"><a href="mailto:<?= $currentBranch['email']?>"><span itemprop="email"><?= $currentBranch['email']?></span></a></p>
+					<p class="main_contacts_info"><a href="/kontact/">Подробная информация</a></p>
+					<div class="main_contacts_callback">Обратная связь</div>
+				</div>
+				<?= $currentBranch['map']?>
+			</div>
 	</div>
 
 </div>
