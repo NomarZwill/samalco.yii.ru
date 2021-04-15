@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $subdomen_alias
+ * @property int $page_id
  * @property string $page_type
  * @property string $header
  * @property string $title
@@ -34,8 +35,9 @@ class PagesSubdomenSeo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3'], 'required'],
+            // [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3'], 'required'],
             [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3'], 'string'],
+            [['page_id'], 'integer'],
         ];
     }
 
@@ -47,6 +49,7 @@ class PagesSubdomenSeo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'subdomen_alias' => 'Subdomen Alias',
+            'page_id' => 'Page id',
             'page_type' => 'Page Type',
             'header' => 'Header',
             'title' => 'Title',

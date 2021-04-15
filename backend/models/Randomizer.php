@@ -25,9 +25,7 @@ class Randomizer
     $start_time = microtime(true);
     
     $commonData = [];
-    $commonData['density'] = $this->allParams->density;
     $commonData['arrAlloys'] = $this->allParams->arrAlloys;
-    $commonData['k'] = $this->allParams->k;
 
     # Count of alloy for one domain 
     // $alloyCount = 50;
@@ -46,12 +44,12 @@ class Randomizer
     # Alloys
     $alloys_lists = $this->allParams->arrAlloys['lists']['alloy'];
     $alloys_plates = $this->allParams->arrAlloys['plates']['alloy'];
-    $alloys_tubing = $this->allParams->arrAlloys['tubing']['alloy'];
-    $alloys_tavrs = $this->allParams->arrAlloys['profils']['tavrs']['alloy'];
-    $alloys_shvellers = $this->allParams->arrAlloys['profils']['shvellers']['alloy'];
-    $alloys_dvutavrs = $this->allParams->arrAlloys['profils']['dvutavrs']['alloy'];
-    $alloys_ugolki = $this->allParams->arrAlloys['profils']['ugolki']['alloy'];
-    $alloys_pryamougolniki = $this->allParams->arrAlloys['profils']['pryamougolniki']['alloy'];
+    $alloys_tubes = $this->allParams->arrAlloys['tubes']['alloy'];
+    $alloys_tavrs = $this->allParams->arrAlloys['profils']['profil_tavr']['alloy'];
+    $alloys_shvellers = $this->allParams->arrAlloys['profils']['profil_shveller']['alloy'];
+    $alloys_dvutavrs = $this->allParams->arrAlloys['profils']['profil_dvutavr']['alloy'];
+    $alloys_ugolki = $this->allParams->arrAlloys['profils']['profil_ugolok']['alloy'];
+    $alloys_pryamougolniki = $this->allParams->arrAlloys['profils']['profil_pryamougolnik']['alloy'];
     $alloys_tapes = $this->allParams->arrAlloys['tapes']['alloy'];
     $alloys_rods = $this->allParams->arrAlloys['rods']['alloy'];
 
@@ -64,7 +62,7 @@ class Randomizer
     $this->updateTable($alloys_ugolki, 'profil_ugolok', 		1, 1000, 1, 110, 150, 1, $commonData);
     $this->updateTable($alloys_rods, 'rods', 	300, 1500, 1, 220, 250, 1, $commonData);
     $this->updateTable($alloys_tapes, 'tapes', 	300, 1500, 1, 175, 220, 1, $commonData);
-    $this->updateTable($alloys_tubing, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
+    $this->updateTable($alloys_tubes, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
 
 
     $end_time = microtime(true);
@@ -110,7 +108,7 @@ class Randomizer
           if($type == 'tapes'){
             $balance = $this->getRandomeValue($balance_min, $balance_max, $balance_step);
           } else {
-            $balance = $this->getRandomeBalanceValue($balance_min, $balance_max, $balance_step, $commonData['density'], $row, $type, $commonData['k']);
+            $balance = $this->getRandomeBalanceValue($balance_min, $balance_max, $balance_step, $row, $type);
           }
         } else {
           $balance = 0;
@@ -131,9 +129,9 @@ class Randomizer
     return $arr[array_rand($arr, 1)];
   }
 
-  function getRandomeBalanceValue($min_, $max_, $step_, $density_, $row_, $table_, $k_)
+  function getRandomeBalanceValue($min_, $max_, $step_, $row_, $table_)
   {
-    $min_ = $step_ = $this->allParams->getWeight($density_, $row_, $table_);
+    $min_ = $step_ = AllParams::getWeight($row_, $table_);
     $max_init = $max_;
 
     while ($min_ * $max_ > $max_init && $max_ > 1) 

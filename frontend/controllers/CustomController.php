@@ -6,10 +6,12 @@ use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Slices;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use backend\components\AllParams;
 
 class CustomController extends Controller
 {
@@ -21,16 +23,21 @@ class CustomController extends Controller
 
   public function actionCustom()
   {
+    // $allParams = new AllParams();
 
-    // $user = new User();
-    // $user->username = 'admin';
-    // $user->email = 'artm@liderpoiska.ru';
-    // $user->password = 'Gjf/1k2U';
-    // $user->setPassword('Gjf/1k2U');
-    // $user->generateAuthKey();
-    
-    // return $user->save() ? $user : 'пользователь не создан';
+    // foreach ($allParams['lists'] as $key => $value){
 
+    //   if ($key !== 'length'){
+
+    //     foreach ($value as $value1){
+
+    //       $newSlice = new Slices();
+    //       $newSlice->alias = $value1;
+    //       $newSlice->category_alias = $value1;
+    //     }
+
+    //   }
+    // }
     
     echo "конец";
     exit;
@@ -48,4 +55,22 @@ class CustomController extends Controller
     $connection->open();
     Yii::$app->set('db', $connection);
   }
+
+  public function actionCreateUser()
+  {
+
+    // $user = new User();
+    // $user->username = 'admin';
+    // $user->email = 'artm@liderpoiska.ru';
+    // $user->password = 'Gjf/1k2U';
+    // $user->setPassword('Gjf/1k2U');
+    // $user->generateAuthKey();
+    
+    // return $user->save() ? $user : 'пользователь не создан';
+
+    
+    echo "конец";
+    exit;
+  }
+
 }

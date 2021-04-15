@@ -23,7 +23,7 @@ AppAsset::register($this);
     <link type="text/css" rel="stylesheet" href="/css/style6.css?v=4">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
     <?php $this->head() ?>
 </head>
 <body>
@@ -223,6 +223,8 @@ AppAsset::register($this);
 		</div>
 	</div>
 </div>
+
+<script type="module" src="/js/app.js"></script>
 
 <?php $this->endBody() ?>
 </body>

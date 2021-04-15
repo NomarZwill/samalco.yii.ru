@@ -6,14 +6,14 @@ use Yii;
 
 class AllParams
 {
-	public $k = 2.85;
+	public static $k = 2.85;
 
 	public $arrAlloys = [
 		'lists' => [
 				'alloy' => ['АК4-1', '1105', 'Д19ч', 'Д16', '1925', 'АК4', '1163', '1915', 'ВД1', 'В95', 'Д1', 'АВ', 'АМГ5', 'АМГ2', 'АД1', 'А5', 'АМЦ', 'АД0', 'АД', 'АМцС', 'А0', 'А6', 'А7', 'АМг3', 'АМг4.5', 'АМг6', '5251', '5754', 'АД35', 'Д19', 'В95пч', 'В95оч', '1201', 'Д20', 'АБТ-102', '1560', '1561', '5083', '7075', '6061', '6082', '1903', '3003', '3004', '3005', 'АК4-1ч', 'АД33', 'Д16ч', 'АБТ-101'],
+				'depth' => ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5'],
 				'width' => ['1000', '1200', '1500', '1800', '2000', '2500'],
 				'curing' => ['Н', 'Н2', 'Н3', 'М', 'Т', 'Т1', 'Н22', 'Н24', 'Н111', 'Н114', 'Н224', 'Т6', 'Н12', 'Н14', 'Н32', 'Н34', 'Н16', 'Н321', 'Н244'],
-				'depth' => ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5'],
 				'length' => ['2000', '2200', '2500', '3000', '3200', '3300', '3440', '3500', '3600', '4000', '4400', '4800', '5000', '5200', '5500', '6000']
 			],
 		'plates' => [
@@ -30,11 +30,11 @@ class AllParams
 				'depth' => ['0.25', '0.5', '0.75', '1', '1.25', '1.5', '1.75', '2', '2.25', '2.5', '2.75', '3', '3.25', '3.5', '3.75', '4', '4.25', '4.5', '4.75', '5'],
 				'length' => ['2000', '2200', '2500', '3000', '3200', '3300', '3440', '3500', '3600', '4000', '4400', '4800', '5000', '5200', '5500', '6000']
 			],
-		'tubing' => [
+		'tubes' => [
 				'alloy' => ['АД31Е', 'АД35', 'АД33', '1561', '1560', 'Д19', 'Д20', 'В93', '1915', '1925', '1955', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1163', '1933', '1973', '6061', '3003', '1201', '6063', '1980', '6082', '7075', 'АВ', 'АД0', 'АД1', 'АД31', 'АМГ2', 'АМГ3', 'АМГ5', 'АМГ6', 'АМЦ', 'В95', 'Д1', 'Д16'],
+				'diameter' => ['5.0-8.0', '9.0-12', '13-24', '25-60', '60-100', '101-170', '171-250', '251-800'],
 				'width_st' => ['0.5-2', '2.1-5', '5.1-15', '15.1-50', '50.1-100'],
 				'curing' => ['без т/о', 'М', 'Н', 'Т', 'Т1', 'Т5'],
-				'diameter' => ['5.0-8.0', '9.0-12', '13-24', '25-60', '60-100', '101-170', '171-250', '251-800'],
 				'length' => ['2000', '2200', '2500', '3000', '3200', '3300', '3440', '3500', '3600', '4000', '4400', '4800', '5000', '5200', '5500', '6000']
 			],
 		'rods' => [
@@ -45,7 +45,7 @@ class AllParams
 				'length' => ['1000', '1200', '1500', '1800', '2000', '2200', '2500', '2800', '3000', '3200', '3500', '3800', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000', '8500', '9000', '9500', '10000', '10500', '11000', '11500', '12000']
 			],
 		'profils' => [
-				'tavrs' => [
+				'profil_tavr' => [
 						'alloy' => ['АД0', 'АД1', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АД31', '6060', '6063', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915', '1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 						'width' => ['4', '15', '100', '150', '200', '300', '400', '480'],
 						'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000'],
@@ -53,7 +53,7 @@ class AllParams
 						'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 						'depth' => ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5']
 					],
-				'dvutavrs' => [
+				'profil_dvutavr' => [
 						'alloy' => ['АД0', 'АД1', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915','1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 						'width' => ['6', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350'],
 						'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000'],
@@ -61,7 +61,7 @@ class AllParams
 						'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 						'depth' => ['1', '5', '10', '15', '20', '25', '30', '40', '50', '55', '60', '70']
 					],
-				'shvellers' => [
+				'profil_shveller' => [
 						'alloy' => ['АД0', 'АД1', 'АД31', 'АД35', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915','1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 						'width' => ['6', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350'],
 						'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000'],
@@ -69,7 +69,7 @@ class AllParams
 						'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 						'depth' => ['1', '5', '10', '15', '20', '25', '30', '40', '50', '55', '60', '70']
 					],
-				'ugolki' => [
+				'profil_ugolok' => [
 						'alloy' => ['АМц', 'АМцС', 'АМг2', 'АМг3', 'АМг5', 'АМг6', '1561', 'АД31', 'АД33', 'АД35', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'АК4', 'АК4-1', 'АК4-1ч', 'АК6', 'АК6ч', 'В95', 'В95ч', '1915', '1925', '1935', 'АД0', 'АД00', 'АД31Е', '1201', '1163', 'АД1', '6061', '6063', 'Д20', 'В95пч', 'В95оч', 'В96', '1973'],
 						'width' => ['10', '15', '20', '50', '100', '150', '200', '250', '300'],
 						'length' => ['1500', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000', '11000', '12000'],
@@ -77,7 +77,7 @@ class AllParams
 						'curing' => ['без т/о', 'М', 'Т', 'Т1', 'Т4', 'Т5', 'Т6', 'Т64', 'Т66'],
 						'depth' => ['2', '5', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '120']
 					],
-				'pryamougolniki' => [
+				'profil_pryamougolnik' => [
 						'alloy' => ['АД31', 'АД33', 'АД35', '6060', '6063', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'АК4', 'АК4-1', 'АК4-1ч', 'АК6', 'АК6ч', 'В95', 'В95ч', '1915', '1925', '1925С', '1935', 'АМц', 'АМцС', 'АМг2', 'АМг3', 'АМг3С', 'АМг5', 'АМг6', '1561'],
 						'width' => ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '120', '150', '180', '200', '220', '250', '280', '300'],
 						'length' => ['1500', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000', '11000', '12000'],
@@ -88,7 +88,7 @@ class AllParams
 			],
 	];
 	
-	public $density = [
+	public static $density = [
 		'1973' => '1',
 		'амг5' => '0.93',
 		'1561' => '0.926',
@@ -169,103 +169,103 @@ class AllParams
 		'д12' => '0.954'
 	];
 
-	function getWeight($density, $row, $table){
+	public static function getWeight($row, $table){
 
 		switch ($table) {
 			case 'lists':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$length = floatval($row['length']);
 				$width = floatval($row['width']);
 				$depth = floatval($row['depth']);
-				$weight = round($dens*$width*$depth*$length*$this->k/1000000, 2);
+				$weight = round($dens*$width*$depth*$length*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
 			case 'rods':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$length = floatval($row['length']);
 				$width = floatval($row['diameter']);
-				$weight = round($dens*$width*$length*$this->k*3.14/1000000, 2);
+				$weight = round($dens*$width*$length*AllParams::$k*3.14/1000000, 2);
 				return $weight;
 				break;
 
 			case 'tapes':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$length = (floatval($row['length']) != 0) ? floatval($row['length']) : 1000;
 				$width = floatval($row['width']);
 				$depth = floatval($row['depth']);
-				$weight = round($dens*$width*$depth*$length*$this->k/1000000, 2);
+				$weight = round($dens*$width*$depth*$length*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
 			case 'plates':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$length = floatval($row['length']);
 				$width = floatval($row['width']);
 				$depth = floatval($row['depth']);
-				$weight = round($dens*$width*$depth*$length*$this->k/1000000, 2);
+				$weight = round($dens*$width*$depth*$length*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
-			case 'tubing':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'tubes':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$length = floatval($row['length']);
 				$width = floatval($row['width']);
 				$diameter = floatval($row['diameter']);
 				$r_max = $diameter/2;
         		$r_min = $diameter/2 - $width;
         		$pi = 3.14159265359;
-				$weight = round(($pi*$r_max*$r_max - $pi*$r_min*$r_min)*$length*$this->k*$dens/1000000, 2);
+				$weight = round(($pi*$r_max*$r_max - $pi*$r_min*$r_min)*$length*AllParams::$k*$dens/1000000, 2);
 				return $weight;
 				break;
 
-			case 'shvellers':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'profil_shveller':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
 				$height = floatval($row['height']);
 				$depth = floatval($row['depth']);
-				$weight = round((2*$height+$width-2*$depth)*$depth*$length*$dens*$this->k/1000000, 2);
+				$weight = round((2*$height+$width-2*$depth)*$depth*$length*$dens*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
-			case 'tavrs':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'profil_tavr':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
 				$height = floatval($row['height']);
 				$depth = floatval($row['depth']);
-				$weight = round(($height+$width-$depth)*$depth*$length*$dens*$this->k/1000000, 2);
+				$weight = round(($height+$width-$depth)*$depth*$length*$dens*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
-			case 'dvutavrs':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'profil_dvutavr':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
 				$height = floatval($row['height']);
 				$depth = floatval($row['depth']);
-				$weight = round(($height+2*$width-2*$depth)*$depth*$length*$dens*$this->k/1000000, 2);
+				$weight = round(($height+2*$width-2*$depth)*$depth*$length*$dens*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
-			case 'ugolki':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'profil_ugolok':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
 				$height = floatval($row['height']);
 				$depth = floatval($row['depth']);
-				$weight = round(($height+$width-$depth)*$depth*$length*$dens*$this->k/1000000, 2);
+				$weight = round(($height+$width-$depth)*$depth*$length*$dens*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 
-			case 'pryamougolniki':
-				$dens = floatval($density[mb_strtolower($row['alloy'])]);
+			case 'profil_pryamougolnik':
+				$dens = floatval(AllParams::$density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
 				$height = floatval($row['height']);
 				$depth = floatval($row['depth']);
-				$weight = round((2*$height+2*$width-4*$depth)*$depth*$length*$dens*$this->k/1000000, 2);
+				$weight = round((2*$height+2*$width-4*$depth)*$depth*$length*$dens*AllParams::$k/1000000, 2);
 				return $weight;
 				break;
 

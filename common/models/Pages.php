@@ -58,4 +58,19 @@ class Pages extends \yii\db\ActiveRecord
             'content' => 'content',
         ];
     }
+
+    public function getSubdomenSeo()
+    {
+        $subdomenSeo = $this->hasOne(PagesSubdomenSeo::className(), ['page_id' => 'id'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']]);
+          
+        return $subdomenSeo;
+    }
+
+    public function getExtraContent()
+    {
+        $extraContent = $this->hasOne(PagesExtraContent::className(), ['page_id' => 'id']);
+          
+        return $extraContent;
+    }
+
 }

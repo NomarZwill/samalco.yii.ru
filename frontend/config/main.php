@@ -45,10 +45,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['pattern'=>'/katalog/<slice:[\w-]+>','route'=>'katalog/slice', 'suffix'=>'/'],
                 ['pattern'=>'/teh_doc/<firstLevel:[\w-]+>/<secondLevel:[\w-]+>','route'=>'documentation/second-level', 'suffix'=>'/'],
                 ['pattern'=>'/teh_doc/<firstLevel:[\w-]+>','route'=>'documentation/first-level', 'suffix'=>'/'],
                 ['pattern'=>'/teh_doc/','route'=>'documentation/index', 'suffix'=>'/'],
                 ['pattern'=>'/delivery/','route'=>'other/delivery', 'suffix'=>'/'],
+                ['pattern'=>'/ajax/get-no-balance-table/','route'=>'katalog/ajax-no-balance-table', 'suffix'=>'/'],
                 ['pattern'=>'/kontact/','route'=>'other/contacts', 'suffix'=>'/'],
                 ['pattern'=>'/filialy/','route'=>'other/branches', 'suffix'=>'/'],
                 ['pattern'=>'/agreement/','route'=>'other/agreement', 'suffix'=>'/'],

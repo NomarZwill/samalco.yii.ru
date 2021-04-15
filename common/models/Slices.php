@@ -5,22 +5,22 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "items".
+ * This is the model class for table "slices".
  *
  * @property int $id
- * @property string $type
+ * @property string $alias
+ * @property string $parent_alias
  * @property string $name
- * @property string $params_set
- * @property string $table_column_names
+ * @property string $params
  */
-class Items extends \yii\db\ActiveRecord
+class Slices extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'items';
+        return 'slices';
     }
 
     /**
@@ -29,8 +29,8 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'name'], 'required'],
-            [['type', 'name', 'params_set', 'table_column_names'], 'string'],
+            [['alias', 'parent_alias', 'name', 'params'], 'required'],
+            [['alias', 'parent_alias', 'name', 'params'], 'string'],
         ];
     }
 
@@ -41,8 +41,10 @@ class Items extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'type' => 'Type',
+            'alias' => 'Alias',
+            'parent_alias' => 'parent Alias',
             'name' => 'Name',
+            'params' => 'Params',
         ];
     }
 }

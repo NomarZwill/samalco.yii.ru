@@ -66,4 +66,24 @@ class ItemsParams extends \yii\db\ActiveRecord
             'price' => 'Price',
         ];
     }
+
+    public static function getSliceData($paramsList)
+    {
+        if (count((array)$paramsList) == 2){
+            return ItemsParams::find()->where(['subdomen' => $paramsList->subdomen])->andWhere(['type' => $paramsList->type])->andWhere(['>', 'balance', 0])->all();
+        }
+
+        return 0;
+    }
+
+    public static function getSliceDataNoBalance($paramsList)
+    {
+        if (count((array)$paramsList) == 2){
+            $tableData = ItemsParams::find()->where(['subdomen' => $paramsList['subdomen']])->andWhere(['type' => $paramsList['type']])->andWhere(['=', 'balance', 0])->all();
+            shuffle($tableData);
+            return $tableData;
+        }
+
+        return 0;
+    }
 }

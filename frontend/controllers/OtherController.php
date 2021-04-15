@@ -4,6 +4,8 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use common\models\PagesSubdomenSeo;
+use common\models\Branch;
 
 class OtherController extends Controller
 {
@@ -14,7 +16,13 @@ class OtherController extends Controller
 
   public function actionDelivery()
   {
-    return $this->render('delivery');
+    $currentPage = PagesSubdomenSeo::find()->where(['page_type' => 'delivery'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']])->one();
+    $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
+
+    return $this->render('delivery', array(
+      'currentPage' => $currentPage,
+      'currentBranch' => $currentBranch,
+    ));
   }
 
   public function actionContacts()

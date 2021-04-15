@@ -15,7 +15,7 @@ class AppAsset extends AssetBundle
         'css/styles2018.css',
     ];
     public $js = [
-        'js/regions.js'
+        // 'js/app.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
