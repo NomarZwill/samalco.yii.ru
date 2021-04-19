@@ -10,7 +10,7 @@ class RandomizerController extends Controller
 
 	public function actionTest()
 	{
-		echo 'hi frop the deep!';
+		echo 'hi from the deep!';
 	}
 
   public function actionUpdateTables()

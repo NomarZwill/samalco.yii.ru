@@ -7,6 +7,8 @@ use yii\helpers\ArrayHelper;
 use common\models\LoginForm;
 use common\models\User;
 use common\models\Slices;
+use common\models\Subdomen;
+use common\models\PagesSubdomenSeo;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -23,21 +25,65 @@ class CustomController extends Controller
 
   public function actionCustom()
   {
-    // $allParams = new AllParams();
+    $allParams = new AllParams();
 
-    // foreach ($allParams['lists'] as $key => $value){
+    // $paramNameList = [
+    //   'alloy' => 'alloy',
+    //   'depth' => 'depth',
+    //   'width' => 'width',
+    //   'curing' => 'curing',
+    // ];
 
-    //   if ($key !== 'length'){
+    // foreach ($allParams->arrAlloys['lists'] as $key => $value){
 
+    //   if (array_key_exists($key, $paramNameList)){
+    //     $paramName = $paramNameList[$key];
+  
     //     foreach ($value as $value1){
-
     //       $newSlice = new Slices();
-    //       $newSlice->alias = $value1;
-    //       $newSlice->category_alias = $value1;
+    //       $newSlice->alias = mb_strtolower($value1);
+    //       $newSlice->parent_alias = 'alyuminievye_listy';
+    //       $newSlice->name = $value1;
+    //       $newSlice->params = '{"type":"lists"' . ',"' . $paramName . '":"' . $value1 . '"}';
+    //       // $newSlice->save();
     //     }
-
     //   }
     // }
+
+    $paramNameList = [
+      'alloy' => 'сплав',
+      'depth' => 'толщиной',
+      'width' => 'шириной',
+      'curing' => 'с термообработкой',
+    ];
+
+    $subdomensAll = Subdomen::find()->all();
+
+    foreach (Slices::find()->where(['parent_alias' => 'alyuminievye_listy'])->all() as $slice){
+      $paramsList = (array)json_decode($slice->params);
+      $currentParamKey = array_key_last($paramsList);
+
+      foreach($subdomensAll as $subdomen){
+        $newSeo = new PagesSubdomenSeo();
+        $newSeo->subdomen_alias = $subdomen->alias;
+        $newSeo->page_id = $slice->id;
+        $newSeo->page_type = 'slice';
+        $newSeo->is_slice = true;
+        $newSeo->header = 'Алюминиевые листы ' 
+        . $paramNameList[$currentParamKey] 
+        . ' ' 
+        . $paramsList[$currentParamKey];
+
+        if ($currentParamKey == 'depth' || $currentParamKey == 'width'){
+          $newSeo->header .= ' мм';
+        }
+
+        $newSeo->save();
+        // echo '<pre>';
+        // print_r($newSeo);
+        // exit;
+      }
+    }
     
     echo "конец";
     exit;

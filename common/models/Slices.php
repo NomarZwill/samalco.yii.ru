@@ -47,4 +47,11 @@ class Slices extends \yii\db\ActiveRecord
             'params' => 'Params',
         ];
     }
+
+    public function getSubdomenSeo()
+    {
+        $subdomenSeo = $this->hasOne(PagesSubdomenSeo::className(), ['page_id' => 'id'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias'], 'page_type' => 'slice']);
+          
+        return $subdomenSeo;
+    }
 }

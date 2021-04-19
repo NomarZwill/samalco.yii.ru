@@ -69,21 +69,61 @@ class ItemsParams extends \yii\db\ActiveRecord
 
     public static function getSliceData($paramsList)
     {
-        if (count((array)$paramsList) == 2){
-            return ItemsParams::find()->where(['subdomen' => $paramsList->subdomen])->andWhere(['type' => $paramsList->type])->andWhere(['>', 'balance', 0])->all();
-        }
-
-        return 0;
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
     }
 
     public static function getSliceDataNoBalance($paramsList)
     {
-        if (count((array)$paramsList) == 2){
-            $tableData = ItemsParams::find()->where(['subdomen' => $paramsList['subdomen']])->andWhere(['type' => $paramsList['type']])->andWhere(['=', 'balance', 0])->all();
-            shuffle($tableData);
-            return $tableData;
+        $tableData = ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->all();
+        shuffle($tableData);
+        return $tableData;
+    }
+
+    public static function getMultiparamsSlice($paramsList)
+    {
+        $getParamsMapping = [
+            'C' => 'alloy',
+            'H' => 'curing',
+            'T' => 'depth',
+            'W' => 'width',
+            'WT' => 'width', // толщина стенки
+            'HT' => 'height',
+            'D' => 'diameter',
+            'S' => 'section'
+        ];
+
+        foreach (Yii::$app->request->get() as $key => $value){
+
+            if ($key != 'q' && $key != 'slice'){
+                $currentParam = $getParamsMapping[$key];
+                $paramsList->$currentParam = mb_strtoupper($value);
+            }
         }
 
-        return 0;
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
+    }
+
+    public static function getMultiparamsSliceNoBalance($paramsList)
+    {
+        $getParamsMapping = [
+            'C' => 'alloy',
+            'H' => 'curing',
+            'T' => 'depth',
+            'W' => 'width',
+            'WT' => 'width', // толщина стенки
+            'HT' => 'height',
+            'D' => 'diameter',
+            'S' => 'section'
+        ];
+
+        foreach (Yii::$app->request->get() as $key => $value){
+
+            if ($key != 'q' && $key != 'slice'){
+                $currentParam = $getParamsMapping[$key];
+                $paramsList->$currentParam = mb_strtoupper($value);
+            }
+        }
+
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->all();
     }
 }

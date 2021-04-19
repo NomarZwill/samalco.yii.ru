@@ -39,6 +39,19 @@ class DocumentationController extends Controller
     ));
   }
 
+  public function actionChertezhi()
+  {
+    $childrenPages = Pages::find()
+    ->where(['parent_id' => 5])
+    // ->with('subdomenSeo')
+    // ->with('extraContent')
+    ->all();
+
+    return $this->render('chertezhi', array(
+      'childrenPages' => $childrenPages,
+    ));
+  }
+
   private function getSidebarInfo()
   {
     $allLevelPagesList = Pages::find()

@@ -32,6 +32,16 @@ export default class Katalog
         session_id: this_.data('session')
       });
     });
+
+    $("[data-profili-page-more-link]").on("click", function(e){
+      $(this).toggleClass('__active');
+
+      if ($(this).hasClass('__active')){
+        $('[data-profili-page-more-text]').css('display', 'block');
+      } else {
+        $('[data-profili-page-more-text]').css('display', 'none');
+      }
+    });
   }
 
   ajaxHandler(obj, callback){

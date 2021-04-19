@@ -36,7 +36,7 @@
 
     </div>	
 
-    [!orderForm!]		
+		<?= $this->render('/components/orderForm') ?>
 
 	</div>
 
