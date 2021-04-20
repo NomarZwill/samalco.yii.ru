@@ -10,7 +10,7 @@
 
 		<h1>
       <?php
-        echo $currentPage['subdomenSeo']['header'] . (!$is_root_slice ? ' в ' . Yii::$app->params['subdomen_dec'] : '');
+        echo $currentPage['subdomenSeo']['header'] . ((!$is_root_slice && !strripos(Yii::$app->request->url, '?') !== false) ? ' в ' . Yii::$app->params['subdomen_dec'] : '');
       ?>
      </h1>
 
@@ -20,9 +20,11 @@
 
       <?php 
         if ($is_root_slice){
+
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
             'alias' => $currentPage['alias'],
+            'currentPage' => $currentPage,
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,
@@ -32,9 +34,11 @@
         }
 
         if (!$is_root_slice){
+          
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
-            'alias' => count((array)$paramsList) > 3 ? $currentPage['alias'] : $currentPage['parent_alias'],
+            'alias' => strripos(Yii::$app->request->url, '?') !== false ? $currentPage['alias'] : $currentPage['parent_alias'],
+            'currentPage' => $currentPage,
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,
@@ -46,8 +50,14 @@
             'tableData' => $noBalanceTableData,
             'currentItem' => $currentItem,
             'currentSlice' => $currentSlice,
+            'is_root_slice' => $is_root_slice,
           ));
+
+          if (count($tableData) === 0 && count($noBalanceTableData) === 0){
+            echo '<div class="table_caption"><h4>По заданным критериям ничего не найдено. Попробуйте изменить условия поиска.</h4><br><br></div>';
+          }
         }
+
       ?>
 
 		</div>

@@ -1879,3 +1879,7 @@ form#customer>h2:first-child {
     width: 92%
   }
 }
+
+._hidden{
+  display: none !important;
+}

@@ -28,7 +28,7 @@
     'H' => 'curing',
     'T' => 'depth',
     'W' => 'width',
-    'WT' => 'width', // толщина стенки
+    'WT' => 'width_st', // толщина стенки
     'HT' => 'height',
     'D' => 'diameter',
     'S' => 'section'
@@ -46,9 +46,17 @@
     $sliceParam = array_key_last($sliceParamList);
     $encodedToGETParam = array_search($sliceParam, $getParamsMapping) . '=' . mb_strtolower($sliceParamList[array_key_last($sliceParamList)]);
   }
-
+  
   $thishref = urldecode(Yii::$app->request->url);
 
+  $baseHref = '';
+  
+  if (stripos($thishref, 'alyuminievye_profili') !== false) {
+    $baseHref = current(explode('alyuminievye_profili', $thishref)) . 'alyuminievye_profili/';
+  } else {
+    $baseHref = current(explode('katalog', $thishref)) . 'katalog/';
+  }
+  
   $GETParamsList = explode('?', $thishref);
 
   if (count($GETParamsList) > 1){
@@ -56,17 +64,19 @@
     // $GETParamsList = explode('&', $GETParamsList[1]);
   }
 
-  if (isset($_GET['C'])) {$C = $_GET['C']; $c_param = '<b>Сплав</b>: '.mb_strtoupper($C); $filter=1; $section = 0; $a_param='';}
-  if (isset($_GET['H'])) {$H = $_GET['H']; $h_param = '<b>Термообработка</b>: '.$H; $filter=1; $section = 0; $a_param='';}
-  if (isset($_GET['T'])) {$T = $_GET['T']; $t_param = '<b>Толщина</b>: '.$T; $filter=1; $section = 0; $a_param='';}
+  $GETParamsList = [];
+
+  if (isset($_GET['C'])) {$C = $_GET['C']; $GETParamsList['alloy'] = $C; $c_param = '<b>Сплав</b>: '. mb_strtoupper($C); $filter=1; $section = 0; $a_param='';}
+  if (isset($_GET['H'])) {$H = $_GET['H']; $GETParamsList['curing'] = $H; $h_param = $H === 'bez_to' ? '<b>Термообработка</b>: ' . 'без т/о' : '<b>Термообработка</b>: ' . $H; $filter=1; $section = 0; $a_param='';}
+  if (isset($_GET['T'])) {$T = $_GET['T']; $GETParamsList['depth'] = $T; $t_param = '<b>Толщина</b>: '.$T; $filter=1; $section = 0; $a_param='';}
   if ($paramsList->type == 'tubes'){
-    if (isset($_GET['W'])) {$WT = $_GET['W']; $wt_param = '<b>Толщина стенки</b>: '.$WT; $filter=1; $section = 0; $a_param='';}
+    if (isset($_GET['WT'])) {$WT = $_GET['WT']; $GETParamsList['width_st'] = $WT; $wt_param = '<b>Толщина стенки</b>: '.$WT; $filter=1; $section = 0; $a_param='';}
   } else {
-    if (isset($_GET['W'])) {$W = $_GET['W']; $w_param = '<b>Ширина</b>: '.$W; $filter=1; $section = 0; $a_param='';}
+    if (isset($_GET['W'])) {$W = $_GET['W']; $GETParamsList['width'] = $W; $w_param = '<b>Ширина</b>: '.$W; $filter=1; $section = 0; $a_param='';}
   }
-  if (isset($_GET['HT'])) {$HT = $_GET['HT']; $ht_param = '<b>Высота</b>: '.$HT; $filter=1; $section = 0; $a_param='';}
-  if (isset($_GET['D'])) {$D = $_GET['D']; $d_param = '<b>Диаметр</b>: '.$D; $filter=1; $section = 0; $a_param='';}
-  if (isset($_GET['S'])) {$S = $_GET['S']; $s_param = '<b>Сечение</b>: '.$S; $filter=1; $section = 0; $a_param='';}
+  if (isset($_GET['HT'])) {$HT = $_GET['HT']; $GETParamsList['height'] = $HT; $ht_param = '<b>Высота</b>: '.$HT; $filter=1; $section = 0; $a_param='';}
+  if (isset($_GET['D'])) {$D = $_GET['D']; $GETParamsList['diameter'] = $D; $d_param = '<b>Диаметр</b>: '.$D; $filter=1; $section = 0; $a_param='';}
+  if (isset($_GET['S'])) {$S = $_GET['S']; $GETParamsList['section'] = $S; $s_param = '<b>Сечение</b>: '.$S; $filter=1; $section = 0; $a_param='';}
 
   // БЛОК С ТЕКУЩИМИ ПАРАМЕТРАМИ СРЕЗА
 
@@ -75,7 +85,7 @@
     echo '<span class="usedFiltersHeader"><i>Выводятся только:&nbsp;&nbsp;';
 
     if ($filter == 2) {
-      echo '<a href="/katalog/' . $alias . '/">' . $a_param . '<span class="removeFilterIcon">✕</span></a>';
+      echo '<a href="' . $baseHref . $alias . '/">' . $a_param . '<span class="removeFilterIcon">✕</span></a>';
     }
 
     if (isset($c_param)){
@@ -127,7 +137,14 @@
       echo '<a href="' . $hhref . '">' . $h_param . '<span class="removeFilterIcon">✕</span></a>';
     }
 
-    echo '<span class="RemoveAll"><a href="/katalog/' . $alias . '/">Сбросить&nbsp;фильтры</a></span>';
+    if (isset($ht_param)){
+      $hthref = str_replace('HT='.$HT.'&', '', $thishref);
+      $hthref = str_replace('&HT='.$HT, '', $hthref);
+      $hthref = str_replace('?HT='.$HT, '', $hthref);
+      echo '<a href="' . $hthref . '">' . $ht_param . '<span class="removeFilterIcon">✕</span></a>';
+    }
+
+    echo '<span class="RemoveAll"><a href="' . $baseHref . $alias . '/">Сбросить&nbsp;фильтры</a></span>';
     echo '</i></span>';
     echo '</div>';
   }
@@ -147,11 +164,11 @@
 
         foreach ($categoryList as $key => $value){
   
-          if (mb_strtolower($value) == $currentSlice->alias){
+          if (mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) == $currentSlice->alias){
             echo '<span class="active">' . $value . '</span>';
           } else {
             echo '<span>';
-            echo '<a href="/katalog/' . $alias . '/' . mb_strtolower($value) . '/">' . $value . '</a>';
+            echo '<a href="' . $baseHref . $alias . '/' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
             echo '</span>';
           }
         }
@@ -161,11 +178,34 @@
           echo '<span>';
 
           if ($categoryName == 'width_st'){
-            echo '<a href="/katalog/' . $alias . '/?' . $encodedToGETParam . '&WT=' . mb_strtolower($value) . '">' . $value . '</a>';
+            echo '<a href="' . $baseHref . $alias . '/?' . $encodedToGETParam . '&WT=' . mb_strtolower($value) . '">' . $value . '</a>';
           } else {
-            echo '<a href="/katalog/' . $alias . '/?' . $encodedToGETParam . '&' . array_search($categoryName, $getParamsMapping) . '=' . mb_strtolower($value) . '">' . $value . '</a>';
+            echo '<a href="' . $baseHref . $alias . '/?' . $encodedToGETParam . '&' . array_search($categoryName, $getParamsMapping) . '=' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '">' . $value . '</a>';
           }
           echo '</span>';
+        }
+      }
+    }
+
+    if ($filter === 1){
+
+      foreach ($categoryList as $key => $value){
+            
+        if (isset($GETParamsList[$categoryName])) {
+
+          if ($GETParamsList[$categoryName] == mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value))) { 
+            echo '<span class="active">' . $value . '</span>';
+          } else {
+            $href = str_replace($GETParamsList[$categoryName] , mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref); 
+            echo '<span><a href="' . $href . '">' . $value . '</a></span>'; 
+          }
+        } else {
+          if ($categoryName == 'width_st'){
+            $getParam = 'WT';
+          } else {
+            $getParam = array_search($categoryName, $getParamsMapping);
+          }
+          echo '<span><a href="' . $thishref . '&' . $getParam . '=' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '">' . $value . '</a></span>';
         }
       }
     }
@@ -174,7 +214,7 @@
 
       foreach ($categoryList as $key => $value){
         echo '<span>';
-        echo '<a href="/katalog/' . $alias . '/' . mb_strtolower($value) . '/">' . $value . '</a>';
+        echo '<a href="' . $thishref . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
         echo '</span>';
       }
     }
@@ -184,16 +224,15 @@
   }
 ?>
 
-</br>
+</br>          
 
-<div class="table_caption">
-
-  <h2><?= $currentSlice['name'] ?> в наличии</h2>
+<div class="table_caption <?= count($tableData) > 0 ? '' : '_hidden' ?>">
+  <h2><?= (!$is_root_slice && !strripos(Yii::$app->request->url, '?') !== false ? $currentItem['name'] : '') . ' ' . $currentSlice['name'] ?> в наличии</h2>
   <button class="btn_popup_weight">Калькулятор веса</button>
 
 </div>
 
-<table class='weight_kg'>
+<table class='weight_kg  <?= count($tableData) > 0 ? '' : '_hidden' ?>'>
   <tbody>
     <tr class="table_firstRow">
 

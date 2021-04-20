@@ -22,6 +22,7 @@ export default class Katalog
         this_.removeClass('clear');
         this_.hide();
       }
+      // console.log(this_.data('table'));
       self.ajaxHandler({
         contentData: '.content_table noindex',
         table: this_.data('table'),

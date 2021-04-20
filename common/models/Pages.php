@@ -61,7 +61,7 @@ class Pages extends \yii\db\ActiveRecord
 
     public function getSubdomenSeo()
     {
-        $subdomenSeo = $this->hasOne(PagesSubdomenSeo::className(), ['page_id' => 'id'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']]);
+        $subdomenSeo = $this->hasOne(PagesSubdomenSeo::className(), ['page_id' => 'id', 'page_type' => 'type'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']]);
           
         return $subdomenSeo;
     }

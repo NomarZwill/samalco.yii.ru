@@ -69,11 +69,42 @@ class ItemsParams extends \yii\db\ActiveRecord
 
     public static function getSliceData($paramsList)
     {
+        if ($paramsList->type === 'tubes' && array_key_exists('diameter', (array)$paramsList)){
+            $range = explode('-', $paramsList->diameter);
+            return ItemsParams::find()->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])->andWhere(['between', 'diameter', $range[0], $range[1]])->andWhere(['>', 'balance', 0])->all();
+        }
+
+        if ($paramsList->type === 'tubes' && array_key_exists('width', (array)$paramsList)){
+            $range = explode('-', $paramsList->width);
+            return ItemsParams::find()->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])->andWhere(['between', 'width', $range[0], $range[1]])->andWhere(['>', 'balance', 0])->all();
+        }
+
         return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
     }
 
     public static function getSliceDataNoBalance($paramsList)
     {
+        if ($paramsList->type === 'tubes' && array_key_exists('diameter', (array)$paramsList)){
+            $range = explode('-', $paramsList->diameter);
+            $tableData = ItemsParams::find()
+                ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
+                ->andWhere(['between', 'diameter', $range[0], $range[1]])
+                ->andWhere(['=', 'balance', 0])
+                ->all();
+            return $tableData;
+        }
+
+        if ($paramsList->type === 'tubes' && array_key_exists('width', (array)$paramsList)){
+            $range = explode('-', $paramsList->width);
+            $tableData = ItemsParams::find()
+                ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
+                ->andWhere(['between', 'width', $range[0], $range[1]])
+                ->andWhere(['=', 'balance', 0])
+                ->all();
+
+            return $tableData;
+        }
+
         $tableData = ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->all();
         shuffle($tableData);
         return $tableData;
@@ -98,6 +129,26 @@ class ItemsParams extends \yii\db\ActiveRecord
                 $currentParam = $getParamsMapping[$key];
                 $paramsList->$currentParam = mb_strtoupper($value);
             }
+        }
+        
+        if ($paramsList->type === 'tubes'){
+            $paramsListForQuery = (array)$paramsList;
+            unset($paramsListForQuery['width']);
+            unset($paramsListForQuery['diameter']);
+
+            $tubesSpecQuery = ItemsParams::find()->where($paramsListForQuery)->andWhere(['>', 'balance', 0]);
+
+            if (isset($paramsList->width)){
+                $range = explode('-', $paramsList->width);
+                $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'width', $range[0], $range[1]]);
+            }
+
+            if (isset($paramsList->diameter)){
+                $range = explode('-', $paramsList->diameter);
+                $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'diameter', $range[0], $range[1]]);
+            }
+
+            return $tubesSpecQuery->all();
         }
 
         return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
@@ -124,6 +175,28 @@ class ItemsParams extends \yii\db\ActiveRecord
             }
         }
 
+        if ($paramsList->type === 'tubes'){
+            $paramsListForQuery = (array)$paramsList;
+            unset($paramsListForQuery['width']);
+            unset($paramsListForQuery['diameter']);
+
+            $tubesSpecQuery = ItemsParams::find()->where($paramsListForQuery)->andWhere(['=', 'balance', 0]);
+
+            if (isset($paramsList->width)){
+                $range = explode('-', $paramsList->width);
+                $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'width', $range[0], $range[1]]);
+            }
+
+            if (isset($paramsList->diameter)){
+                $range = explode('-', $paramsList->diameter);
+                $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'diameter', $range[0], $range[1]]);
+            }
+
+            return $tubesSpecQuery->all();
+        }
+
         return ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->all();
     }
+
+
 }

@@ -1,6 +1,15 @@
+<?php
+  if (!$is_root_slice){
+
+    echo '<div class="table_caption' . (count($tableData) > 0 ? '' : ' _hidden') . '">';
+    echo   '<h2>' . (!strripos(Yii::$app->request->url, '?') !== false ? $currentItem['name'] : '') . ' ' . $currentSlice['name'] . ' под заказ</h2>';
+    echo '</div>';
+  }
+?>
+
 <noindex>
 
-  <table class='pod_zakaz_tbl weight_kg' style='display:inline-table'>
+  <table class='pod_zakaz_tbl weight_kg  <?= count($tableData) > 0 ? '' : '_hidden' ?>' style='display:inline-table'>
   
     <tr class='table_firstRow'>
         
