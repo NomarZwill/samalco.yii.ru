@@ -13,6 +13,7 @@ use common\models\Subdomen;
 
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -21,14 +22,21 @@ AppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="/css/style6.css?v=4">
+    <link type="text/css" rel="stylesheet" href="/css/styles2018.css"/>
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 768px) and (max-width: 1360px) " href="/css/styles2018Pad.css?v=1">
+	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 320px) and (max-width: 767px) " href="/css/styles2018Mobile.css?v=1">
+	<link rel="stylesheet" type="text/css" href="/css/stylesMobile.css?v=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<?php if (!isset($_SESSION)) { 
+    session_start();
+    $_SESSION['id'] = session_id();
+     } ?>
 <header>
 
     <div class="header_wrap">
@@ -115,7 +123,9 @@ AppAsset::register($this);
 
 		<div class="header_cart cart-total">
 			<a href="/cart/">Корзина</a>
-			<!-- [!cart_total!] -->
+
+			<?php include '../views/components/cart_total.php' ?>
+
 		</div>
 
 	</div>
@@ -225,6 +235,7 @@ AppAsset::register($this);
 </div>
 
 <script type="module" src="/js/app.js"></script>
+<script src="/js/form.js"></script>
 
 <?php $this->endBody() ?>
 </body>

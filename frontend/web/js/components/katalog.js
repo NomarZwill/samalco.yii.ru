@@ -43,6 +43,44 @@ export default class Katalog
         $('[data-profili-page-more-text]').css('display', 'none');
       }
     });
+
+    $(".content_table").on("submit", ".product-form", function(e) {
+      var self = this;
+			var data = $(this).serialize();
+			$.ajax({
+				type: "POST",
+				url: "/addCart.php",
+				data: data,
+				success: function(data) {
+					// gtag('event', 'addcart', { 'event_category': 'addcart', 'event_action': 'click', });
+					var hint = '<div class="add-cart-hint">Вы добавили в корзину<br><b>' + data.category + '<b> сплав <b>' + data.alloy + '</b></div>';
+					// yaCounter9939076.reachGoal('addcart'); console.log('addCart');
+					if ($('span').is('#cart-count')) {
+						var count = parseInt($('#cart-count').html());
+						$('#cart-count').html(count + 1);
+					} else {
+						$('.cart-total').append('<span class="cart-count" id="cart-count">1</span>');
+						$('.cart-total a').attr('href','/cart/');
+					}
+
+					$('.cart-total').append(hint);
+					setTimeout(hideHint, 4000);
+				},
+				error:function(data) {
+					console.log(data);
+				}
+			});  
+			e.preventDefault();
+
+      function hideHint() {
+        $('.add-cart-hint').fadeOut(500);
+        setTimeout(hintRemove, 1000);
+      }
+    
+      function hintRemove() {
+        $('.add-cart-hint').remove();
+      }    
+		});
   }
 
   ajaxHandler(obj, callback){

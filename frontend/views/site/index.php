@@ -1,4 +1,7 @@
-<!-- {{headerAddStatic}} -->
+<?php 
+	echo $this->render('/components/headerAddStatic');
+?>
+
 <div class="main_wrap _main">
 
 	<div class="main_block">

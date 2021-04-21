@@ -165,7 +165,7 @@ class KatalogController extends Controller
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
 
     // echo '<pre>';
-    // print_r(count($tableData));
+    // print_r($session->isActive);
     // exit;
 
     return $this->render('slice', array(

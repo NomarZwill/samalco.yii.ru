@@ -1,6 +1,16 @@
+<?php 
+	echo $this->render('/components/headerAddCat', array(
+    'table' => $paramsList->type,
+    'mobile' => 1,
+    ));
+?>
+
 <div class="main_wrap" data-page-type='katalog'>
 
-  <?= $this->render('/components/sidebar') ?>
+  <?= $this->render('/components/sidebar', array(
+    'table' => $paramsList->type,
+    'mobile' => '',
+    )) ?>
 
 	<div class="content">
 

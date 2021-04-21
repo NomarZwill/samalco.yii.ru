@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use common\models\Pages;
 use common\models\PagesSubdomenSeo;
 use common\models\Branch;
 
@@ -42,7 +43,18 @@ class OtherController extends Controller
 
   public function actionCart()
   {
-    return $this->render('cart');
+    $currentPage = Pages::find()->where(['type' => 'cart'])->one();
+    $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();  
+
+    // echo '<pre>';
+    // print_r(session_id());
+    // print_r($_COOKIE);
+    // exit;
+
+    return $this->render('cart', array(
+      'currentPage' => $currentPage,
+      'currentBranch' => $currentBranch,
+    ));
   }
 }
 

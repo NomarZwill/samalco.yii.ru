@@ -64,6 +64,41 @@
     // $GETParamsList = explode('&', $GETParamsList[1]);
   }
 
+  # Добавление товара в корзину
+  if ($_POST) {
+    if ($_POST['alloy'] !== '') {
+      $session = session_id();
+      $alloy = $_POST['alloy'];
+      $category = $_POST['category'];
+      $quantity = $_POST['quantity'];
+      $real_price = (!empty($_POST['real_price'])) ? $_POST['real_price'] : false;
+      $params = 'Размеры -';
+      if  ($_POST['width'] !== '') $params.= ' Ширина ' .$_POST['width']. ' мм,';
+      if  ($_POST['length'] !== '') $params.= ' Длина ' .$_POST['length']. ' мм,';
+      if  ($_POST['depth'] !== '') $params.= ' Толщина ' .$_POST['depth']. ' мм,';
+      if  ($_POST['diameter'] !== '') $params.= ' Диаметр ' .$_POST['diameter']. ' мм,';
+      $params.= '<br>';
+      // if  ($_POST['plating'] !== '') $params.= ' Плакировка - ' .$_POST['plating']. ',';
+      if  ($_POST['curing'] !== '') $params.= ' Термообработка - ' .$_POST['curing']. ',';
+      $params.= ' ГОСТ - ' .$_POST['gost']; 
+      $servername = "localhost";
+      $username = "root";
+      $password = "chf54ntgn4c45g7";
+      $dbname = "samalco.yii.ru";
+      $conn = mysqli_connect($servername, $username, $password, $dbname) or die(mysql_error());
+      if (!$conn->set_charset("utf8mb4")) {
+        echo "Ошибка при загрузке набора символов utf8mb4: \n" . ' ' . $conn->error . "\n";
+        exit();
+      } else {
+        echo "Текущий набор символов: \n" . ' ' . $conn->character_set_name() . "\n";
+      }      
+      $query = "INSERT INTO cart_session_state (`session`, `name`, `alloy`, `params`, `quantity`, `real_price`) VALUES ('$session', '$category', '$alloy', '$params', '$quantity', '$real_price')";
+      mysqli_query($conn, $query);
+      header("Location: ".$thishref."");
+    }
+  }
+
+
   $GETParamsList = [];
 
   if (isset($_GET['C'])) {$C = $_GET['C']; $GETParamsList['alloy'] = $C; $c_param = '<b>Сплав</b>: '. mb_strtoupper($C); $filter=1; $section = 0; $a_param='';}
@@ -247,6 +282,11 @@
     <?php 
       $paramsList = explode(';', $currentItem['params_set']);
 
+      $formID = 0;
+      if (session_id() === ''){
+        session_start();
+      }
+
       foreach ($tableData as $row){
 		    echo "<tr class='catalog_table_main _" . $currentItem['type'] . "'>";
 
@@ -276,10 +316,13 @@
           // if ($row['strength'] !=='') echo '<input type="hidden" name="strength" size="1" value="'.$row['strength'].'">';
           if ($row['diameter'] !=='') echo '<input type="hidden" name="diameter" size="1" value="'.$row['diameter'].'">';
           if ($row['section'] !=='') echo '<input type="hidden" name="section" size="1" value="'.$row['section'].'">'; 
-          echo '<input type="hidden" name="session" value="'.session_id().'">';
+          echo '<input type="hidden" name="session" value="' . session_id() . '">';
           echo '<input type="hidden" name="weight" value="'.$weight.'">';
+          echo '<input type="hidden" id="formcallback' . $formID . '_csrf" class="form-hidden_field" name="_csrf-frontend" value="' . Yii::$app->request->getCsrfToken() . '">';
           echo '<input type="submit" value="купить" class="button button-cart">';
           echo '</form>';
+
+          $formID += 2;
         }
         echo '</td>';
         echo '</tr>';

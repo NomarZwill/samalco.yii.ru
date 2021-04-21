@@ -43,7 +43,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'tubing':
+			case 'tubes':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$length = floatval($row['length']);
 				$width = floatval($row['width']);
@@ -55,7 +55,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'shvellers':
+			case 'profil_shveller':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
@@ -65,7 +65,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'tavrs':
+			case 'profil_tavr':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
@@ -75,7 +75,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'dvutavrs':
+			case 'profil_dvutavr':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
@@ -85,7 +85,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'ugolki':
+			case 'profil_ugolok':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
@@ -95,7 +95,7 @@ if(!function_exists('getWeight')) {
 				return $weight;
 				break;
 
-			case 'pryamougolniki':
+			case 'profil_pryamougolnik':
 				$dens = floatval($density[mb_strtolower($row['alloy'])]);
 				$width = floatval($row['width']);
 				$length = floatval($row['length']);
@@ -134,7 +134,7 @@ $arrAlloys = [
 			'depth' => ['0.25', '0.5', '0.75', '1', '1.25', '1.5', '1.75', '2', '2.25', '2.5', '2.75', '3', '3.25', '3.5', '3.75', '4', '4.25', '4.5', '4.75', '5'],
 			'length' => ['2000', '2200', '2500', '3000', '3200', '3300', '3440', '3500', '3600', '4000', '4400', '4800', '5000', '5200', '5500', '6000']
 		],
-	'tubing' => [
+	'tubes' => [
 			'alloy' => ['АД31Е', 'АД35', 'АД33', '1561', '1560', 'Д19', 'Д20', 'В93', '1915', '1925', '1955', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1163', '1933', '1973', '6061', '3003', '1201', '6063', '1980', '6082', '7075', 'АВ', 'АД0', 'АД1', 'АД31', 'АМГ2', 'АМГ3', 'АМГ5', 'АМГ6', 'АМЦ', 'В95', 'Д1', 'Д16'],
 			'width_st' => ['0.5-2', '2.1-5', '5.1-15', '15.1-50', '50.1-100'],
 			'curing' => ['без т/о', 'М', 'Н', 'Т', 'Т1', 'Т5'],
@@ -149,7 +149,7 @@ $arrAlloys = [
 			'length' => ['1000', '1200', '1500', '1800', '2000', '2200', '2500', '2800', '3000', '3200', '3500', '3800', '4000', '4500', '5000', '5500', '6000', '6500', '7000', '7500', '8000', '8500', '9000', '9500', '10000', '10500', '11000', '11500', '12000']
 		],
 	'profils' => [
-			'tavrs' => [
+			'profil_tavr' => [
 					'alloy' => ['АД0', 'АД1', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АД31', '6060', '6063', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915', '1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 					'width' => ['4', '15', '100', '150', '200', '300', '400', '480'],
 					'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000'],
@@ -157,7 +157,7 @@ $arrAlloys = [
 					'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 					'depth' => ['0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5']
 				],
-			'dvutavrs' => [
+			'profil_dvutavr' => [
 					'alloy' => ['АД0', 'АД1', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915','1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 					'width' => ['6', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350'],
 					'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000'],
@@ -165,7 +165,7 @@ $arrAlloys = [
 					'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 					'depth' => ['1', '5', '10', '15', '20', '25', '30', '40', '50', '55', '60', '70']
 				],
-			'shvellers' => [
+			'profil_shveller' => [
 					'alloy' => ['АД0', 'АД1', 'АД31', 'АД35', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915','1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
 					'width' => ['6', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350'],
 					'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000'],
@@ -173,7 +173,7 @@ $arrAlloys = [
 					'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 					'depth' => ['1', '5', '10', '15', '20', '25', '30', '40', '50', '55', '60', '70']
 				],
-			'ugolki' => [
+			'profil_ugolok' => [
 					'alloy' => ['АМц', 'АМцС', 'АМг2', 'АМг3', 'АМг5', 'АМг6', '1561', 'АД31', 'АД33', 'АД35', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'АК4', 'АК4-1', 'АК4-1ч', 'АК6', 'АК6ч', 'В95', 'В95ч', '1915', '1925', '1935', 'АД0', 'АД00', 'АД31Е', '1201', '1163', 'АД1', '6061', '6063', 'Д20', 'В95пч', 'В95оч', 'В96', '1973'],
 					'width' => ['10', '15', '20', '50', '100', '150', '200', '250', '300'],
 					'length' => ['1500', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000', '11000', '12000'],
@@ -181,7 +181,7 @@ $arrAlloys = [
 					'curing' => ['без т/о', 'М', 'Т', 'Т1', 'Т4', 'Т5', 'Т6', 'Т64', 'Т66'],
 					'depth' => ['2', '5', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '120']
 				],
-			'pryamougolniki' => [
+			'profil_pryamougolnik' => [
 					'alloy' => ['АД31', 'АД33', 'АД35', '6060', '6063', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'АК4', 'АК4-1', 'АК4-1ч', 'АК6', 'АК6ч', 'В95', 'В95ч', '1915', '1925', '1925С', '1935', 'АМц', 'АМцС', 'АМг2', 'АМг3', 'АМг3С', 'АМг5', 'АМг6', '1561'],
 					'width' => ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '120', '150', '180', '200', '220', '250', '280', '300'],
 					'length' => ['1500', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000', '10000', '11000', '12000'],
@@ -194,13 +194,13 @@ $arrAlloys = [
 
 $alloysList = $arrAlloys['lists']['alloy'];
 $alloysPlates = $arrAlloys['plates']['alloy'];
-$alloysTubing = $arrAlloys['tubing']['alloy'];
+$alloysTubing = $arrAlloys['tubes']['alloy'];
 $alloysRods = $arrAlloys['rods']['alloy'];
-$alloysTavr = $arrAlloys['profils']['tavrs']['alloy'];
-$alloysDvutavrs = $arrAlloys['profils']['dvutavrs']['alloy'];
-$alloysShvellers = $arrAlloys['profils']['shvellers']['alloy'];
-$alloysUgolki = $arrAlloys['profils']['ugolki']['alloy'];
-$alloysPryamougolniki = $arrAlloys['profils']['pryamougolniki']['alloy'];
+$alloysTavr = $arrAlloys['profils']['profil_tavr']['alloy'];
+$alloysDvutavrs = $arrAlloys['profils']['profil_dvutavr']['alloy'];
+$alloysShvellers = $arrAlloys['profils']['profil_shveller']['alloy'];
+$alloysUgolki = $arrAlloys['profils']['profil_ugolok']['alloy'];
+$alloysPryamougolniki = $arrAlloys['profils']['profil_pryamougolnik']['alloy'];
 
 $alloysALL = array_unique(array_merge($alloysList, $alloysPlates, $alloysTubing, $alloysRods, $alloysTavr, $alloysDvutavrs, $alloysShvellers, $alloysUgolki, $alloysPryamougolniki));
 

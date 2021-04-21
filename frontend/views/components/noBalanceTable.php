@@ -25,6 +25,7 @@
     <?php 
       $paramsList = explode(';', $currentItem['params_set']);
 
+      $formID = 1;
       foreach ($tableData as $row){
 		    echo "<tr class='catalog_table_main _" . $currentItem['type'] . "'>";
 
@@ -53,13 +54,15 @@
         if ($row['depth'] !=='') echo '<input type="hidden" name="depth" size="1" value="'.$row['depth'].'">';
         if ($row['diameter'] !=='') echo '<input type="hidden" name="diameter" size="1" value="'.$row['diameter'].'">';
         if ($row['section'] !=='') echo '<input type="hidden" name="section" size="1" value="'.$row['section'].'">'; 
-        echo '<input type="hidden" name="session" value="'.session_id().'">';
+        echo '<input type="hidden" name="session" value="' . session_id() . '">';
         echo '<input type="hidden" name="weight" value="'.$weight.'">';
+        echo '<input type="hidden" id="formcallback' . $formID . '_csrf" class="form-hidden_field" name="_csrf-frontend" value="' . Yii::$app->request->getCsrfToken() . '">';
         echo '<input type="submit" value="купить" class="button button-cart">';
         echo '</form>';
         
         echo '</td>';
         echo '</tr>';
+        $formID += 2;
       }
     ?>
 

@@ -37,4 +37,11 @@
 				<p>Штамповка</p>
 			</a>
 		</div>
+
+	<?php
+		if ($table !== ''){
+			include 'weightCalc.php';
+		} 
+	?>
+
 	</div>

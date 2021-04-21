@@ -1,0 +1,43 @@
+@media (min-width: 768px) and (max-width: 1360px) {
+.btn_popup_weight{display:block;opacity:1}
+}
+.main_cat_item,.main_words_item{width:33%!important;padding:0!important}
+@media (min-width: 768px) and (max-width: 1000px) {
+.main_cat_item,.main_words_item{width:50%!important;padding:0!important}
+}
+.main_cat_item{margin:0 0 40px!important}
+.main_words{justify-content:space-around}
+.main_work{flex-wrap:wrap;justify-content:space-around}
+.main_work_item{width:200px;padding:0 20px;margin-bottom:30px}
+.main_contacts_text{position:relative;z-index:1;background-color:#fff;left:auto;top:auto;text-align:left;padding:0 30px 30px}
+header{position:fixed}
+.header_wrap{width:calc(100% - 60px)}
+.header_menu{display:none;position:absolute;top:0;width:calc(100% - 60px);padding:40px 30px;left:0;background-color:#1769ad;border-radius:0;z-index:10;height:auto;align-items:flex-start}
+.header_menu > a{font-size:18px;border-bottom:1px solid;margin:9px 0}
+.header_menu > a.active{border-bottom:none}
+.header_menu._active{display:flex;flex-direction:column}
+.header_menu._active .main_menu_sub{align-items:flex-start;padding-left:20px;display:flex;flex-direction:column}
+.main_menu_sub > a{color:#fff;border-bottom:1px solid;margin:5px 0}
+.main_menu_sub > a.active{border-bottom:none}
+.header_menu_add{margin-top:0;flex-direction:column}
+.callback_button{position:absolute;top:62px;right:75px;padding:0 12px;font-size:14px;z-index:100}
+.header_email a{padding-left:28px}
+.header_email{margin-top:10px}
+.header_menu_wrap .header_burger{display:block;position:absolute;z-index:1000;right:30px;top:calc(50% - 9px)}
+.header_cart{margin-right:57px}
+.header_city{margin-right:50px}
+.footer_wrap{width:calc(100% - 60px);padding:30px 30px 27px;font-size:15px}
+.footer_middle{font-size:12px;width:30%}
+.main_wrap{display:flex;width:100%;margin:134px auto 0}
+.sidebar{display:none}
+.content,.main_wrap._main .content{width:calc(100% - 60px)!important;padding:0 30px!important}
+.add-cart-hint{right:0}
+.delivery_table_block{width:100%;overflow:scroll}
+.delivery_table{margin-bottom:30px}
+@media (min-width: 768px) and (max-width: 950px) {
+.header_add{display:flex}
+.header_phone{display:none}
+.header_email{display:none}
+}
+.main_menu_sub > a{color:#fff;font-size:16px;height:auto;padding:0;background:none}
+.adv-item{width:calc(100% / 3)}

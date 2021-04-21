@@ -23,7 +23,7 @@ class SiteController extends Controller
         ->all();
 
         // echo '<pre>';
-        // print_r($currentPage);
+        // print_r($_SESSION);
         // exit;
 
         return $this->render('index', array(
