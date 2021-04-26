@@ -67,7 +67,8 @@
   # Добавление товара в корзину
   if ($_POST) {
     if ($_POST['alloy'] !== '') {
-      $session = session_id();
+      // $session = session_id();
+      $session = Yii::$app->session->id;
       $alloy = $_POST['alloy'];
       $category = $_POST['category'];
       $quantity = $_POST['quantity'];
@@ -283,9 +284,9 @@
       $paramsList = explode(';', $currentItem['params_set']);
 
       $formID = 0;
-      if (session_id() === ''){
-        session_start();
-      }
+      // if (session_id() === ''){
+      //   session_start();
+      // }
 
       foreach ($tableData as $row){
 		    echo "<tr class='catalog_table_main _" . $currentItem['type'] . "'>";
@@ -316,7 +317,7 @@
           // if ($row['strength'] !=='') echo '<input type="hidden" name="strength" size="1" value="'.$row['strength'].'">';
           if ($row['diameter'] !=='') echo '<input type="hidden" name="diameter" size="1" value="'.$row['diameter'].'">';
           if ($row['section'] !=='') echo '<input type="hidden" name="section" size="1" value="'.$row['section'].'">'; 
-          echo '<input type="hidden" name="session" value="' . session_id() . '">';
+          echo '<input type="hidden" name="session" value="' . Yii::$app->session->id . '">';
           echo '<input type="hidden" name="weight" value="'.$weight.'">';
           echo '<input type="hidden" id="formcallback' . $formID . '_csrf" class="form-hidden_field" name="_csrf-frontend" value="' . Yii::$app->request->getCsrfToken() . '">';
           echo '<input type="submit" value="купить" class="button button-cart">';
@@ -333,7 +334,7 @@
 
 <?php
   if ($is_root_slice) {
-    echo "<div class='table_caption pod_zakaz' id='pod_zakaz'><h2><a class='clear show_all_link' data-session='".session_id()."' data-table='".$currentItem['type']."' data-filter='".$is_root_slice."' data-table_head='".$currentItem['table_column_names']."'data-table_params='".$currentItem['params_set']."' data-rcnot=''>" . $currentSlice['name'] . " под заказ (показать все)</a></h2></div>";
+    echo "<div class='table_caption pod_zakaz' id='pod_zakaz'><h2><a class='clear show_all_link' data-session='".Yii::$app->session->id."' data-table='".$currentItem['type']."' data-filter='".$is_root_slice."' data-table_head='".$currentItem['table_column_names']."'data-table_params='".$currentItem['params_set']."' data-rcnot=''>" . $currentSlice['name'] . " под заказ (показать все)</a></h2></div>";
     // if ($section == 'all' && $is_root_slice == 0) { echo '<noindex>';}
   }
 ?>

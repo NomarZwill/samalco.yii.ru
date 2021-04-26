@@ -1,18 +1,14 @@
 <?php
-// session_set_cookie_params(3600, '.samalco.ru');
-// if (session_id() === ''){
-//   session_start();
-// }
-$session = isset($_COOKIE['PHPSESSID']) ? $_COOKIE['PHPSESSID'] : '';
+$session = Yii::$app->session->id;
 
 $link = mysqli_connect('localhost', 'root', 'chf54ntgn4c45g7', 'samalco.yii.ru');
 $link->set_charset("utf8mb4");
 
-// if (isset($_GET['session']) && isset($_GET['id'])) {
-//     mysqli_query($link, "DELETE FROM cart_session_state WHERE id = ".$_GET['id']."");
-//     $base = 'http://' . $_COOKIE['base'] . '/cart/';
-//     header("Location: $base");
-// }
+if (isset($_GET['session']) && isset($_GET['id'])) {
+    mysqli_query($link, "DELETE FROM cart_session_state WHERE id = ".$_GET['id']."");
+    $base = '/cart/';
+    header("Location: $base");
+}
 
 if ($_POST) {
     if ($_POST['name_true'] !== '') {
@@ -70,8 +66,8 @@ if ($_POST) {
         $mail->FromName = 'samalco.ru';
         $mail->Subject = 'Новый заказ';
         $mail->Body = $html;
-        $mail->AddAddress('kostikova@liderpoiska.ru');
-        //$mail->AddAddress('azad@liderpoiska.ru');
+        // $mail->AddAddress('kostikova@liderpoiska.ru');
+        $mail->AddAddress('artm@liderpoiska.ru');
         if($isValidreCapcha){
             // if($mail->Send()) {
             //     mysqli_query($link, "DELETE FROM cart_session_state WHERE session = '".$session."'");
@@ -106,7 +102,7 @@ if (mysqli_num_rows($products)==0) {
         echo '<p>Ваша корзина пуста.</p>';
     }
 } else {
-    echo '<form id="customer" method="post" class="order-form-ext" action="/assets/snippets/mailer.php" data-context="cart">';
+    echo '<form id="customer" name="customer" method="post" class="order-form-ext" action="/form/index" data-context="cart">';
     echo '<h2>Товары</h2>';
 	
 	echo '<div class="cart_wrap">';
@@ -121,6 +117,7 @@ if (mysqli_num_rows($products)==0) {
 	echo '<div class="cart_prod_items">';
 	
 	$SUM_PRICE = 0;
+    $deleteButtonIndex = 0;
 	
 	while($prod = mysqli_fetch_assoc($products)) {
 
@@ -180,7 +177,7 @@ if (mysqli_num_rows($products)==0) {
 		echo 		$currency;
 		echo 	'</div>';
 		echo 	'<div class="prod_remove param_wrap">';
-		?> <input type="button" value="Удалить" id="cart-delete-button" class="cart-delete-button" onclick="window.location.href='/cart/?session=<?php echo $session;?>&id=<?php echo $id;?>'"> <?
+		?> <input type="button" value="Удалить" id="cart-delete-button<?= $deleteButtonIndex ?>" class="cart-delete-button" onclick="window.location.href='/cart/?session=<?php echo $session;?>&id=<?php echo $id;?>'"> <?
 		echo 	'</div>';
 		
 		echo 	'<input type="hidden" name="prod_name[]" class="inp_prod_name" value="'.$prod['name'].'"/>';
@@ -193,6 +190,8 @@ if (mysqli_num_rows($products)==0) {
 		echo 	'<input type="hidden" name="quantity_sht[]" class="inp_quantity_sht" value="'.$val_sht.'"/>';
 		echo 	'<input type="hidden" name="quantity_pm[]" class="inp_quantity_pm" value="'.$val_pm.'"/>';
 		echo '</div>';
+
+        $deleteButtonIndex++;
 	}
 	
 	echo '<span class="min_order_info">* Минимальный заказ от 300 кг</span>';

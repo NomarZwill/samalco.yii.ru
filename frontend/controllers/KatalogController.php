@@ -11,6 +11,8 @@ use common\models\ItemsParams;
 use common\models\Branch;
 use common\models\Pages;
 use common\models\PagesExtraContent;
+use common\models\StaticBlock;
+use frontend\components\Breadcrumbs;
 
 class KatalogController extends Controller
 {
@@ -21,8 +23,11 @@ class KatalogController extends Controller
       ->with('extraContent')
       ->all();
 
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
     return $this->render('index', array(
-      'katalogPage' => $katalogPage
+      'katalogPage' => $katalogPage,
+      'breadcrumbs' => $breadcrumbs,
     ));
   }    
 
@@ -36,9 +41,13 @@ class KatalogController extends Controller
       return $this->actionMultiparamsSlice($slice);
     }
 
-    $currentSlice = Slices::find()->where(['alias' => $slice])->one();
+    $currentSlice = Slices::find()
+      ->where(['alias' => $slice])
+      ->with('subdomenSeo')
+      ->one();
+      
     $paramsList = json_decode($currentSlice->params);
-    $paramsList->subdomen = Yii::$app->params['subdomen_alias'];
+    $paramsList->subdomen = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $tableData = ItemsParams::getSliceData($paramsList);
     $allParams = new AllParams();
 
@@ -62,8 +71,14 @@ class KatalogController extends Controller
 
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
 
+    $orderProcedure = StaticBlock::find()->where(['id' => 1])->one();
+    $orderProcedure = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $orderProcedure->content);
+    $orderProcedure = str_replace('**name_rod**', $currentPage['extraContent']['name_rod'], $orderProcedure);
+
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
     // echo '<pre>';
-    // print_r($currentPage);
+    // print_r($tableData);
     // exit;
 
     return $this->render('slice', array(
@@ -74,6 +89,8 @@ class KatalogController extends Controller
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
+      'orderProcedure' => $orderProcedure,
+      'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => true,
     ));
   }
@@ -96,7 +113,7 @@ class KatalogController extends Controller
       ->with('subdomenSeo')
       ->one();
     $paramsList = json_decode($currentSlice->params);
-    $paramsList->subdomen = Yii::$app->params['subdomen_alias'];
+    $paramsList->subdomen = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $tableData = ItemsParams::getSliceData($paramsList);
     $allParams = new AllParams();
 
@@ -119,8 +136,10 @@ class KatalogController extends Controller
       unset($paramsList->width);
     }
 
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs($currentSlice, true);
+
     // echo '<pre>';
-    // print_r($paramsList);
+    // print_r($breadcrumbs);
     // exit;
 
     return $this->render('slice', array(
@@ -132,6 +151,7 @@ class KatalogController extends Controller
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
+      'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
     ));
   }
@@ -140,7 +160,7 @@ class KatalogController extends Controller
   {
     $currentSlice = Slices::find()->where(['alias' => $slice])->one();
     $paramsList = json_decode($currentSlice->params);
-    $paramsList->subdomen = Yii::$app->params['subdomen_alias'];
+    $paramsList->subdomen = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $tableData = ItemsParams::getMultiparamsSlice($paramsList);
     $allParams = new AllParams();
 
@@ -163,6 +183,7 @@ class KatalogController extends Controller
       ->one();
 
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     // echo '<pre>';
     // print_r($session->isActive);
@@ -177,6 +198,7 @@ class KatalogController extends Controller
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
+      'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
     ));
   }
@@ -193,6 +215,8 @@ class KatalogController extends Controller
       ->where(['alias' => Yii::$app->params['subdomen_alias']])
       ->one();
 
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
     //     echo '<pre>';
     // print_r($currentPage);
     // exit;
@@ -200,60 +224,70 @@ class KatalogController extends Controller
     return $this->render('profili', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
+      'breadcrumbs' => $breadcrumbs,
     ));
   }
 
   public function actionShina()
   {
     $currentPage = Pages::find()
-    ->where(['alias' => 'alyuminievaya_shina'])
-    ->with('subdomenSeo')
-    ->with('extraContent')
-    ->one();
+      ->where(['alias' => 'alyuminievaya_shina'])
+      ->with('subdomenSeo')
+      ->with('extraContent')
+      ->one();
 
-  $currentBranch = Branch::find()
-    ->where(['alias' => Yii::$app->params['subdomen_alias']])
-    ->one();
+    $currentBranch = Branch::find()
+      ->where(['alias' => Yii::$app->params['subdomen_alias']])
+      ->one();
+
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     return $this->render('shina', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
+      'breadcrumbs' => $breadcrumbs,
     ));
   }
 
   public function actionShtampovki()
   {
     $currentPage = Pages::find()
-    ->where(['alias' => 'alyuminievye_pokovki_i_shtampovki'])
-    ->with('subdomenSeo')
-    ->with('extraContent')
-    ->one();
+      ->where(['alias' => 'alyuminievye_pokovki_i_shtampovki'])
+      ->with('subdomenSeo')
+      ->with('extraContent')
+      ->one();
 
-  $currentBranch = Branch::find()
-    ->where(['alias' => Yii::$app->params['subdomen_alias']])
-    ->one();
+    $currentBranch = Branch::find()
+      ->where(['alias' => Yii::$app->params['subdomen_alias']])
+      ->one();
+
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     return $this->render('shtampovki', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
+      'breadcrumbs' => $breadcrumbs,
     ));
   }
 
   public function actionProfnastil()
   {
     $currentPage = Pages::find()
-    ->where(['alias' => 'alyuminieviy_profnastil'])
-    ->with('subdomenSeo')
-    ->with('extraContent')
-    ->one();
+      ->where(['alias' => 'alyuminieviy_profnastil'])
+      ->with('subdomenSeo')
+      ->with('extraContent')
+      ->one();
 
-  $currentBranch = Branch::find()
-    ->where(['alias' => Yii::$app->params['subdomen_alias']])
-    ->one();
+    $currentBranch = Branch::find()
+      ->where(['alias' => Yii::$app->params['subdomen_alias']])
+      ->one();
+
+    $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     return $this->render('profnastil', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
+      'breadcrumbs' => $breadcrumbs,
     ));
   }
 

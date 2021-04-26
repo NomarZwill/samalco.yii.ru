@@ -33,11 +33,8 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<?php if (!isset($_SESSION)) { 
-    session_start();
-    $_SESSION['id'] = session_id();
-     } ?>
 <header>
+<div class="_hidden" data-session-id="<?= Yii::$app->session->id ?>"></div>
 
     <div class="header_wrap">
 
@@ -55,7 +52,7 @@ AppAsset::register($this);
 
                 <p><?= Yii::$app->params['subdomen_name'] ?></p>
                 <div class="header_burger"><div></div><div></div><div></div></div>
-                <!-- <script type="text/javascript" src="/assets/js/regions.js?v=3"></script> -->
+                <script type="text/javascript" src="/js/regions.js?v=3"></script>
                 <div class="b-dropdown__list-wrap">
                     <ul class="b-dropdown__list">
 
@@ -77,23 +74,23 @@ AppAsset::register($this);
 
 			<div class="header_menu">
 
-				<a class="" href="/katalog/">Каталог</a>
+				<a class="<?= stristr(Yii::$app->request->url, 'katalog') ? 'active' : 'noactive' ?>" href="/katalog/">Каталог</a>
 
 				<div class="main_menu_sub">
-				    <a class="[!menuClass? &param = `alyuminievaya_shina`!]" href="[!domainHref!]/katalog/alyuminievaya_shina/">Шина</a>
-						<a class="[!menuClass? &param = `alyuminieviy_profnastil`!]" href="[!domainHref!]/katalog/alyuminieviy_profnastil/">Профнастил</a>
-						<a class="[!menuClass? &param = `alyuminievye_listy`!]" href="[!domainHref!]/katalog/alyuminievye_listy/">Листы</a>
-						<a class="[!menuClass? &param = `alyuminievye_prutki`!]" href="[!domainHref!]/katalog/alyuminievye_prutki/">Прутки</a>
-						<a class="[!menuClass? &param = `alyuminievye_lenty`!]" href="[!domainHref!]/katalog/alyuminievye_lenty/">Ленты</a>
-						<a class="[!menuClass? &param = `alyuminievye_plity`!]" href="[!domainHref!]/katalog/alyuminievye_plity/">Плиты</a>
-						<a class="[!menuClass? &param = `alyuminievye_truby`!]" href="[!domainHref!]/katalog/alyuminievye_truby/">Трубы</a>
-						<a class="[!menuClass? &param = `alyuminievye_profili`!]" href="[!domainHref!]/katalog/alyuminievye_profili/">Профили</a>
-						<a class="[!menuClass? &param = `alyuminievye_pokovki_i_shtampovki`!]" href="[!domainHref!]/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
+				    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievaya_shina') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievaya_shina/">Шина</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminieviy_profnastil') ? 'active' : 'noactive' ?>" href="/katalog/alyuminieviy_profnastil/">Профнастил</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_listy') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_listy/">Листы</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_prutki') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_prutki/">Прутки</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_lenty') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_lenty/">Ленты</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_plity') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_plity/">Плиты</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_truby') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_truby/">Трубы</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_profili') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_profili/">Профили</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_pokovki_i_shtampovki') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
 				</div>
 
-					<a class="" href="/teh_doc/">Техническая документация</a>
-					<a class="" href="/delivery/">Доставка</a>
-					<a class="" href="/kontact/">Контакты</a>
+					<a class="<?= stristr(Yii::$app->request->url, 'teh_doc') ? 'active' : 'noactive' ?>" href="http://dev.samalco.ru/teh_doc/">Техническая документация</a>
+					<a class="<?= stristr(Yii::$app->request->url, 'delivery') ? 'active' : 'noactive' ?>" href="/delivery/">Доставка</a>
+					<a class="<?= stristr(Yii::$app->request->url, 'kontact') ? 'active' : 'noactive' ?>" href="/kontact/">Контакты</a>
 
 			</div>
 
@@ -174,7 +171,7 @@ AppAsset::register($this);
 	<div class="callback_popup_wrap">
 		<div class="callback_exit"></div>
 		<h2>Оставьте заявку</h2>
-		<form class="callback_form" action="/assets/snippets/mailer.php">
+		<form class="callback_form" action="/form/index">
 			<div class="form-row">
                 <div class="form-group">
                     <label for="name_true">Ваше имя</label>
@@ -236,6 +233,26 @@ AppAsset::register($this);
 
 <script type="module" src="/js/app.js"></script>
 <script src="/js/form.js"></script>
+<!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+</script>
+
+<!-- <div class="g-recaptcha"></div> -->
+
+<script>
+    var onloadCallback = function() {
+        //remove old
+        $('.g-recaptcha').html('');
+
+        $('.g-recaptcha').each(function (i, captcha) {
+            grecaptcha.render(captcha, {
+                'sitekey' : '6LdAz-AUAAAAAPfqsfvShXH_tq5ZGKDjcj44YtCk'
+            });
+        });
+    };
+</script>
 
 <?php $this->endBody() ?>
 </body>

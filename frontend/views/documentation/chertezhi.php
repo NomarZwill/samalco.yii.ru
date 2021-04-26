@@ -1,9 +1,10 @@
 
 <div class="main_wrap _main">
 	<div class="content">
-		<div class="breadcrumbs">
-			[[Breadcrumbs? &currentAsLink=`0` &crumbSeparator=`/` &in_city=`[!in_city!]` &showCurrentCrumb=`0`]]
-		</div>
+		<?= $this->render('/components/breadcrumbs', array(
+      'breadcrumbs' => $breadcrumbs,
+      ))
+    ?>
 		<h1>Чертежи профилей</h1>
 		
     <?php

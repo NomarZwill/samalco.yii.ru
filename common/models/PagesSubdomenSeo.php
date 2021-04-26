@@ -11,6 +11,7 @@ use Yii;
  * @property string $subdomen_alias
  * @property int $page_id
  * @property string $page_type
+ * @property int $is_slice
  * @property string $header
  * @property string $title
  * @property string $description
@@ -18,6 +19,7 @@ use Yii;
  * @property string $text_1
  * @property string $text_2
  * @property string $text_3
+ * @property string $text_4
  */
 class PagesSubdomenSeo extends \yii\db\ActiveRecord
 {
@@ -35,9 +37,9 @@ class PagesSubdomenSeo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            // [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3'], 'required'],
-            [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3'], 'string'],
-            [['page_id'], 'integer'],
+            // [['subdomen_alias', 'page_id', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3', 'text_4'], 'required'],
+            [['subdomen_alias', 'page_type', 'header', 'title', 'description', 'keywords', 'text_1', 'text_2', 'text_3', 'text_4'], 'string'],
+            [['page_id', 'is_slice'], 'integer'],
         ];
     }
 
@@ -48,9 +50,10 @@ class PagesSubdomenSeo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'subdomen_alias' => 'Subdomen Alias',
-            'page_id' => 'Page id',
-            'page_type' => 'Page Type',
+            'subdomen_alias' => 'Alias субдомена',
+            'page_id' => 'ID страницы',
+            'page_type' => 'Тип страницы',
+            'is_slice' => 'Срез',
             'header' => 'Header',
             'title' => 'Title',
             'description' => 'Description',
@@ -58,6 +61,7 @@ class PagesSubdomenSeo extends \yii\db\ActiveRecord
             'text_1' => 'Text 1',
             'text_2' => 'Text 2',
             'text_3' => 'Text 3',
+            'text_4' => 'Text 4',
         ];
     }
 }

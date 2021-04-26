@@ -898,7 +898,8 @@ a.gost {
   background-color: #FFF4C0;
   padding: 5px;
   margin-right: 15px;
-  border-radius: 3px
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .section-name-tubing {
@@ -2963,7 +2964,7 @@ form#customer .cart_wrap input[type="text"]:focus {
   margin-right: 6px;
   padding: 3px 5px;
   padding-bottom: 4px;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;

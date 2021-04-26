@@ -14,17 +14,19 @@
 
 	<div class="content">
 
-		<div class="breadcrumbs">
-			[[Breadcrumbs? &currentAsLink=`0` &crumbSeparator=`/` &in_city=`[!in_city!]` &showCurrentCrumb=`0`]]
-		</div>
+  <?= $this->render('/components/breadcrumbs', array(
+    'breadcrumbs' => $breadcrumbs,
+    ))
+  ?>
 
 		<h1>
       <?php
-        echo $currentPage['subdomenSeo']['header'] . ((!$is_root_slice && !strripos(Yii::$app->request->url, '?') !== false) ? ' в ' . Yii::$app->params['subdomen_dec'] : '');
+        // echo $currentSlice['subdomenSeo']['header'] . ((!$is_root_slice && !strripos(Yii::$app->request->url, '?') !== false) ? ' в ' . Yii::$app->params['subdomen_dec'] : '');
+        echo $currentSlice['subdomenSeo']['header'];
       ?>
      </h1>
 
-    <?= $currentPage['subdomenSeo']['text_1'] ?>
+    <?= $currentSlice['subdomenSeo']['text_1'] ?>
 
 		<div class="content_table">
 
@@ -34,7 +36,7 @@
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
             'alias' => $currentPage['alias'],
-            'currentPage' => $currentPage,
+            // 'currentPage' => $currentPage,
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,
@@ -47,8 +49,8 @@
           
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
-            'alias' => strripos(Yii::$app->request->url, '?') !== false ? $currentPage['alias'] : $currentPage['parent_alias'],
-            'currentPage' => $currentPage,
+            'alias' => strripos(Yii::$app->request->url, '?') !== false ? $currentSlice['alias'] : $currentSlice['parent_alias'],
+            // 'currentPage' => $currentPage,
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,
@@ -72,11 +74,11 @@
 
 		</div>
 
-    <?= $currentPage['subdomenSeo']['text_2'] ?>
+    <?= $currentSlice['subdomenSeo']['text_2'] ?>
 
 		<?php
       if ($is_root_slice){
-        $this->render('/components/orderProcedure', array('currentPage' => $currentPage));
+        echo $orderProcedure;
       }
      ?>
 

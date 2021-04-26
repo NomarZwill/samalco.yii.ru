@@ -12,6 +12,7 @@ use Yii;
  * @property string $type
  * @property string $name
  * @property string $alias
+ * @property string $breadcrumbs_title
  * @property string $header
  * @property string $title
  * @property string $description
@@ -34,9 +35,9 @@ class Pages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'name', 'alias', 'header', 'title', 'description', 'keywords'], 'required'],
+            // [['type', 'name', 'alias', 'header', 'title', 'description', 'keywords'], 'required'],
             [['parent_id'], 'integer'],
-            [['type', 'name', 'alias', 'header', 'title', 'description', 'keywords', 'content'], 'string'],
+            [['type', 'name', 'alias', 'breadcrumbs_title', 'header', 'title', 'description', 'keywords', 'content'], 'string'],
         ];
     }
 
@@ -47,15 +48,16 @@ class Pages extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent_id' => 'parent_id',
-            'type' => 'Type',
-            'name' => 'Name',
+            'parent_id' => 'Родительский ID',
+            'type' => 'Тип',
+            'name' => 'Имя',
             'alias' => 'Alias',
+            'breadcrumbs_title' => 'Название хлебной крошки',
             'header' => 'Header',
             'title' => 'Title',
             'description' => 'Description',
             'keywords' => 'Keywords',
-            'content' => 'content',
+            'content' => 'Статический контент',
         ];
     }
 

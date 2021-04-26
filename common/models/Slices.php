@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $alias
+ * @property string $breadcrumbs_title
  * @property string $parent_alias
  * @property string $name
  * @property string $params
@@ -30,7 +31,7 @@ class Slices extends \yii\db\ActiveRecord
     {
         return [
             [['alias', 'parent_alias', 'name', 'params'], 'required'],
-            [['alias', 'parent_alias', 'name', 'params'], 'string'],
+            [['alias', 'breadcrumbs_title', 'parent_alias', 'name', 'params'], 'string'],
         ];
     }
 
@@ -42,8 +43,9 @@ class Slices extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'alias' => 'Alias',
-            'parent_alias' => 'parent Alias',
-            'name' => 'Name',
+            'breadcrumbs_title' => 'Название хлебной крошки',
+            'parent_alias' => 'Родительский alias',
+            'name' => 'Имя',
             'params' => 'Params',
         ];
     }

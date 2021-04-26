@@ -42,7 +42,7 @@ class Subdomen extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'alias' => 'Alias',
-            'name' => 'Name',
+            'name' => 'Имя',
             'name_dec' => 'Name Dec',
             'name_rod' => 'Name Rod',
         ];

@@ -64,7 +64,7 @@ export default class Katalog
 					}
 
 					$('.cart-total').append(hint);
-					setTimeout(hideHint, 4000);
+					setTimeout(hideHint, 2000);
 				},
 				error:function(data) {
 					console.log(data);

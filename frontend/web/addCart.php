@@ -5,11 +5,7 @@ if ($_POST) {
 	// mysqli_query($mysqli, "SET NAMES utf8");
 	
 	if ($_POST['alloy'] !== '') {
-		// $session = $_POST['session'];
-		if (session_id() === ''){
-			session_start();
-		}
-		$session = session_id();
+		$session = $_POST['session'];
 		$alloy = $_POST['alloy'];
 		$category = $_POST['category'];
 		$quantity = $_POST['quantity'];

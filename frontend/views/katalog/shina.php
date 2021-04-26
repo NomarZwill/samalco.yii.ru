@@ -1,11 +1,15 @@
 <div class="main_wrap">
   
-  <?= $this->render('/components/sidebar') ?>
+<?= $this->render('/components/sidebar', array(
+    'table' => '',
+    'mobile' => '',
+    )) ?>
 
 	<div class="content">
-		<div class="breadcrumbs">
-			[[Breadcrumbs? &currentAsLink=`0` &crumbSeparator=`/` &in_city=`[!in_city!]` &showCurrentCrumb=`0`]]
-		</div>
+    <?= $this->render('/components/breadcrumbs', array(
+      'breadcrumbs' => $breadcrumbs,
+      ))
+    ?>
 		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
 		<?= $currentPage['subdomenSeo']['text_1'] ?>
 

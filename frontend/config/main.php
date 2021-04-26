@@ -17,6 +17,22 @@ return [
         ],
     ],
     'components' => [
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            //'viewPath' => '@common/mail',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.mail.ru',
+                'username' => 'zak.zip@bk.ru',
+                'password' => 'sYVldfTLa1LHiKORXUmp',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
@@ -58,6 +74,7 @@ return [
                 ['pattern'=>'/teh_doc/<firstLevel:[\w-]+>','route'=>'documentation/first-level', 'suffix'=>'/'],
                 ['pattern'=>'/teh_doc/','route'=>'documentation/index', 'suffix'=>'/'],
                 ['pattern'=>'/delivery/','route'=>'other/delivery', 'suffix'=>'/'],
+                ['pattern'=>'/ajax-cart/','route'=>'ajax/cart', 'suffix'=>'/'],
                 ['pattern'=>'/ajax/get-no-balance-table/','route'=>'katalog/ajax-no-balance-table', 'suffix'=>'/'],
                 ['pattern'=>'/kontact/','route'=>'other/contacts', 'suffix'=>'/'],
                 ['pattern'=>'/filialy/','route'=>'other/branches', 'suffix'=>'/'],

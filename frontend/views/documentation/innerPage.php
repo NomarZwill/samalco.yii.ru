@@ -27,9 +27,10 @@
 
   <div class="content" id="content_cat">
   
-    <div class="breadcrumbs">
-			<span class="B_crumbBox"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="Алюминиевая компания в Москве">Главная</a></span> / <span class="B_lastCrumb"><a class="B_crumb" href="/teh_doc/" title="Техническая документация">Техническая документация</a></span></span>
-		</div>
+    <?= $this->render('/components/breadcrumbs', array(
+      'breadcrumbs' => $breadcrumbs,
+      ))
+    ?>
 
     <h1><?= $currentPage['header'] ?></h1>
 

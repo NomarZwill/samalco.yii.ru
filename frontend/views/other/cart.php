@@ -9,6 +9,10 @@
     )) ?>
 
 	<div class="content">
+    <?= $this->render('/components/breadcrumbs', array(
+      'breadcrumbs' => $breadcrumbs,
+      ))
+    ?>
 		<h1><?= $currentPage['header'] ?></h1>
 		<div class="content_table_static _cart">
 			<?php 
@@ -19,7 +23,7 @@
 		<br>
 	</div>
 </div>
-<script type="text/javascript" src="/assets/js/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="/js/jquery.inputmask.bundle.js"></script>
 <script>
 $(document).ready(function() {
 	if ($.fn.inputmask) {

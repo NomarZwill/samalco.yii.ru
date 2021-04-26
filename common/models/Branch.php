@@ -12,7 +12,9 @@ use Yii;
  * @property string $alias
  * @property string $phone
  * @property string $email
- * @property string $address
+ * @property string $postalCode
+ * @property string $addressLocality
+ * @property string $streetAddress
  * @property string $map
  */
 class Branch extends \yii\db\ActiveRecord
@@ -31,8 +33,8 @@ class Branch extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'alias', 'phone', 'email', 'address', 'map'], 'required'],
-            [['name', 'alias', 'phone', 'email', 'address', 'map'], 'string'],
+            // [['name', 'alias', 'phone', 'email', 'postalCode', 'addressLocality', 'streetAddress', 'map'], 'required'],
+            [['name', 'alias', 'phone', 'email', 'postalCode', 'addressLocality', 'streetAddress', 'map'], 'string'],
         ];
     }
 
@@ -43,12 +45,14 @@ class Branch extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'alias' => 'Alias',
-            'phone' => 'Phone',
+            'name' => 'Название филиала',
+            'alias' => 'alias',
+            'phone' => 'Телефон',
             'email' => 'Email',
-            'address' => 'Address',
-            'map' => 'Map',
+            'postalCode' => 'Почтовый индекс',
+            'addressLocality' => 'Город',
+            'streetAddress' => 'Улица',
+            'map' => 'Ссылка на карту',
         ];
     }
 }

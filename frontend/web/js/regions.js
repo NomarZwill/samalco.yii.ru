@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	console.log('hi from js');
 	
 	$('form input').on('keypress', function(e) {
 		console.log('press');
@@ -40,7 +39,7 @@ $(document).ready(function() {
 	// 	yaCounter9939076.reachGoal('click_prutki'); console.log('click_prutki');
 	// });
 
-	$(".pod_zakaz_tbl .button").val("");
+	// $(".pod_zakaz_tbl .button").val("");
 
 	$(".show_color_proflists").click(function() {
 		$(".b-ral_with_name").slideToggle(300);
@@ -89,6 +88,7 @@ $(document).ready(function() {
 	});
 
 	$('body').on('click', '.main_callback_button, .callback_button, .main_contacts_callback', function(){
+		// console.log('hi from callback form');
 		$('.callback_popup').addClass('_active');
 	});
 

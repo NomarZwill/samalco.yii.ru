@@ -2,9 +2,10 @@
 
   <div class="content">
 
-    <div class="breadcrumbs">
-      <span class="B_crumbBox"><span class="B_lastCrumb"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="Алюминиевая компания в <?= Yii::$app->params['subdomen_dec'] ?>">Главная</a></span></span></span>
-    </div>
+    <?= $this->render('/components/breadcrumbs', array(
+      'breadcrumbs' => $breadcrumbs,
+      ))
+    ?>
 
     <h1>Политика конфиденциальности</h1>
 

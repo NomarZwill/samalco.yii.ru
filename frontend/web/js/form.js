@@ -16,7 +16,7 @@
 */
 
 var formSender = {
-    to: '/sendmail/',
+    to: '/form/index',
     $form : {},
     init : function() {
         $('form').each(function() {
@@ -130,9 +130,14 @@ var formSender = {
 
     },
     sendIfValid : function($form, e) {
-
+        console.log('hi from row form');
+        
         e.preventDefault();
+        console.log($form[0]);
         var formData = new FormData($form[0]);
+        // var formData = $($form[0]).toArray();
+
+        console.log(formData.get('total_price[]'));
     
         $form.find('[data-required]').each(function() {
             formSender.checkField($(this));
@@ -154,7 +159,7 @@ var formSender = {
                 var cart_text = '';
                 $('.cart-wrapper').each(function(){
                     cart_text += $(this).find('h3').text() + '<br/>';
-					 cart_text += $(this).find('.alloy_name').text() + '<br/>';
+                    cart_text += $(this).find('.alloy_name').text() + '<br/>';
                     cart_text += $(this).find('.dimensions').text() + '<br/>';
 					cart_text += 'Вес: ' + $(this).find('.quantity_count').attr('value') + ' кг.<br/><br/>';
                 });
@@ -173,6 +178,7 @@ var formSender = {
             }
 
             if($form.find('.xxx_').val() == '' && (captcha.length)) {       // проверка на бота
+                console.log(formData);
                 formData.append('g-recaptcha-response', captcha);
                 $.ajax({
                     beforeSend: function() {
@@ -195,7 +201,7 @@ var formSender = {
                             if(context == 'popup'){
                                 $('#overlay-name_popup').html(formData.get('name_true'));
                                 $('.form-overlay_popup').fadeIn(300);
-                                gtag('event', 'callback_button', { 'event_category': 'callback_button', 'event_action': 'click', });
+                                // gtag('event', 'callback_button', { 'event_category': 'callback_button', 'event_action': 'click', });
                                 // yaCounter9939076.reachGoal('main_send');        //CALLBACK_FORM_REQUEST
                             }
 
@@ -209,7 +215,7 @@ var formSender = {
                                 $('.order-form-ext').html('<p>Ваша корзина пуста.</p>');
                                 $('#overlay-name').html(formData.get('name_true'));
                                 $('.form-overlay').fadeIn(300);
-                                gtag('event', 'sendcart', { 'event_category': 'sendcart', 'event_action': 'click', });
+                                // gtag('event', 'sendcart', { 'event_category': 'sendcart', 'event_action': 'click', });
                                 // yaCounter9939076.reachGoal('sendcart');
                             }
 
@@ -350,7 +356,7 @@ $(document).ready(function() {
                                             '</div>');
             },
             type: "POST",
-            url: '/assets/js/send_report_404.php',
+            url: '/js/send_report_404.php',
             data: {url: $url},
             success: function(response) {
                 // alert('success!');
@@ -601,7 +607,7 @@ $(document).ready(function() {
             }
 
             $.ajax({
-                url: '/assets/snippets/ajax/ajax_cart.php',
+                url: '/ajax-cart',
                 type: 'POST',
                 data: data,
             })
