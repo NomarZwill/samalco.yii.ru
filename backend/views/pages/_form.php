@@ -23,7 +23,7 @@ use backend\components\PageUpdateFormLinks;
 
     <?= $form->field($model, 'breadcrumbs_title')->textInput(['rows' => 6]) ?>
 
-    <?php if($model->parent_id !== 33 && $model->parent_id !== 40){?>
+    <?php if ($model->parent_id !== 33 && $model->parent_id !== 40){?>
 
     <?= $form->field($model, 'header')->textInput(['rows' => 6]) ?>
 

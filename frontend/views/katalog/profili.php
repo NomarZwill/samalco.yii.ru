@@ -10,7 +10,7 @@
       'breadcrumbs' => $breadcrumbs,
       ))
     ?>
-		<h1><?= $currentPage['subdomenSeo']['header'] ?> <?= Yii::$app->params['subdomen_dec'] ?></h1>
+		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
 		<div class="content_table_static">
       <?= $currentPage['subdomenSeo']['text_1'] ?>
 			<h2 class="center_title">Каталог алюминиевых профилей</h2>

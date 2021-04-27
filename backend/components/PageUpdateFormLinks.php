@@ -15,7 +15,7 @@ class PageUpdateFormLinks
     $subdomens = Subdomen::find()->asArray()->all();
     $subdomens = ArrayHelper::index($subdomens, 'alias');
 
-    if ($model->parent_id !== 33 && $model->parent_id !== 40){
+    if (in_array($model->id, [39, 40, 41, 42]) || ($model->parent_id !== 33 && $model->parent_id !== 40)){
 
       if (PagesSubdomenSeo::find()->where(['page_id' => $model->id, 'page_type' => $model->type])->exists()){
         echo '<div class="form-group">';

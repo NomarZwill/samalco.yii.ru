@@ -78,7 +78,7 @@ class KatalogController extends Controller
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     // echo '<pre>';
-    // print_r($tableData);
+    // print_r($currentSlice);
     // exit;
 
     return $this->render('slice', array(

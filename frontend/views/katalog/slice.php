@@ -58,6 +58,8 @@
             'is_root_slice' => $is_root_slice,
           ]);
 
+          echo $currentSlice['subdomenSeo']['text_2'] . '</br>';
+
           echo $this->render('/components/noBalanceTable', array(
             'tableData' => $noBalanceTableData,
             'currentItem' => $currentItem,
@@ -74,7 +76,8 @@
 
 		</div>
 
-    <?= $currentSlice['subdomenSeo']['text_2'] ?>
+    <?= $currentSlice['subdomenSeo']['text_3'] ?>
+    </br>
 
 		<?php
       if ($is_root_slice){

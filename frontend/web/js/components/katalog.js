@@ -34,15 +34,15 @@ export default class Katalog
       });
     });
 
-    $("[data-profili-page-more-link]").on("click", function(e){
-      $(this).toggleClass('__active');
+    // $("[data-profili-page-more-link]").on("click", function(e){
+      // $(this).toggleClass('__active');
 
-      if ($(this).hasClass('__active')){
-        $('[data-profili-page-more-text]').css('display', 'block');
-      } else {
-        $('[data-profili-page-more-text]').css('display', 'none');
-      }
-    });
+      // if ($(this).hasClass('__active')){
+      //   $('[data-profili-page-more-text]').css('display', 'block');
+      // } else {
+      //   $('[data-profili-page-more-text]').css('display', 'none');
+      // }
+    // });
 
     $(".content_table").on("submit", ".product-form", function(e) {
       var self = this;
