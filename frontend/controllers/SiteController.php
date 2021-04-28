@@ -33,7 +33,19 @@ class SiteController extends Controller
             'katalogList' => $katalogList,
         ));
     }
-    
+
+    public function actionError()
+    {
+        $katalogPage = Pages::find()
+        ->where(['parent_id' => 33])
+        ->with('extraContent')
+        ->all();  
+
+        return $this->render('404.php', [
+            'katalogPage' => $katalogPage,
+        ]);
+    }
+
 }
 
 

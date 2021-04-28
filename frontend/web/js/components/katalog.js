@@ -84,6 +84,7 @@ export default class Katalog
   }
 
   ajaxHandler(obj, callback){
+
     if ($(obj.contentData).children(":first").length <= 0) {
       $.ajax({
         type: 'post',

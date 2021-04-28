@@ -171,7 +171,7 @@ AppAsset::register($this);
 	<div class="callback_popup_wrap">
 		<div class="callback_exit"></div>
 		<h2>Оставьте заявку</h2>
-		<form class="callback_form" action="/form/index">
+		<form class="callback_form" action="/form/index/">
 			<div class="form-row">
                 <div class="form-group">
                     <label for="name_true">Ваше имя</label>
@@ -232,6 +232,7 @@ AppAsset::register($this);
 </div>
 
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/js/jquery.inputmask.bundle.js"></script>
 <script src="/js/form.js"></script>
 <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
 

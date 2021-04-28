@@ -95,36 +95,7 @@
 		</div>
 
     <?= $this->render('/components/orderForm') ?>
-		
-    <?php if (Yii::$app->params['subdomen_alias'] === '') {?>
-      <noindex>
-        <h2>Контактная информация для клиентов в Уфе</h2>
-        <div class="contact_info" itemscope itemtype="http://schema.org/Organization">
-          <p itemprop="name">Уфимский филиал Самарской алюминиевой компании</p>
-          <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-            Адрес: 
-            <span itemprop="postalCode">450096</span>, 
-            <span itemprop="addressLocality">г. Уфа</span>, 
-            <span itemprop="streetAddress">ул. Лесотехникума, 49/1</span>
-          </p>
-          <p>Телефон: <span itemprop="telephone">+7 (347) 246-90-59</span></p>
-          <p><a href="mailto:sbytufa@samalco.ru"><span itemprop="email">sbytufa@samalco.ru</span></a></p>
-        </div>
-        <br>
-        <h2>Контактная информация для клиентов в Перми</h2>
-        <div class="contact_info" itemscope itemtype="http://schema.org/Organization">
-          <p itemprop="name">Пермский филиал Самарской алюминиевой компании</p>
-          <p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-            Адрес: 
-            <span itemprop="postalCode">614025</span>, 
-            <span itemprop="addressLocality">г. Пермь</span>, 
-            <span itemprop="streetAddress">ул. Героев Хасана, 105К70</span>
-          </p>
-          <p>Телефон: <span itemprop="telephone">+7 (342) 253-77-06</span></p>
-          <p><a href="mailto:sbytprm@samalco.ru"><span itemprop="email">sbytprm@samalco.ru</span></a></p>
-        </div>
-      </noindex>
-      <?php } ?>
+    <?= $currentPage['subdomenSeo']['text_1'] ?>
 
 	</div>
 </div>

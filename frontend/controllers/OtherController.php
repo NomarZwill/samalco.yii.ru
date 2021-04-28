@@ -31,7 +31,10 @@ class OtherController extends Controller
 
   public function actionContacts()
   {
-    $currentPage = Pages::find()->where(['type' => 'kontact'])->one();
+    $currentPage = Pages::find()
+      ->where(['type' => 'kontact'])
+      ->with('subdomenSeo')
+      ->one();
     $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 

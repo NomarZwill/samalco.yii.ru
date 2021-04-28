@@ -33,7 +33,7 @@ class KatalogController extends Controller
 
   public function actionSlice($slice)
   {
-    if (!Slices::find()->where(['alias' => $slice])->exists()){
+    if (!Slices::find()->where(['alias' => $slice, 'parent_alias' => ['', 'alyuminievye_profili']])->exists()){
       throw new \yii\web\NotFoundHttpException();
     }
   
@@ -52,9 +52,11 @@ class KatalogController extends Controller
     $allParams = new AllParams();
 
     if (strripos($_SERVER['REQUEST_URI'], 'alyuminievye_profili')){
+      $is_profil = true;
       $subSliceList = $allParams->arrAlloys['profils'][$paramsList->type];
       unset($subSliceList['depth']);
     } else {
+      $is_profil = false;
       $subSliceList = $allParams->arrAlloys[$paramsList->type];
     }
     unset($subSliceList['length']);
@@ -92,6 +94,7 @@ class KatalogController extends Controller
       'orderProcedure' => $orderProcedure,
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => true,
+      'is_profil' => $is_profil,
     ));
   }
 
@@ -153,6 +156,7 @@ class KatalogController extends Controller
       'paramsList' => $paramsList,
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
+      'is_profil' => false,
     ));
   }
 
@@ -200,6 +204,7 @@ class KatalogController extends Controller
       'paramsList' => $paramsList,
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
+      'is_profil' => false,
     ));
   }
 
@@ -294,7 +299,7 @@ class KatalogController extends Controller
   public function actionAjaxNoBalanceTable(){
     $paramsList = [];
     $paramsList['type'] = $_POST['table'];
-    $paramsList['subdomen'] = Yii::$app->params['subdomen_alias'];
+    $paramsList['subdomen'] = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $currentItem = Items::find()->where(['type' => $paramsList['type']])->one();
     $currentSlice = Slices::find()->where(['params' => '{"type":"' . $paramsList['type'] . '"}'])->one();
     $table = $this->renderPartial('/components/noBalanceTable', array(

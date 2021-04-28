@@ -133,6 +133,31 @@ class FormController extends Controller
       'Не удаляйте',
       'Присоединяйтесь.'
     ];
+
+    function priceFormater($price)
+    {
+      $price_format = number_format($price, 0, ',', ' ');
+      return $price_format;
+    }
+
+    function reArrayFiles(&$file_post) {
+    
+      $file_ary = [];
+  
+      if ($file_post['size'][0] > 0) {
+        
+        $file_count = count($file_post['name']);
+        $file_keys = array_keys($file_post);
+  
+        for ($i=0; $i<$file_count; $i++) {
+            foreach ($file_keys as $key) {
+              $file_ary[$i][$key] = $file_post[$key][$i];
+            }
+        }
+      }
+  
+      return $file_ary;
+    }
     
     #--------------- Google reCaptcha ---------------------------------------------------------------
     $secret = '6LdAz-AUAAAAAJDxts0aYIZ3lnFUS23jRKH_4Y4Z';
@@ -164,10 +189,10 @@ class FormController extends Controller
       foreach ($_POST as $key => $post_word) {
         if(!in_array($key, $excludeArr)){
           foreach ($stopWordsArr as $word) {
-            if(strpos(mb_strtolower($post_word), mb_strtolower($word)) !== false){
-              echo 'stopwords';
-              die();
-            }
+            // if(strpos(mb_strtolower($post_word), mb_strtolower($word)) !== false){вернуть
+            //   echo 'stopwords';
+            //   die();
+            // }
           }
         }
       }
@@ -216,11 +241,11 @@ class FormController extends Controller
       $files = [];
       // return 1;
 
-      if ($_FILES['files']) {
+      if (isset($_FILES['files'])) {
         $files = reArrayFiles($_FILES['files']);
       }
     
-      if ($_FILES['docs']) {
+      if (isset($_FILES['docs'])) {
         $docs = reArrayFiles($_FILES['docs']);
       }
     
@@ -331,8 +356,8 @@ class FormController extends Controller
         $db_pass="chf54ntgn4c45g7";
         $db_host="localhost";
         $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-        $query ="DELETE FROM modx_cart WHERE session = '$session'";
-        $mysqli->set_charset("utf8mb4");
+        $query ="DELETE FROM cart_session_state WHERE session = '$session'";
+        $link->set_charset("utf8mb4");
         mysqli_query($link, "SET NAMES utf8");
         $result = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link)); 
         mysqli_close($link);
@@ -424,7 +449,6 @@ class FormController extends Controller
           if($isValidreCapcha){
             echo '<pre>';
             print_r($mail);
-            exit;
             $mail->send();
           }
           
@@ -433,31 +457,5 @@ class FormController extends Controller
           echo 'ERROR : ' . $mail->ErrorInfo;
       }
     }
-    
-    function reArrayFiles(&$file_post) {
-    
-        $file_ary = [];
-    
-        if ($file_post['size'][0] > 0) {
-          
-          $file_count = count($file_post['name']);
-          $file_keys = array_keys($file_post);
-    
-          for ($i=0; $i<$file_count; $i++) {
-              foreach ($file_keys as $key) {
-                $file_ary[$i][$key] = $file_post[$key][$i];
-              }
-          }
-        }
-    
-        return $file_ary;
-    }
-    
-    function priceFormater($price){
-      $price_format = number_format($price, 0, ',', ' ');
-      return $price_format;
-    }
-
-    
   }
 }

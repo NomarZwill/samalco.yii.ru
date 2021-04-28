@@ -102,7 +102,7 @@ if (mysqli_num_rows($products)==0) {
         echo '<p>Ваша корзина пуста.</p>';
     }
 } else {
-    echo '<form id="customer" name="customer" method="post" class="order-form-ext" action="/form/index" data-context="cart">';
+    echo '<form id="customer" name="customer" method="post" class="order-form-ext" action="/form/index/" data-context="cart">';
     echo '<h2>Товары</h2>';
 	
 	echo '<div class="cart_wrap">';

@@ -154,6 +154,9 @@ var formSender = {
 
         if (formSender.checkFields($form, true) && $form.find('[name="terms"]')[0].checked) {
             var to = typeof $form.attr('action') !== 'undefined' ? $form.attr('action') : formSender.to;
+            for(var pair of formData.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]);
+             }
             console.log('Try send...');
             if (context == 'cart') {
                 var cart_text = '';
@@ -191,7 +194,7 @@ var formSender = {
                     contentType: false,
                     success: function(response) {
                         console.log('Success...');
-                        console.log(response);
+                        // console.log(response);
                         console.log(document.location.href);
 
                         $form.find('button').removeClass('disabled').removeAttr('disabled');
@@ -231,7 +234,7 @@ var formSender = {
                             $(this).removeClass('is-valid');
                         });
                         $form[0].reset();
-                        grecaptcha.reset();
+                        // grecaptcha.reset();
                         // Отправка целей
                         // if (target_action) {
                         //     yandexTarget(target_action);

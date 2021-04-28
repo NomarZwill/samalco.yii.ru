@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\tinymce\TinyMce;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\PagesSubdomenSeo */
@@ -28,13 +29,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'keywords')->textInput(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'text_1')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'text_1')->widget(TinyMce::className()) ?>
 
-    <?= $form->field($model, 'text_2')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'text_2')->widget(TinyMce::className()) ?>
 
-    <?= $form->field($model, 'text_3')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'text_3')->widget(TinyMce::className()) ?>
 
-    <?= $form->field($model, 'text_4')->textarea(['rows' => 3]) ?>
+    <?= $form->field($model, 'text_4')->widget(TinyMce::className()) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

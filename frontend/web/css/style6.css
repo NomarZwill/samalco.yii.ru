@@ -1482,6 +1482,7 @@ form#customer h2 {
 }
 
 .section-name {
+  font-size: 14px;
   color: #343434
 }
 
@@ -2019,13 +2020,17 @@ label.file_upload .button:before {
 
 .form-overlay-body p {
   padding: 0!important;
-  margin-bottom: 5px
+  margin-bottom: 5px;
+  font-size: 20px;
 }
 
 .form-overlay-body a.close {
   font-size: 14px;
   text-decoration: underline;
+  text-shadow: none;
   cursor: pointer;
+  opacity: 1;
+  float: none;
   color: #fff
 }
 

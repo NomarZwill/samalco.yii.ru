@@ -41,6 +41,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['pattern' => '<controller>/<id:\d+>/<action>', 'route' => '<controller>/<action>', 'suffix' => '/'],
+
             ],
         ],
     ],

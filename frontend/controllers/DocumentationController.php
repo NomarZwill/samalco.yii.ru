@@ -24,6 +24,10 @@ class DocumentationController extends Controller
 
   public function actionFirstLevel($firstLevel)
   {
+    if (!Pages::find()->where(['alias' => $firstLevel])->exists()){
+      throw new \yii\web\NotFoundHttpException();
+    }
+    
     $currentPage = Pages::find()->where(['alias' => $firstLevel])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
     

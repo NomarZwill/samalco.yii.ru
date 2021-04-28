@@ -26,10 +26,13 @@
       ?>
      </h1>
 
-    <?= $currentSlice['subdomenSeo']['text_1'] ?>
+    <?= !$is_profil ? $currentSlice['subdomenSeo']['text_1'] : '' ?>
 
 		<div class="content_table">
 
+      <?= $is_profil ? $currentSlice['subdomenSeo']['text_1'] : '' ?>
+      <?= $is_profil ? $this->render('/components/profili_exclamation', array('alias' => $currentSlice->alias)) : '' ?>
+      <?= $is_profil ? $currentSlice['subdomenSeo']['text_2'] : '' ?>
       <?php 
         if ($is_root_slice){
 
@@ -43,6 +46,9 @@
             'currentSlice' => $currentSlice,
             'is_root_slice' => $is_root_slice,
           ]);
+
+          echo $is_profil ? ($currentSlice['subdomenSeo']['text_3'] . '</br>' . $currentSlice['subdomenSeo']['text_4']) : '';
+
         }
 
         if (!$is_root_slice){
@@ -58,7 +64,7 @@
             'is_root_slice' => $is_root_slice,
           ]);
 
-          echo $currentSlice['subdomenSeo']['text_2'] . '</br>';
+          echo !$is_profil ? ($currentSlice['subdomenSeo']['text_2'] . '</br>') : ($currentSlice['subdomenSeo']['text_3'] . '</br>' . $currentSlice['subdomenSeo']['text_4']);
 
           echo $this->render('/components/noBalanceTable', array(
             'tableData' => $noBalanceTableData,
@@ -76,7 +82,7 @@
 
 		</div>
 
-    <?= $currentSlice['subdomenSeo']['text_3'] ?>
+    <?= !$is_profil ? $currentSlice['subdomenSeo']['text_3'] : '' ?>
     </br>
 
 		<?php
