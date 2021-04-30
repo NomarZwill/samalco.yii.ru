@@ -16,6 +16,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
+    <?php 
+        if (isset($_GET['page_id']) && isset($_GET['page_name'])){
+            echo '<div class="form-group">';
+            echo '<a href="/pages/update/?id=' . $_GET['page_id'] . '">Вернуться к редактированию страницы: ' . $_GET['page_name'] . '</a>';
+            echo '</div>';
+        }
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

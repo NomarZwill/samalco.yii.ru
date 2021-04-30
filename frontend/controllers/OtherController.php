@@ -8,6 +8,7 @@ use common\models\Pages;
 use common\models\PagesSubdomenSeo;
 use common\models\Branch;
 use frontend\components\Breadcrumbs;
+use common\models\StaticBlock;
 
 class OtherController extends Controller
 {
@@ -42,14 +43,21 @@ class OtherController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'staticBlock_1' => StaticBlock::find()->where(['id' => 15])->one()->content,
+      'staticBlock_2' => StaticBlock::find()->where(['id' => 16])->one()->content,
     ));
   }
 
   public function actionAgreement()
   {
+    $currentPage = Pages::find()
+      ->where(['type' => 'agreement'])
+      ->one();
+    
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
     return $this->render('agreement', array(
+      'currentPage' => $currentPage,
       'breadcrumbs' => $breadcrumbs,
     ));
   }

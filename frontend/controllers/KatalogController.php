@@ -16,6 +16,19 @@ use frontend\components\Breadcrumbs;
 
 class KatalogController extends Controller
 {
+  public $sidebar;
+
+  public function beforeAction($action)
+	{
+		$this->sidebar = $this->renderPartial('/components/sidebar', array(
+      'items' => Pages::find()->where(['in_sidebar' => true])->with('extraContent')->orderBy(['sidebar_sort' => SORT_ASC])->all(),
+      'table' => '',
+      'mobile' => '',
+    ));
+
+	    return parent::beforeAction($action);
+	}
+
   public function actionIndex()
   {
     $katalogPage = Pages::find()
@@ -25,9 +38,15 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    // echo '<pre>';
+    // print_r($sidebar);
+    // exit;
+
+
     return $this->render('index', array(
       'katalogPage' => $katalogPage,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $this->sidebar,
     ));
   }    
 
@@ -95,6 +114,7 @@ class KatalogController extends Controller
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => true,
       'is_profil' => $is_profil,
+      'sidebar' => $this->sidebar,
     ));
   }
 
@@ -157,6 +177,7 @@ class KatalogController extends Controller
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
       'is_profil' => false,
+      'sidebar' => $this->sidebar,
     ));
   }
 
@@ -205,6 +226,7 @@ class KatalogController extends Controller
       'breadcrumbs' => $breadcrumbs,
       'is_root_slice' => false,
       'is_profil' => false,
+      'sidebar' => $this->sidebar,
     ));
   }
 
@@ -230,6 +252,10 @@ class KatalogController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $this->sidebar,
+      'staticBlock_1' => StaticBlock::find()->where(['id' => 9])->one()->content,
+      'staticBlock_2' => StaticBlock::find()->where(['id' => 10])->one()->content,
+      'staticBlock_3' => StaticBlock::find()->where(['id' => 11])->one()->content,
     ));
   }
 
@@ -251,6 +277,8 @@ class KatalogController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $this->sidebar,
+      'staticBlock_1' => StaticBlock::find()->where(['id' => 13])->one()->content,
     ));
   }
 
@@ -272,6 +300,8 @@ class KatalogController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $this->sidebar,
+      'staticBlock_1' => StaticBlock::find()->where(['id' => 14])->one()->content,
     ));
   }
 
@@ -293,6 +323,8 @@ class KatalogController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $this->sidebar,
+      'staticBlock_1' => StaticBlock::find()->where(['id' => 12])->one()->content,
     ));
   }
 

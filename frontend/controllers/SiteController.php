@@ -8,6 +8,7 @@ use common\models\Pages;
 use common\models\PagesSubdomenSeo;
 use common\models\Subdomen;
 use common\models\Branch;
+use common\models\StaticBlock;
 
 class SiteController extends Controller
 {
@@ -31,6 +32,10 @@ class SiteController extends Controller
             'currentSubdomen' => $currentSubdomen,
             'currentBranch' => $currentBranch,
             'katalogList' => $katalogList,
+            'aboutUs' => str_replace('**city_dec**', $currentSubdomen->name_dec, StaticBlock::find()->where(['id' => 5])->one()->content),
+            'howWeWork' => StaticBlock::find()->where(['id' => 6])->one()->content,
+            'callbackBlock' => StaticBlock::find()->where(['id' => 7])->one()->content,
+            'calculatorLinks' => StaticBlock::find()->where(['id' => 8])->one()->content,
         ));
     }
 

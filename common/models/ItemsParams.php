@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "items_params".
@@ -69,17 +70,39 @@ class ItemsParams extends \yii\db\ActiveRecord
 
     public static function getSliceData($paramsList)
     {
+        $sort = 'depth';
+
+        if ($paramsList->type === 'rods'){
+            $sort = 'length';
+        }
+
+        if ($paramsList->type === 'tubes'){
+            $sort = 'diameter';
+        }
+
+        $sort = [$sort => SORT_ASC];
+
         if ($paramsList->type === 'tubes' && array_key_exists('diameter', (array)$paramsList)){
             $range = explode('-', $paramsList->diameter);
-            return ItemsParams::find()->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])->andWhere(['between', 'diameter', $range[0], $range[1]])->andWhere(['>', 'balance', 0])->all();
+            return ItemsParams::find()
+                ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
+                ->andWhere(['between', 'diameter', $range[0], $range[1]])
+                ->andWhere(['>', 'balance', 0])
+                ->orderBy($sort)
+                ->all();
         }
 
         if ($paramsList->type === 'tubes' && array_key_exists('width', (array)$paramsList)){
             $range = explode('-', $paramsList->width);
-            return ItemsParams::find()->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])->andWhere(['between', 'width', $range[0], $range[1]])->andWhere(['>', 'balance', 0])->all();
+            return ItemsParams::find()
+                ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
+                ->andWhere(['between', 'width', $range[0], $range[1]])
+                ->andWhere(['>', 'balance', 0])
+                ->orderBy($sort)
+                ->all();
         }
 
-        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->orderBy($sort)->all();
     }
 
     public static function getSliceDataNoBalance($paramsList)
@@ -90,6 +113,7 @@ class ItemsParams extends \yii\db\ActiveRecord
                 ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
                 ->andWhere(['between', 'diameter', $range[0], $range[1]])
                 ->andWhere(['=', 'balance', 0])
+                ->orderBy(new Expression('rand()'))
                 ->all();
             return $tableData;
         }
@@ -100,6 +124,7 @@ class ItemsParams extends \yii\db\ActiveRecord
                 ->where(['type' => 'tubes', 'subdomen' => $paramsList->subdomen])
                 ->andWhere(['between', 'width', $range[0], $range[1]])
                 ->andWhere(['=', 'balance', 0])
+                ->orderBy(new Expression('rand()'))
                 ->all();
 
             return $tableData;
@@ -148,10 +173,10 @@ class ItemsParams extends \yii\db\ActiveRecord
                 $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'diameter', $range[0], $range[1]]);
             }
 
-            return $tubesSpecQuery->all();
+            return $tubesSpecQuery->orderBy(new Expression('rand()'))->all();
         }
 
-        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->all();
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['>', 'balance', 0])->orderBy(new Expression('rand()'))->all();
     }
 
     public static function getMultiparamsSliceNoBalance($paramsList)
@@ -192,10 +217,10 @@ class ItemsParams extends \yii\db\ActiveRecord
                 $tubesSpecQuery = $tubesSpecQuery->andWhere(['between', 'diameter', $range[0], $range[1]]);
             }
 
-            return $tubesSpecQuery->all();
+            return $tubesSpecQuery->orderBy(new Expression('rand()'))->all();
         }
 
-        return ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->all();
+        return ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->orderBy(new Expression('rand()'))->all();
     }
 
 

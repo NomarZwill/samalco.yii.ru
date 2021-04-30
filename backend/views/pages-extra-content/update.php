@@ -5,10 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\PagesExtraContent */
 
-$this->title = 'Update Pages Extra Content: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Pages Extra Contents', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Обновить дополнительный контент: ' . $_GET['page_name'];
+$this->params['breadcrumbs'][] = ['label' => $_GET['page_name'], 'url' => ['/pages/update/?id=' . $_GET['page_id']]];
+$this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="pages-extra-content-update">
 

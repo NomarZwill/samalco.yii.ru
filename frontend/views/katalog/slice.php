@@ -7,11 +7,8 @@
 
 <div class="main_wrap" data-page-type='katalog'>
 
-  <?= $this->render('/components/sidebar', array(
-    'table' => $paramsList->type,
-    'mobile' => '',
-    )) ?>
-
+  <?= $sidebar ?>
+  
 	<div class="content">
 
   <?= $this->render('/components/breadcrumbs', array(

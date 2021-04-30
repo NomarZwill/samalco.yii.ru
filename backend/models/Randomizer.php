@@ -53,24 +53,26 @@ class Randomizer
     $alloys_tapes = $this->allParams->arrAlloys['tapes']['alloy'];
     $alloys_rods = $this->allParams->arrAlloys['rods']['alloy'];
 
-    // $this->updateTable($alloys_lists, 'lists', 		1, 1000, 1, 220, 280, 1, $commonData);
-    // $this->updateTable($alloys_plates, 'plates', 		1, 1000, 1, 180, 220, 1, $commonData);
+    $this->updateTable($alloys_lists, 'lists', 		1, 1000, 1, 220, 280, 1, $commonData);
+    $this->updateTable($alloys_plates, 'plates', 		1, 1000, 1, 180, 220, 1, $commonData);
     $this->updateTable($alloys_dvutavrs, 'profil_dvutavr', 	1, 1000, 1, 110, 150, 1, $commonData);
     $this->updateTable($alloys_pryamougolniki, 'profil_pryamougolnik', 1, 500, 1, 230, 260, 1, $commonData);
     $this->updateTable($alloys_shvellers, 'profil_shveller', 1, 1000, 1, 110, 150, 1, $commonData);
-    // $this->updateTable($alloys_tavrs, 'profil_tavr', 		1, 1000, 1, 110, 150, 1, $commonData);
+    $this->updateTable($alloys_tavrs, 'profil_tavr', 		1, 1000, 1, 110, 150, 1, $commonData);
     $this->updateTable($alloys_ugolki, 'profil_ugolok', 		1, 1000, 1, 110, 150, 1, $commonData);
-    // $this->updateTable($alloys_rods, 'rods', 	300, 1500, 1, 220, 250, 1, $commonData);
-    // $this->updateTable($alloys_tapes, 'tapes', 	300, 1500, 1, 175, 220, 1, $commonData);
-    // $this->updateTable($alloys_tubes, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
+    $this->updateTable($alloys_rods, 'rods', 	300, 1500, 1, 220, 250, 1, $commonData);
+    $this->updateTable($alloys_tapes, 'tapes', 	300, 1500, 1, 175, 220, 1, $commonData);
+    $this->updateTable($alloys_tubes, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
 
 
     $end_time = microtime(true);
     $duration_sec = round(($end_time-$start_time), 1);
     $duration_min = round($duration_sec/60, 2);
 
+    
     echo 'Time duration in seconds: '.$duration_sec. "\n";
     echo 'Time duration in minutes: '.$duration_min. "\n";
+    return 'Time duration in minutes: '.$duration_min. "\n";
 
   }
 

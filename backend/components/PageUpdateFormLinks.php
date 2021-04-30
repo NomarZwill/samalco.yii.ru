@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use common\models\PagesExtraContent;
 use common\models\PagesSubdomenSeo;
 use common\models\Subdomen;
+use common\models\StaticBlock;
 
 class PageUpdateFormLinks
 {
@@ -52,7 +53,7 @@ class PageUpdateFormLinks
       ->one()
       ->id;
       echo '<div class="form-group">';
-      echo '<a href="/pages-extra-content/update/?id=' . $extraContentID . ' ?>">Дополнительный контент</a>';
+      echo '<a href="/pages-extra-content/update/?id=' . $extraContentID . '&page_name=' . $model->name . '&page_id=' . $model->id . '">Дополнительный контент</a>';
       echo '</div>';
     }
   }
@@ -85,8 +86,61 @@ class PageUpdateFormLinks
       }
       echo '</div>';
       echo '</div>';
-
       echo '<a name="subdomen_seo"></a>';
+    }
+  }
+
+  public static function getLinksForIndexPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => [5, 6, 7, 8]])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
+    }
+  }
+
+  public static function getLinksForProfiliPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => [9, 10, 11]])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
+    }
+  }
+
+  public static function getLinksForProfnastilPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => 12])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
+    }
+  }
+
+  public static function getLinksForShinaPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => 13])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
+    }
+  }
+
+  public static function getLinksForShtampovkiPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => 14])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
+    }
+  }
+
+  public static function getLinksForContactsPage($model)
+  {
+    foreach (StaticBlock::find()->where(['id' => [15, 16]])->all() as $block){
+      echo '<div class="form-group">';
+      echo '<a href="/static-block/update/?id=' . $block->id . '&page_id=' . $model->id . '&page_name=' . $model->name . '">Редактировать статический блок: ' . $block->name . '</a>';
+      echo '</div>';
     }
   }
 }
