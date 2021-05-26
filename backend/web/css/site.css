@@ -128,3 +128,14 @@ a.desc:after {
 .seo_subdomen_wrapper a{
     padding: 0 10px 0 0;
 }
+
+.logo-lg{
+    padding: 5px 0 0 0;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: start;
+}
+
+.btn-default.exit_button{
+    background: #3c8dbc;
+}

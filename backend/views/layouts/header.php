@@ -22,7 +22,7 @@ use yii\helpers\Html;
                 <li><?= Html::a(
                     'Выйти',
                     ['/site/logout'],
-                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat exit_button']
                 ) ?></li>
             </ul>
         </div>

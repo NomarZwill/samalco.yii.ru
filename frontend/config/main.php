@@ -61,6 +61,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'sitemap.xml' => 'sitemap/index',
                 ['pattern'=>'/katalog/alyuminieviy_profnastil/','route'=>'katalog/profnastil', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievye_pokovki_i_shtampovki/','route'=>'katalog/shtampovki', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievaya_shina/','route'=>'katalog/shina', 'suffix'=>'/'],

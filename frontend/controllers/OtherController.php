@@ -19,9 +19,14 @@ class OtherController extends Controller
 
   public function actionDelivery()
   {
-    $currentPage = PagesSubdomenSeo::find()->where(['page_type' => 'delivery'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']])->one();
+    $currentPage = Pages::find()
+      ->where(['id' => 48])
+      ->with('subdomenSeo')
+      ->one();
     $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
+    $this->setSeo($currentPage);
 
     return $this->render('delivery', array(
       'currentPage' => $currentPage,
@@ -38,6 +43,8 @@ class OtherController extends Controller
       ->one();
     $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
+    $this->setSeo($currentPage);
 
     return $this->render('contacts', array(
       'currentPage' => $currentPage,
@@ -56,6 +63,8 @@ class OtherController extends Controller
     
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $this->setSeo($currentPage);
+
     return $this->render('agreement', array(
       'currentPage' => $currentPage,
       'breadcrumbs' => $breadcrumbs,
@@ -64,14 +73,18 @@ class OtherController extends Controller
 
   public function actionBranches()
   {
-    $currentPage = Pages::find()->where(['type' => 'branches'])->one();
-    // $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
+    $currentPage = Pages::find()
+    ->where(['type' => 'branches'])
+    ->with('subdomenSeo')
+    ->one();
+
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
+    $this->setSeo($currentPage);
 
     return $this->render('branches', array(
       'currentPage' => $currentPage,
       'breadcrumbs' => $breadcrumbs,
-      // 'currentBranch' => $currentBranch,
     ));
   }
 
@@ -81,6 +94,14 @@ class OtherController extends Controller
     $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();  
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $sidebar = $this->renderPartial('/components/sidebar', array(
+      'items' => Pages::find()->where(['in_sidebar' => true])->with('extraContent')->orderBy(['sidebar_sort' => SORT_ASC])->all(),
+      'table' => '',
+      'mobile' => '',
+    ));
+
+    $this->setSeo($currentPage);
+
     // echo '<pre>';
     // print_r(session_id());
     // exit;
@@ -89,8 +110,34 @@ class OtherController extends Controller
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
+      'sidebar' => $sidebar,
     ));
   }
+
+  private function setSeo($seo)
+  {
+    if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
+        $this->view->title = $seo['subdomenSeo']['title'];
+    } elseif(isset($seo['title'])){
+        $this->view->title = $seo['title'];
+    } else {
+        $this->view->title = false;
+    }
+
+    if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
+        $this->view->params['desc'] = $seo['subdomenSeo']['description'];
+    } elseif(isset($seo['title'])){
+        $this->view->params['desc'] = $seo['description'];
+    } else {
+        $this->view->params['desc'] = false;
+    }
+
+    if (isset($seo['subdomenSeo']['keywords'])){
+        $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
+    } elseif(isset($seo['title'])){
+        $this->view->params['kw'] = $seo['keywords'];
+    } else {
+        $this->view->params['kw'] = false;
+    }
+  }
 }
-
-

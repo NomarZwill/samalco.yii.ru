@@ -201,18 +201,21 @@ class FormController extends Controller
         'default' => [
           'subject' => 'Заявка с сайта',
           // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
           'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'ext' => [
           'subject' => 'Заявка с сайта',
           // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
           'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'catalog' => [
           'subject' => 'Вопрос по наличию и ценам',
           // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
           'recipients' => ['artm@liderpoiska.ru'],
         ],
     
@@ -220,13 +223,15 @@ class FormController extends Controller
           'subject' => 'Заявка с сайта',
           'type' => 'popup',
           //  'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-           'recipients' => ['artm@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'cart' => [
           'subject' => 'Заявка из корзины',
           'type' => 'cart',
           // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
           'recipients' => ['artm@liderpoiska.ru'],
         ]
       ];
@@ -455,6 +460,47 @@ class FormController extends Controller
           echo 'OK';
       } catch (Exception $e) {
           echo 'ERROR : ' . $mail->ErrorInfo;
+      }
+    }
+  }
+
+  public function actionPageNotFoundReport()
+  {
+    $url = $_POST['url'];
+    $recipients = array('irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru', 'artm@liderpoiska.ru');
+    // $recipients = array('artm@liderpoiska.ru');
+    $subject = 'Ошибка 404';
+    $mail_body = '<p>Произошла ошибка 404 при попытке перейти на страницу:</p>';
+    $mail_body.='<a href="'.$url.'">'.$url.'</a>';
+
+
+    if ($_POST) {
+      $mail = new PHPMailer(true);
+      try {
+        $mail->SMTPDebug = 0;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';  					  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true; 	                             // Enable SMTP authentication
+        $mail->Username = 'zayavka@samalco.ru';
+        $mail->Password = 'ctujlyzltrf,hm';                 // SMTP password
+        $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 465; 
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom('zayavka@samalco.ru', 'samalco.ru');
+
+        foreach ($recipients as $recipient) {
+          $mail->addAddress($recipient);
+        }
+
+        $mail->isHTML(true); 
+        $mail->Subject = $subject;
+        $mail->Body    = $mail_body;
+        $mail->AltBody = $mail_body;
+        
+        $mail->send();
+
+      } catch (Exception $e) {
+        echo 'ERROR : ' . $mail->ErrorInfo;
       }
     }
   }

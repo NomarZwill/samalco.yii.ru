@@ -14,7 +14,10 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
-        $currentPage = PagesSubdomenSeo::find()->where(['page_type' => 'index'])->andWhere(['subdomen_alias' => Yii::$app->params['subdomen_alias']])->one();
+        $currentPage = Pages::find()
+            ->where(['id' => 1])
+            ->with('subdomenSeo')
+            ->one();
         $currentSubdomen = Subdomen::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
         $currentBranch = Branch::find()->where(['alias' => Yii::$app->params['subdomen_alias']])->one();
 
@@ -23,8 +26,10 @@ class SiteController extends Controller
         ->with('extraContent')
         ->all();
 
+        $this->setSeo($currentPage);
+
         // echo '<pre>';
-        // print_r($_SESSION);
+        // print_r($currentPage['title']);
         // exit;
 
         return $this->render('index', array(
@@ -51,6 +56,32 @@ class SiteController extends Controller
         ]);
     }
 
+    private function setSeo($seo)
+    {
+        if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
+            $this->view->title = $seo['subdomenSeo']['title'];
+        } elseif(isset($seo['title'])){
+            $this->view->title = $seo['title'];
+        } else {
+            $this->view->title = false;
+        }
+
+        if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
+            $this->view->params['desc'] = $seo['subdomenSeo']['description'];
+        } elseif(isset($seo['title'])){
+            $this->view->params['desc'] = $seo['description'];
+        } else {
+            $this->view->params['desc'] = false;
+        }
+
+        if (isset($seo['subdomenSeo']['keywords'])){
+            $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
+        } elseif(isset($seo['title'])){
+            $this->view->params['kw'] = $seo['keywords'];
+        } else {
+            $this->view->params['kw'] = false;
+        }
+    }
 }
 
 

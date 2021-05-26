@@ -179,10 +179,12 @@ var formSender = {
               // получаем элемент, содержащий капчу
               $('#recaptchaError').text('');
             }
-
+            
             if($form.find('.xxx_').val() == '' && (captcha.length)) {       // проверка на бота
                 console.log(formData);
                 formData.append('g-recaptcha-response', captcha);
+                var $formSendingOverlay = $('[data-wait-until-send]');
+                $formSendingOverlay.removeClass('_hidden');
                 $.ajax({
                     beforeSend: function() {
                         $form.find('button').addClass('disabled').attr('disabled','disabled');
@@ -193,6 +195,7 @@ var formSender = {
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                        $formSendingOverlay.addClass('_hidden');
                         console.log('Success...');
                         // console.log(response);
                         console.log(document.location.href);
@@ -233,8 +236,11 @@ var formSender = {
                         $form.find('[data-required]').each(function() {
                             $(this).removeClass('is-valid');
                         });
+
+                        if (context !== 'cart'){
+                            grecaptcha.reset();
+                        }
                         $form[0].reset();
-                        // grecaptcha.reset();
                         // Отправка целей
                         // if (target_action) {
                         //     yandexTarget(target_action);
@@ -286,7 +292,7 @@ $(document).ready(function() {
     formSender.init();
 
     if ($.fn.inputmask) {
-        $('[name=phone]').inputmask('9 999 999-99-99');
+        $('[name=phone]').inputmask('+7 999 999-99-99');
     } else {
         console.log('jquery.inputmask.js required to mask fields!')
     }
@@ -359,7 +365,7 @@ $(document).ready(function() {
                                             '</div>');
             },
             type: "POST",
-            url: '/js/send_report_404.php',
+            url: '/form/page-not-found-report/',
             data: {url: $url},
             success: function(response) {
                 // alert('success!');

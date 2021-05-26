@@ -8,7 +8,7 @@
         foreach ($allPages[2] as $firstLevel){
           echo '<li><a href="/teh_doc/' . $firstLevel['alias'] . '/" title="' . $firstLevel['header'] . '">' . $firstLevel['header'] . '</a>';
 
-          if (array_key_exists($firstLevel['id'], $allPages)){
+          if ($parentAlias === $firstLevel['alias'] && array_key_exists($firstLevel['id'], $allPages)){
             echo '<ul>';
 
             foreach ($allPages[$firstLevel['id']] as $secondLevel){

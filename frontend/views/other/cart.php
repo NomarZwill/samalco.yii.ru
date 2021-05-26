@@ -3,10 +3,7 @@
 ?>
 <div class="main_wrap cart_page">
 
-  <?= $this->render('/components/sidebar', array(
-    'table' => '',
-    'mobile' => '',
-    )) ?>
+  <?= $sidebar ?>
 
 	<div class="content">
 

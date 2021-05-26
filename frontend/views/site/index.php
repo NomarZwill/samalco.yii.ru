@@ -6,10 +6,10 @@
 
 	<div class="main_block">
 
-		<h1><?= $currentPage['header'] ?></h1>
+		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
 
 		<div class="main_text">
-			<?= $currentPage['text_1'] ?>
+			<?= $currentPage['subdomenSeo']['text_1'] ?>
 		</div>
 
 		<?= $calculatorLinks ?>
@@ -34,7 +34,7 @@
 		</div>
 		
 		<div class="main_text">
-			<?= $currentPage['text_4'] ?>
+			<?= $currentPage['subdomenSeo']['text_4'] ?>
 		</div>
 	</div>
 
@@ -45,7 +45,7 @@
 		<?= $aboutUs ?>
 
 		<div class="main_text">
-			<?= $currentPage['text_2'] ?>
+			<?= $currentPage['subdomenSeo']['text_2'] ?>
 		</div>
 	</div>
 
@@ -59,7 +59,7 @@
 
 	<div class="main_block">
 		<div class="main_text">
-			<?= $currentPage['text_3'] ?>
+			<?= $currentPage['subdomenSeo']['text_3'] ?>
 		</div>
 	</div>
 

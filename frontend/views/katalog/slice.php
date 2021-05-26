@@ -35,8 +35,7 @@
 
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
-            'alias' => $currentPage['alias'],
-            // 'currentPage' => $currentPage,
+            'alias' => $currentSlice['alias'],
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,
@@ -53,7 +52,6 @@
           echo $this->render('/components/viewSection_list', [
             'subSliceList' => $subSliceList,
             'alias' => strripos(Yii::$app->request->url, '?') !== false ? $currentSlice['alias'] : $currentSlice['parent_alias'],
-            // 'currentPage' => $currentPage,
             'paramsList' => $paramsList,
             'tableData' => $tableData,
             'currentItem' => $currentItem,

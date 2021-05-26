@@ -19,7 +19,9 @@
 
 		<br>
 
-		<?= $this->render('/components/orderProcedure', array('currentPage' => $currentPage)) ?>
+		<?php
+			echo $orderProcedure;
+		?>
 
 		<?= $this->render('/components/orderForm') ?>
     

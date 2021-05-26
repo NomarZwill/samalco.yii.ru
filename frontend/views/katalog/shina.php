@@ -15,11 +15,13 @@
 
     <?= $staticBlock_1 ?>
 
-		<?= $currentPage['subdomenSeo']['text_2'] ?>
+		<?= $currentPage['subdomenSeo']['text_3'] ?>
 
 		<br>
 
-		<?= $this->render('/components/orderProcedure', array('currentPage' => $currentPage)) ?>
+		<?php
+			echo $orderProcedure;
+		?>
 
 		<?= $this->render('/components/orderForm') ?>
 

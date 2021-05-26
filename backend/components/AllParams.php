@@ -169,6 +169,39 @@ class AllParams
 		'д12' => '0.954'
 	];
 
+	public static function paramsValueIsExistCheck($filterValueList, $getParamsList){
+		$getParamsMapping = [
+			'C' => 'alloy',
+			'H' => 'curing',
+			'T' => 'depth',
+			'W' => 'width',
+			'WT' => 'width_st', // толщина стенки
+			'HT' => 'height',
+			'D' => 'diameter',
+			'S' => 'section'
+		];
+
+		
+		foreach ($getParamsList as $param => $value){
+			
+			if ($param === 'H' && $value === 'bez_to'){
+
+				if (!in_array('без т/о', $filterValueList[$getParamsMapping[$param]])){
+					return false;
+				}
+			} else {
+				$search_array = array_map('mb_strtoupper', $filterValueList[$getParamsMapping[$param]]);
+
+				if (!in_array(mb_strtoupper($value), $search_array)){
+					return false;
+				}
+			}
+
+		}
+
+		return true;
+	}
+
 	public static function getWeight($row, $table){
 
 		switch ($table) {

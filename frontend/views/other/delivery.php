@@ -7,7 +7,7 @@
       ))
     ?>
 
-		<h1><?= $currentPage['header'] ?></h1>
+		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
 
     <div id="ajax_map_wrapper">
 
@@ -26,7 +26,7 @@
 		  </div>
 
       <div class="delivery_table">
-        <p><?= $currentPage['text_1'] ?></p>
+        <p><?= $currentPage['subdomenSeo']['text_1'] ?></p>
       </div>
 
 	    <div class="contact_map">

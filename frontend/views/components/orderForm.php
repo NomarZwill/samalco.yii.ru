@@ -3,7 +3,7 @@
   $city_out = str_replace("'", "", $city_out);
 ?>
 
-<div class="order-form order-form-ext" data-context="ext">
+<div class="order-form order-form-ext" data-context="ext" data-big-form>
   <div class="form-title"><span>Уточнить цены и наличие <?= $city_out ?> можно, заполнив форму.</span><br><span>Наш менеджер свяжется с вами в течение часа</span></div>
   <div class="form-body">
     <form data-context="ext" data-target-action="test-action" data-target-category="test-category" action="/form/index/" enctype="multipart/form-data">

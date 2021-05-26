@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use backend\components\AllParams;
 use common\models\Slices;
@@ -31,17 +32,23 @@ class KatalogController extends Controller
 
   public function actionIndex()
   {
+    $currentPage = Pages::find()
+      ->where(['id' => 33])
+      ->with('subdomenSeo')
+      ->one();
+
     $katalogPage = Pages::find()
       ->where(['parent_id' => 33])
+      ->with('subdomenSeo')
       ->with('extraContent')
       ->all();
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+    $this->setSeo($currentPage);
 
     // echo '<pre>';
-    // print_r($sidebar);
+    // print_r($katalogPage);
     // exit;
-
 
     return $this->render('index', array(
       'katalogPage' => $katalogPage,
@@ -80,9 +87,15 @@ class KatalogController extends Controller
     }
     unset($subSliceList['length']);
 
+    $this->sidebar = $this->renderPartial('/components/sidebar', array(
+      'items' => Pages::find()->where(['in_sidebar' => true])->with('extraContent')->orderBy(['sidebar_sort' => SORT_ASC])->all(),
+      'table' => $paramsList->type,
+      'mobile' => '',
+    ));
+
     $currentPage = Pages::find()
       ->where(['alias' => $slice])
-      ->with('subdomenSeo')
+      // ->with('subdomenSeo')
       ->with('extraContent')
       ->one();
     
@@ -92,21 +105,21 @@ class KatalogController extends Controller
 
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
 
-    $orderProcedure = StaticBlock::find()->where(['id' => 1])->one();
-    $orderProcedure = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $orderProcedure->content);
-    $orderProcedure = str_replace('**name_rod**', $currentPage['extraContent']['name_rod'], $orderProcedure);
+    $orderProcedure = $this->getOrderProcedure($currentPage);
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $this->setSeo($currentSlice);
+
     // echo '<pre>';
-    // print_r($currentSlice);
+    // print_r($paramsList->type);
     // exit;
 
     return $this->render('slice', array(
       'tableData' => $tableData,
       'subSliceList' => $subSliceList,
       'currentSlice' => $currentSlice,
-      'currentPage' => $currentPage,
+      // 'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
@@ -161,6 +174,8 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs($currentSlice, true);
 
+    $this->setSeo($currentSlice);
+
     // echo '<pre>';
     // print_r($breadcrumbs);
     // exit;
@@ -170,7 +185,7 @@ class KatalogController extends Controller
       'noBalanceTableData' => $noBalanceTableData,
       'subSliceList' => $subSliceList,
       'currentSlice' => $currentSlice,
-      'currentPage' => $currentSlice,
+      // 'currentPage' => $currentSlice,
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
@@ -183,7 +198,11 @@ class KatalogController extends Controller
 
   public function actionMultiparamsSlice($slice)
   {
-    $currentSlice = Slices::find()->where(['alias' => $slice])->one();
+    $currentSlice = Slices::find()
+      ->where(['alias' => $slice])
+      ->with('subdomenSeo')
+      ->one();  
+
     $paramsList = json_decode($currentSlice->params);
     $paramsList->subdomen = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $tableData = ItemsParams::getMultiparamsSlice($paramsList);
@@ -197,11 +216,17 @@ class KatalogController extends Controller
     }
     unset($subSliceList['length']);
 
-    $currentPage = Pages::find()
-      ->where(['alias' => $slice])
-      ->with('subdomenSeo')
-      ->with('extraContent')
-      ->one();
+    unset($_GET['q']);
+    unset($_GET['slice']);
+    if (!AllParams::paramsValueIsExistCheck($subSliceList, $_GET)){
+			throw new NotFoundHttpException();
+    }
+
+    // $currentPage = Pages::find()
+    //   ->where(['alias' => $slice])
+    //   ->with('subdomenSeo')
+    //   ->with('extraContent')
+    //   ->one();
     
     $currentBranch = Branch::find()
       ->where(['alias' => Yii::$app->params['subdomen_alias']])
@@ -210,8 +235,11 @@ class KatalogController extends Controller
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $this->setSeo($currentSlice);
+
     // echo '<pre>';
-    // print_r($session->isActive);
+    // print_r($subSliceList);
+    // print_r(AllParams::paramsValueIsExistCheck($subSliceList, $_GET));
     // exit;
 
     return $this->render('slice', array(
@@ -219,7 +247,7 @@ class KatalogController extends Controller
       'noBalanceTableData' => ItemsParams::getMultiparamsSliceNoBalance($paramsList),
       'subSliceList' => $subSliceList,
       'currentSlice' => $currentSlice,
-      'currentPage' => $currentPage,
+      // 'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
@@ -243,6 +271,10 @@ class KatalogController extends Controller
       ->one();
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+    
+    $orderProcedure = $this->getOrderProcedure($currentPage);
+
+    $this->setSeo($currentPage);
 
     //     echo '<pre>';
     // print_r($currentPage);
@@ -253,6 +285,7 @@ class KatalogController extends Controller
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
       'sidebar' => $this->sidebar,
+      'orderProcedure' => $orderProcedure,
       'staticBlock_1' => StaticBlock::find()->where(['id' => 9])->one()->content,
       'staticBlock_2' => StaticBlock::find()->where(['id' => 10])->one()->content,
       'staticBlock_3' => StaticBlock::find()->where(['id' => 11])->one()->content,
@@ -273,11 +306,16 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $orderProcedure = $this->getOrderProcedure($currentPage);
+
+    $this->setSeo($currentPage);
+
     return $this->render('shina', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
       'sidebar' => $this->sidebar,
+      'orderProcedure' => $orderProcedure,
       'staticBlock_1' => StaticBlock::find()->where(['id' => 13])->one()->content,
     ));
   }
@@ -296,11 +334,16 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $orderProcedure = $this->getOrderProcedure($currentPage);
+
+    $this->setSeo($currentPage);
+
     return $this->render('shtampovki', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
       'sidebar' => $this->sidebar,
+      'orderProcedure' => $orderProcedure,
       'staticBlock_1' => StaticBlock::find()->where(['id' => 14])->one()->content,
     ));
   }
@@ -319,16 +362,22 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $orderProcedure = $this->getOrderProcedure($currentPage);
+
+    $this->setSeo($currentPage);
+
     return $this->render('profnastil', array(
       'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'breadcrumbs' => $breadcrumbs,
       'sidebar' => $this->sidebar,
+      'orderProcedure' => $orderProcedure,
       'staticBlock_1' => StaticBlock::find()->where(['id' => 12])->one()->content,
     ));
   }
 
-  public function actionAjaxNoBalanceTable(){
+  public function actionAjaxNoBalanceTable()
+  {
     $paramsList = [];
     $paramsList['type'] = $_POST['table'];
     $paramsList['subdomen'] = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
@@ -345,6 +394,41 @@ class KatalogController extends Controller
       'table' => $table
     ]);
   }
+
+  private function getOrderProcedure($currentPage)
+  {
+    $orderProcedure = StaticBlock::find()->where(['id' => 1])->one();
+    $orderProcedure = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $orderProcedure->content);
+    $orderProcedure = str_replace('**name_rod**', $currentPage['extraContent']['name_rod'], $orderProcedure);  
+
+    return $orderProcedure;
+  }
+
+  private function setSeo($seo)
+  {
+    if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
+        $this->view->title = $seo['subdomenSeo']['title'];
+    } elseif(isset($seo['title'])){
+        $this->view->title = $seo['title'];
+    } else {
+        $this->view->title = false;
+    }
+
+    if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
+        $this->view->params['desc'] = $seo['subdomenSeo']['description'];
+    } elseif(isset($seo['title'])){
+        $this->view->params['desc'] = $seo['description'];
+    } else {
+        $this->view->params['desc'] = false;
+    }
+
+    if (isset($seo['subdomenSeo']['keywords'])){
+        $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
+    } elseif(isset($seo['title'])){
+        $this->view->params['kw'] = $seo['keywords'];
+    } else {
+        $this->view->params['kw'] = false;
+    }
+
+  }
 }
-
-

@@ -27,9 +27,11 @@ AppAsset::register($this);
 	<link rel="stylesheet" type="text/css" media="only screen and (min-width: 320px) and (max-width: 767px) " href="/css/styles2018Mobile.css?v=1">
 	<link rel="stylesheet" type="text/css" href="/css/stylesMobile.css?v=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <title><?php echo $this->title ?></title>
+    <?php if (isset($this->params['desc']) and !empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
+    <?php if (isset($this->params['kw']) and !empty($this->params['kw'])) echo "<meta name='keywords' content='".$this->params['kw']."'>";?>
     <?php $this->head() ?>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -57,7 +59,7 @@ AppAsset::register($this);
                     <ul class="b-dropdown__list">
 
                         <?php
-                            foreach (Subdomen::find()->all() as $subdomen){
+                            foreach (Subdomen::find()->orderBy(['sort_index' => SORT_ASC])->all() as $subdomen){
                                 if ($subdomen->alias !== ''){
                                     echo '<li class="b-dropdown__item"><a class="b-dropdown__link " href="http://' . $subdomen->alias . '.dev.samalco.ru">' . $subdomen->name . '</a></li>';
                                 } else {
@@ -174,29 +176,29 @@ AppAsset::register($this);
 		<form class="callback_form" action="/form/index/">
 			<div class="form-row">
                 <div class="form-group">
-                    <label for="name_true">Ваше имя</label>
+                    <label for="name_true">Ваше имя *</label>
                     <input type="text" class="form-control" name="name_true" autocomplete="off" data-required="">
                     <input type="text" name="name" class="xxx_">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="phone">Номер телефона</label>
+                    <label for="phone">Номер телефона *</label>
                     <input type="text" class="form-control" name="phone" autocomplete="off" data-required="" data-error="Пожалуйста, введите Ваш телефон">
                 </div>
                 <div class="form-group">
-                    <label for="email">Электронная почта</label>
+                    <label for="email">Электронная почта *</label>
                     <input type="text" class="form-control" name="email" autocomplete="off" data-required="" data-error="Пожалуйста, введите Ваш email">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="org_name">Название организации с формой собственности</label>
-                    <input type="text" class="form-control org-name" name="org_name" autocomplete="off" data-required="">
+                    <input type="text" class="form-control org-name" name="org_name" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="org_address">Адрес организации</label>
-                    <input type="text" class="form-control org-address" name="org_address" autocomplete="off" data-required="">
+                    <input type="text" class="form-control org-address" name="org_address" autocomplete="off">
                 </div>
             </div>
 			<div class="form-row">
@@ -228,6 +230,8 @@ AppAsset::register($this);
 			<div class="form-overlay-close_popup"></div>
 			<div class="form-overlay-bg"></div>
 		</div>
+
+        <div class="form-wait-until-send _hidden" data-wait-until-send></div>
 	</div>
 </div>
 
@@ -254,6 +258,15 @@ AppAsset::register($this);
         });
     };
 </script>
+
+<link rel="stylesheet" href="https://cdn.envybox.io/widget/cbk.css">
+<script type="text/javascript" src="https://cdn.envybox.io/widget/cbk.js?wcb_code=3a85fd2d2b8c1c5dc2f511c8bb1b8f2e" charset="UTF-8" async></script>
+
+<?php
+    if(preg_match('/samara/',$_SERVER['HTTP_HOST'])) echo '<script src="//cdn.callibri.ru/callibri.js" type="text/javascript" charset="utf-8"></script>';
+?>
+
+<?php include 'stock_banner.php' ?>
 
 <?php $this->endBody() ?>
 </body>

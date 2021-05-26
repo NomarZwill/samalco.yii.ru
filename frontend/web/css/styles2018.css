@@ -721,7 +721,12 @@ footer {
 
 .footer_right a {
   color: #005db9;
-  border-bottom: 1px solid
+  border-bottom: 1px solid;
+}
+
+.footer_right a:hover,
+.footer_left a:hover{
+  border-bottom: none;
 }
 
 .footer_middle {
@@ -790,9 +795,11 @@ footer {
   width: calc(100% - 320px)!important
 }
 
-.breadcrumbs, .breadcrumbs a {
+.breadcrumbs, 
+.breadcrumbs a,
+.breadcrumbs span{
   color: #1769ad;
-  font-size: 14px
+  font-size: 14px;
 }
 
 .B_currentCrumb {
@@ -910,6 +917,10 @@ footer {
   font-weight: 600;
   text-align: center;
   vertical-align: middle
+}
+
+.content_table_static._cart .form-overlay a.close{
+  text-decoration: none;
 }
 
 .content_table {
@@ -1926,3 +1937,33 @@ form#customer>h2:first-child {
   font-size: 14px;
 }
 
+[data-wait-until-send]{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 100;
+}
+
+.sectionContent td,
+.sectionContent th{
+  box-sizing: content-box;
+}
+
+[data-big-form] span{
+  font-size: inherit;
+}
+
+[data-big-form] input{
+  font-size: 14px;
+}
+
+.callback_popup_wrap a{
+  border-bottom: 1px solid;
+}
+
+.callback_popup_wrap a:hover{
+  border-bottom: none;
+}
