@@ -200,39 +200,39 @@ class FormController extends Controller
       $contexts = [
         'default' => [
           'subject' => 'Заявка с сайта',
-          // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          'recipients' => ['artm@liderpoiska.ru'],
+          // 'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'ext' => [
           'subject' => 'Заявка с сайта',
-          // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          'recipients' => ['artm@liderpoiska.ru'],
+          // 'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'catalog' => [
           'subject' => 'Вопрос по наличию и ценам',
-          // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          'recipients' => ['artm@liderpoiska.ru'],
+          // 'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'popup' => [
           'subject' => 'Заявка с сайта',
           'type' => 'popup',
-          //  'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          'recipients' => ['artm@liderpoiska.ru'],
+          //  'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'cart' => [
           'subject' => 'Заявка из корзины',
           'type' => 'cart',
-          // 'recipients' => ['shaposhnikov@samalco.ru','barsukidze@yandex.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru','sm@liderpoiska.ru','martynov@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          'recipients' => ['artm@liderpoiska.ru'],
+          // 'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
+          // 'recipients' => ['artm@liderpoiska.ru'],
         ]
       ];
     
@@ -467,8 +467,8 @@ class FormController extends Controller
   public function actionPageNotFoundReport()
   {
     $url = $_POST['url'];
-    $recipients = array('irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru', 'artm@liderpoiska.ru');
-    // $recipients = array('artm@liderpoiska.ru');
+    // $recipients = array('irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru', 'artm@liderpoiska.ru');
+    $recipients = array('artm@liderpoiska.ru');
     $subject = 'Ошибка 404';
     $mail_body = '<p>Произошла ошибка 404 при попытке перейти на страницу:</p>';
     $mail_body.='<a href="'.$url.'">'.$url.'</a>';

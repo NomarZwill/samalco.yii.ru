@@ -47,6 +47,7 @@ if(!function_exists('scriptChunk')) {
     <script type="text/javascript">
       var k = '<?php echo $k; ?>';
       function calc(mobile) {
+        yaCounter9939076.reachGoal('massa');
         var width = document.getElementById("width"+mobile);
         var depth = document.getElementById("depth"+mobile);
         var length = document.getElementById("length"+mobile);
@@ -73,6 +74,7 @@ if(!function_exists('scriptChunkTubing')) {
     <script type="text/javascript">
       var k = '<?php echo $k; ?>';
       function calc(mobile) {
+        yaCounter9939076.reachGoal('massa');
         var width = document.getElementById("width"+mobile);
         var depth = document.getElementById("depth"+mobile);
         var length = document.getElementById("length"+mobile);
@@ -107,6 +109,7 @@ if(!function_exists('scriptChunkRods')) {
     <script type="text/javascript">
       var k = '<?php echo $k; ?>';
       function calc(mobile) {
+        yaCounter9939076.reachGoal('massa');
         var width = document.getElementById("width"+mobile);
         var length = document.getElementById("length"+mobile);
         var alloy = document.getElementById("alloy"+mobile);
@@ -134,6 +137,7 @@ if(!function_exists('scriptChunkProfils')) {
     <script type="text/javascript">
       var k = '<?php echo $k; ?>';
       function calc(mobile) {
+        yaCounter9939076.reachGoal('massa');
         var table = '<?php echo $table; ?>';
         var width = document.getElementById("width"+mobile);
         var length = document.getElementById("length"+mobile);

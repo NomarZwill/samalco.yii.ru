@@ -33,9 +33,8 @@
         <?= $currentBranch['map'] ?>
       </div>
 
+		  <?= $this->render('/components/orderForm') ?>
     </div>	
-
-		<?= $this->render('/components/orderForm') ?>
 
 	</div>
 

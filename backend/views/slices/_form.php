@@ -21,6 +21,16 @@ use backend\components\PageUpdateFormLinks;
 
     <?= $form->field($model, 'params')->textinput(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'breadcrumbs_title')->textinput(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'header')->textinput(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'title')->textinput(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'description')->textinput(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'keywords')->textinput(['rows' => 6]) ?>
+
     <?php 
         if ($is_update){
             echo PageUpdateFormLinks::getLinksForSlice($model);

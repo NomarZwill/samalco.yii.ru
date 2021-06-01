@@ -56,6 +56,24 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRobots()
+    {
+        header('Content-type: text/plain');
+
+        if (Yii::$app->params['subdomen_alias']){
+            $subdomen_alias = Yii::$app->params['subdomen_alias'] . '.';
+        } else {
+            $subdomen_alias = '';
+        }
+
+        $robotsContent = StaticBlock::find()->where(['id' => 17])->one()->content;
+
+        echo $robotsContent . '
+Sitemap: https://' . $subdomen_alias . 'samalco.ru/sitemap.xml';
+        exit;
+    }
+
+
     private function setSeo($seo)
     {
         if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){

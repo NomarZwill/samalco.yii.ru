@@ -109,17 +109,17 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
-    $this->setSeo($currentSlice);
+    $this->setSeo($this->replacePatterns($currentPage));
 
     // echo '<pre>';
-    // print_r($paramsList->type);
+    // print_r($tableData);
     // exit;
 
     return $this->render('slice', array(
       'tableData' => $tableData,
       'subSliceList' => $subSliceList,
       'currentSlice' => $currentSlice,
-      // 'currentPage' => $currentPage,
+      'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
@@ -174,10 +174,10 @@ class KatalogController extends Controller
 
     $breadcrumbs = Breadcrumbs::getBreadcrumbs($currentSlice, true);
 
-    $this->setSeo($currentSlice);
+    $this->setSeo($this->replacePatternsForSlices($currentSlice));
 
     // echo '<pre>';
-    // print_r($breadcrumbs);
+    // print_r($currentSlice);
     // exit;
 
     return $this->render('slice', array(
@@ -222,11 +222,11 @@ class KatalogController extends Controller
 			throw new NotFoundHttpException();
     }
 
-    // $currentPage = Pages::find()
-    //   ->where(['alias' => $slice])
-    //   ->with('subdomenSeo')
-    //   ->with('extraContent')
-    //   ->one();
+    $currentPage = Pages::find()
+      ->where(['alias' => $slice])
+      ->with('subdomenSeo')
+      ->with('extraContent')
+      ->one();
     
     $currentBranch = Branch::find()
       ->where(['alias' => Yii::$app->params['subdomen_alias']])
@@ -235,19 +235,29 @@ class KatalogController extends Controller
     $currentItem = Items::find()->where(['type' => $paramsList->type])->one();
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
-    $this->setSeo($currentSlice);
+
+    if (count((array)$paramsList) === 4){
+      $this->setSeo($this->replacePatternsForSlicesTwoParams($currentSlice, $paramsList), false);
+      $currentPage->header = '';
+    } else {
+      $this->setSeo($this->replacePatterns($currentPage), true);
+    }
 
     // echo '<pre>';
-    // print_r($subSliceList);
-    // print_r(AllParams::paramsValueIsExistCheck($subSliceList, $_GET));
+    // print_r($currentPage);
     // exit;
+
+    $currentSlice['subdomenSeo']['text_1'] = '';
+    $currentSlice['subdomenSeo']['text_2'] = '';
+    $currentSlice['subdomenSeo']['text_3'] = '';
+    $currentSlice['subdomenSeo']['text_4'] = '';
 
     return $this->render('slice', array(
       'tableData' => $tableData,
       'noBalanceTableData' => ItemsParams::getMultiparamsSliceNoBalance($paramsList),
       'subSliceList' => $subSliceList,
       'currentSlice' => $currentSlice,
-      // 'currentPage' => $currentPage,
+      'currentPage' => $currentPage,
       'currentBranch' => $currentBranch,
       'currentItem' => $currentItem,
       'paramsList' => $paramsList,
@@ -274,7 +284,7 @@ class KatalogController extends Controller
     
     $orderProcedure = $this->getOrderProcedure($currentPage);
 
-    $this->setSeo($currentPage);
+    $this->setSeo($this->replacePatterns($currentPage));
 
     //     echo '<pre>';
     // print_r($currentPage);
@@ -308,7 +318,7 @@ class KatalogController extends Controller
 
     $orderProcedure = $this->getOrderProcedure($currentPage);
 
-    $this->setSeo($currentPage);
+    $this->setSeo($this->replacePatterns($currentPage));
 
     return $this->render('shina', array(
       'currentPage' => $currentPage,
@@ -336,7 +346,7 @@ class KatalogController extends Controller
 
     $orderProcedure = $this->getOrderProcedure($currentPage);
 
-    $this->setSeo($currentPage);
+    $this->setSeo($this->replacePatterns($currentPage));
 
     return $this->render('shtampovki', array(
       'currentPage' => $currentPage,
@@ -364,7 +374,7 @@ class KatalogController extends Controller
 
     $orderProcedure = $this->getOrderProcedure($currentPage);
 
-    $this->setSeo($currentPage);
+    $this->setSeo($this->replacePatterns($currentPage));
 
     return $this->render('profnastil', array(
       'currentPage' => $currentPage,
@@ -404,7 +414,225 @@ class KatalogController extends Controller
     return $orderProcedure;
   }
 
-  private function setSeo($seo)
+  private function replacePatterns(&$currentPage)
+  {
+    foreach($currentPage as $key => $param){
+      if ($key === 'title'){
+        $param = str_replace('**singular_name**', $currentPage['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', $currentPage['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentPage[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'description'){
+        $param = str_replace(
+          '**singular_name**', 
+          mb_strtoupper(mb_substr($currentPage['extraContent']['name_singular'], 0, 1)) . mb_substr($currentPage['extraContent']['name_singular'], 1), 
+          $param
+        );
+        $param = str_replace('**plural_name**', $currentPage['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentPage[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'keywords'){
+        $param = str_replace('**singular_name**', $currentPage['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', str_replace('-', ' ', $currentPage['extraContent']['name_plural']), $param);
+        $param = str_replace('**subdomen_name**', Yii::$app->params['subdomen_name'], $param);
+        $currentPage[$key] = mb_strtolower($param);
+      }
+
+      if ($key === 'header'){
+        $param = str_replace('**singular_name**', $currentPage['extraContent']['name_singular'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentPage[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+    }
+
+    return $currentPage;
+  }
+
+  private function replacePatternsForSlices(&$currentSlice)
+  {
+    $parent = Pages::find()
+      ->where(['alias' => $currentSlice->parent_alias])
+      ->with('extraContent')
+      ->one();
+
+    $paramNameList = [
+      'alloy' => 'сплав',
+      'depth' => 'толщина',
+      'width' => 'ширина',
+      'curing' => 'термообработка',
+      'height' => 'высота',
+      'diameter' => 'диаметр',
+      'section' => 'сечение',
+    ];
+
+    $currentSliceParams = (array)json_decode($currentSlice->params);
+    $currentParamKey = array_key_last($currentSliceParams);
+    $currentParamValue = end($currentSliceParams);
+
+    if ($currentSliceParams['type'] === 'tubes'){
+      $paramNameList['width'] = 'толщина стенки';
+    }
+
+    
+    foreach($currentSlice as $key => $param){
+
+      $currentParamValue = end($currentSliceParams);
+      
+      if ($key === 'title'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', $parent['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'description'){
+        $param = str_replace(
+          '**singular_name**', 
+          mb_strtoupper(mb_substr($parent['extraContent']['name_singular'], 0, 1)) . mb_substr($parent['extraContent']['name_singular'], 1), 
+          $param
+        );
+        $param = str_replace('**plural_name**', $parent['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'keywords'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', str_replace('-', ' ', $parent['extraContent']['name_plural']), $param);
+        $param = str_replace('**subdomen_name**', Yii::$app->params['subdomen_name'], $param);
+        $currentSlice[$key] = mb_strtolower($param);
+
+        $currentParamValue = mb_strtolower($currentParamValue);
+      }
+
+      if ($key === 'header'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($currentParamKey !== 'section'){
+        $currentSlice[$key] = str_replace('**param_name**', $paramNameList[$currentParamKey], $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**param_name**', '', $currentSlice[$key]);
+      }
+
+      if ($currentParamKey == 'depth' || $currentParamKey == 'width' || $currentParamKey == 'diameter' || $currentParamKey == 'height'){
+        $currentSlice[$key] = str_replace('**param_value**', $currentParamValue . ' мм', $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**param_value**', $currentParamValue, $currentSlice[$key]);
+      }
+    }
+
+    return $currentSlice;
+  }
+
+  private function replacePatternsForSlicesTwoParams(&$currentSlice, $paramsList)
+  {
+    $parent = Pages::find()
+      ->where(['alias' => $currentSlice->alias])
+      ->with('extraContent')
+      ->one();
+
+    $paramNameList = [
+      'alloy' => 'сплав',
+      'depth' => 'толщина',
+      'width' => 'ширина',
+      'curing' => 'термообработка',
+      'height' => 'высота',
+      'diameter' => 'диаметр',
+      'section' => 'сечение',
+    ];
+
+    $paramsList = (array)$paramsList;
+
+    if ($paramsList['type'] === 'tubes'){
+      $paramNameList['width'] = 'толщина стенки';
+    }
+
+    unset($paramsList['type']);
+    unset($paramsList['subdomen']);
+
+    foreach($currentSlice as $key => $param){
+
+      if ($key === 'title'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', $parent['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'description'){
+        $param = str_replace(
+          '**singular_name**', 
+          mb_strtoupper(mb_substr($parent['extraContent']['name_singular'], 0, 1)) . mb_substr($parent['extraContent']['name_singular'], 1), 
+          $param
+        );
+        $param = str_replace('**plural_name**', $parent['extraContent']['name_plural'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if ($key === 'keywords'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**plural_name**', str_replace('-', ' ', $parent['extraContent']['name_plural']), $param);
+        $param = str_replace('**subdomen_name**', Yii::$app->params['subdomen_name'], $param);
+        $currentSlice[$key] = mb_strtolower($param);
+      }
+
+      if ($key === 'header'){
+        $param = str_replace('**singular_name**', $parent['extraContent']['name_singular'], $param);
+        $param = str_replace('**subdomen_name_dec**', Yii::$app->params['subdomen_dec'], $param);
+        $currentSlice[$key] = mb_strtoupper(mb_substr($param, 0, 1)) . mb_substr($param, 1);
+      }
+
+      if (array_key_first($paramsList) !== 'section'){
+        $currentSlice[$key] = str_replace('**param_name**', $paramNameList[array_key_first($paramsList)], $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**param_name**', '', $currentSlice[$key]);
+      }
+
+      if (array_key_last($paramsList) !== 'section'){
+        $currentSlice[$key] = str_replace('**second_param_name**', $paramNameList[array_key_last($paramsList)], $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**second_param_name**', '', $currentSlice[$key]);
+      }
+
+      if ( array_key_first($paramsList) == 'depth' 
+        || array_key_first($paramsList) == 'width' 
+        || array_key_first($paramsList) == 'diameter' 
+        || array_key_first($paramsList) == 'height'
+          ){
+        $currentSlice[$key] = str_replace('**param_value**', $paramsList[array_key_first($paramsList)] . ' мм', $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**param_value**', $paramsList[array_key_first($paramsList)], $currentSlice[$key]);
+      }
+
+      if ( array_key_last($paramsList) == 'depth' 
+        || array_key_last($paramsList) == 'width' 
+        || array_key_last($paramsList) == 'diameter' 
+        || array_key_last($paramsList) == 'height'
+          ){
+        $currentSlice[$key] = str_replace('**second_param_value**', $paramsList[array_key_last($paramsList)] . ' мм', $currentSlice[$key]);
+      } else {
+        $currentSlice[$key] = str_replace('**second_param_value**', $paramsList[array_key_last($paramsList)], $currentSlice[$key]);
+      }
+
+      if ($key === 'keywords'){
+        $currentSlice[$key] = mb_strtolower($currentSlice[$key]);
+      }
+
+    }
+
+    return $currentSlice;
+  }
+
+
+  private function setSeo($seo, $noIndex = false)
   {
     if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
         $this->view->title = $seo['subdomenSeo']['title'];
@@ -422,12 +650,16 @@ class KatalogController extends Controller
         $this->view->params['desc'] = false;
     }
 
-    if (isset($seo['subdomenSeo']['keywords'])){
+    if (isset($seo['subdomenSeo']['keywords']) && $seo['subdomenSeo']['keywords'] !== ''){
         $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
     } elseif(isset($seo['title'])){
         $this->view->params['kw'] = $seo['keywords'];
     } else {
         $this->view->params['kw'] = false;
+    }
+
+    if ($noIndex){
+      $this->view->params['robots'] = true;
     }
 
   }

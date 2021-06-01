@@ -152,7 +152,19 @@ class ItemsParams extends \yii\db\ActiveRecord
 
             if ($key != 'q' && $key != 'slice'){
                 $currentParam = $getParamsMapping[$key];
-                $paramsList->$currentParam = mb_strtoupper($value);
+
+                if ($value === 'шестигранный'){
+                    $paramsList->$currentParam = 'шестигранный (ШГ)';
+                } elseif ($value === 'квадратный'){
+                    $paramsList->$currentParam = 'квадратный (КВ)';
+                } elseif ($value === 'круглый'){
+                    $paramsList->$currentParam = 'круглый (КР)';
+                } elseif ($value === 'bez_to'){
+                    $paramsList->$currentParam = 'без т/о';
+                } else {
+                    $paramsList->$currentParam = mb_strtoupper($value);
+                }
+
             }
         }
         
@@ -196,7 +208,18 @@ class ItemsParams extends \yii\db\ActiveRecord
 
             if ($key != 'q' && $key != 'slice'){
                 $currentParam = $getParamsMapping[$key];
-                $paramsList->$currentParam = mb_strtoupper($value);
+
+                if ($value === 'шестигранный'){
+                    $paramsList->$currentParam = 'шестигранный (ШГ)';
+                } elseif ($value === 'квадратный'){
+                    $paramsList->$currentParam = 'квадратный (КВ)';
+                } elseif ($value === 'круглый'){
+                    $paramsList->$currentParam = 'круглый (КР)';
+                } elseif ($value === 'bez_to'){
+                    $paramsList->$currentParam = 'без т/о';
+                } else {
+                    $paramsList->$currentParam = mb_strtoupper($value);
+                }
             }
         }
 
@@ -222,6 +245,5 @@ class ItemsParams extends \yii\db\ActiveRecord
 
         return ItemsParams::find()->where((array)$paramsList)->andWhere(['=', 'balance', 0])->orderBy(new Expression('rand()'))->all();
     }
-
 
 }

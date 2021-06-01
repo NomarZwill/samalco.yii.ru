@@ -19,7 +19,14 @@
 		<h1>
       <?php
         // echo $currentSlice['subdomenSeo']['header'] . ((!$is_root_slice && !strripos(Yii::$app->request->url, '?') !== false) ? ' в ' . Yii::$app->params['subdomen_dec'] : '');
-        echo $currentSlice['subdomenSeo']['header'];
+
+        if (isset($currentPage['header']) && $currentPage['header'] !== ''){
+          echo $currentPage['header'];
+        } elseif(isset($currentSlice['header']) && $currentSlice['header'] !== ''){
+          echo $currentSlice['header'];
+        } else {
+          echo $currentSlice['subdomenSeo']['header'];
+        }
       ?>
      </h1>
 

@@ -191,7 +191,21 @@
     echo '<div class="section lists">';
 
     echo '<div class="section-name">По ' . $categoryNameRodList[$categoryName] . ':</div>';
-    echo '<div class="filter_select"></div>';
+    echo '<div class="filter_select" data-category-name="' . $categoryName . '">';
+    if ($filter === 1){
+
+      if (isset($GETParamsList[$categoryName])){
+        if ($GETParamsList[$categoryName] === 'bez_to'){
+          echo 'без т/о';
+        } else {
+          echo (isset($GETParamsList[$categoryName]) ? mb_strtoupper($GETParamsList[$categoryName]) : '');
+        }
+      }
+
+    } elseif ($filter === 2 && $sliceParam == $categoryName){
+      echo mb_strtoupper($sliceParamList[$sliceParam]);
+    }
+    echo '</div>';
     echo '<div class="section-links">';
 
     if ($filter === 2) {
@@ -216,6 +230,7 @@
           if ($categoryName == 'width_st'){
             echo '<a href="' . $baseHref . $alias . '/?' . $encodedToGETParam . '&WT=' . mb_strtolower($value) . '">' . $value . '</a>';
           } else {
+            $encodedToGETParam = str_replace([' (шг)', ' (кв)', ' (кр)'], '', $encodedToGETParam);
             echo '<a href="' . $baseHref . $alias . '/?' . $encodedToGETParam . '&' . array_search($categoryName, $getParamsMapping) . '=' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '">' . $value . '</a>';
           }
           echo '</span>';
@@ -232,8 +247,24 @@
           if ($GETParamsList[$categoryName] == mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value))) { 
             echo '<span class="active">' . $value . '</span>';
           } else {
-            $href = str_replace($GETParamsList[$categoryName] , mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref); 
-            echo '<span><a href="' . $href . '">' . $value . '</a></span>'; 
+
+            $href = '';
+            if ($categoryName === 'curing') {
+              // $href = str_replace($GETParamsList[$categoryName] , mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref);
+              foreach ($GETParamsList as $param => $val){
+                if ($param === 'curing'){
+                  $href .= '&' . array_search($param, $getParamsMapping) . '=' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value));
+                } else {
+                  $href .= '&' . array_search($param, $getParamsMapping) . '=' . $val;
+                }
+
+                $href = '?' . substr($href, 1);
+              }
+
+            } else {
+              $href = str_replace($GETParamsList[$categoryName] , mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref);
+            }
+              echo '<span><a href="' . $href . '">' . $value . '</a></span>'; 
           }
         } else {
           if ($categoryName == 'width_st'){
@@ -258,6 +289,11 @@
     echo '</div>';
     echo '</div>';
   }
+
+  if ($filter !== 0){ 
+    echo '<span class="RemoveAllMobile"><a href="' . $baseHref . $alias . '/">Сбросить&nbsp;фильтры</a></span>'; 
+  }
+
 ?>
 
 </br>          

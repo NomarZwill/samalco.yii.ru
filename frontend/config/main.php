@@ -81,6 +81,7 @@ return [
                 ['pattern'=>'/filialy/','route'=>'other/branches', 'suffix'=>'/'],
                 ['pattern'=>'/agreement/','route'=>'other/agreement', 'suffix'=>'/'],
                 ['pattern'=>'/cart/','route'=>'other/cart', 'suffix'=>'/'],
+                ['pattern'=>'/robots/','route'=>'site/robots', 'suffix'=>'.txt'],
             ],
         ],
     ],

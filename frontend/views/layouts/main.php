@@ -30,6 +30,8 @@ AppAsset::register($this);
     <title><?php echo $this->title ?></title>
     <?php if (isset($this->params['desc']) and !empty($this->params['desc'])) echo "<meta name='description' content='".$this->params['desc']."'>";?>
     <?php if (isset($this->params['kw']) and !empty($this->params['kw'])) echo "<meta name='keywords' content='".$this->params['kw']."'>";?>
+    <?php if (isset($this->params['robots']) and $this->params['robots']) echo "<meta name='robots' content='noindex, nofollow'>";?>
+
     <?php $this->head() ?>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 </head>
@@ -79,14 +81,14 @@ AppAsset::register($this);
 				<a class="<?= stristr(Yii::$app->request->url, 'katalog') ? 'active' : 'noactive' ?>" href="/katalog/">Каталог</a>
 
 				<div class="main_menu_sub">
-				    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievaya_shina') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievaya_shina/">Шина</a>
-                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminieviy_profnastil') ? 'active' : 'noactive' ?>" href="/katalog/alyuminieviy_profnastil/">Профнастил</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_profili') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_profili/">Профили</a>
                     <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_listy') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_listy/">Листы</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_truby') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_truby/">Трубы</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_plity') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_plity/">Плиты</a>
                     <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_prutki') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_prutki/">Прутки</a>
                     <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_lenty') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_lenty/">Ленты</a>
-                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_plity') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_plity/">Плиты</a>
-                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_truby') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_truby/">Трубы</a>
-                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_profili') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_profili/">Профили</a>
+				    <a class="<?= stristr(Yii::$app->request->url, 'alyuminievaya_shina') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievaya_shina/">Шина</a>
+                    <a class="<?= stristr(Yii::$app->request->url, 'alyuminieviy_profnastil') ? 'active' : 'noactive' ?>" href="/katalog/alyuminieviy_profnastil/">Профнастил</a>
                     <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_pokovki_i_shtampovki') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
 				</div>
 
@@ -235,6 +237,38 @@ AppAsset::register($this);
 	</div>
 </div>
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter9939076 = new Ya.Metrika({
+                    id:9939076,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true,
+                    params:window.yaParams
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+
+<noscript><div><img src="https://mc.yandex.ru/watch/9939076" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
 <script type="module" src="/js/app.js"></script>
 <script type="module" src="/js/jquery.inputmask.bundle.js"></script>
 <script src="/js/form.js"></script>
@@ -257,6 +291,18 @@ AppAsset::register($this);
             });
         });
     };
+</script>
+
+<script>
+    $('[data-header-phone-mobile]').on('click', function(){
+        yaCounter9939076.reachGoal('call_header');
+    });
+    $('#Go_Top').on('click', function(){
+        yaCounter9939076.reachGoal('scroll_up');
+    });
+    $('#Go_Down').on('click', function(){
+        yaCounter9939076.reachGoal('scroll_down');
+    });
 </script>
 
 <link rel="stylesheet" href="https://cdn.envybox.io/widget/cbk.css">

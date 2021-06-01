@@ -208,7 +208,7 @@ var formSender = {
                                 $('#overlay-name_popup').html(formData.get('name_true'));
                                 $('.form-overlay_popup').fadeIn(300);
                                 // gtag('event', 'callback_button', { 'event_category': 'callback_button', 'event_action': 'click', });
-                                // yaCounter9939076.reachGoal('main_send');        //CALLBACK_FORM_REQUEST
+                                yaCounter9939076.reachGoal('send_request');        //CALLBACK_FORM_REQUEST
                             }
 
                             if (context == 'default') {
@@ -222,13 +222,13 @@ var formSender = {
                                 $('#overlay-name').html(formData.get('name_true'));
                                 $('.form-overlay').fadeIn(300);
                                 // gtag('event', 'sendcart', { 'event_category': 'sendcart', 'event_action': 'click', });
-                                // yaCounter9939076.reachGoal('sendcart');
+                                yaCounter9939076.reachGoal('sendcart');
                             }
 
                             if (context == 'ext') {
                                 $('#overlay-name').html(formData.get('name_true'));
                                 $('.form-overlay').fadeIn(300);
-                                // yaCounter9939076.reachGoal('send_request');
+                                yaCounter9939076.reachGoal('send_request');
                             }
                         }
 
@@ -369,6 +369,7 @@ $(document).ready(function() {
             data: {url: $url},
             success: function(response) {
                 // alert('success!');
+                yaCounter9939076.reachGoal('error404');
                 $('.report_404').replaceWith('<div class="report_404 response_404">Благодарим за сообщение!</div>');
             }, 
             error: function(response) {
@@ -378,12 +379,12 @@ $(document).ready(function() {
         });
     });
 
-    $('body').on('click', '.call_by_click', function(event) {
-        if($(window).width() < 450) {
+    // $('body').on('click', '.call_by_click', function(event) {
+    //     if($(window).width() < 450) {
             // yaCounter9939076.reachGoal('call_header');
-            console.log('Отправка цели call_header с мобильного');
-        }
-    });
+    //         console.log('Отправка цели call_header с мобильного');
+    //     }
+    // });
 
 
 	// Кнопка вверх с плавным появлением и плавной прокруткой странички

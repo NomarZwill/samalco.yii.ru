@@ -54,7 +54,7 @@ export default class Katalog
 				success: function(data) {
 					// gtag('event', 'addcart', { 'event_category': 'addcart', 'event_action': 'click', });
 					var hint = '<div class="add-cart-hint">Вы добавили в корзину<br><b>' + data.category + '<b> сплав <b>' + data.alloy + '</b></div>';
-					// yaCounter9939076.reachGoal('addcart'); console.log('addCart');
+					yaCounter9939076.reachGoal('addcart');
 					if ($('span').is('#cart-count')) {
 						var count = parseInt($('#cart-count').html());
 						$('#cart-count').html(count + 1);

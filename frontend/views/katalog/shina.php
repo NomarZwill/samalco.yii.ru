@@ -9,7 +9,7 @@
       ))
     ?>
 
-		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
+		<h1><?= $currentPage['header'] ?></h1>
 
 		<?= $currentPage['subdomenSeo']['text_1'] ?>
 

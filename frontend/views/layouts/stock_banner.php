@@ -137,7 +137,7 @@
 
 	@media screen and (max-width: 480px) {
 		.stock_banner {
-			width: 100%;
+			width: 340px;
 			margin: 0;
 			bottom: 0;
 			left: 0;

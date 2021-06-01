@@ -797,7 +797,9 @@
   }
   .form-overlay-body p, .form-overlay-body a.close {
     text-align: center;
-    display: block
+    display: block;
+    border: none;
+    text-decoration: underline;
   }
   .callback_popup_wrap {
     position: relative

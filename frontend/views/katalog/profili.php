@@ -8,7 +8,7 @@
       ))
     ?>
 
-		<h1><?= $currentPage['subdomenSeo']['header'] ?></h1>
+		<h1><?= $currentPage['header'] ?></h1>
 
 		<div class="content_table_static">
 

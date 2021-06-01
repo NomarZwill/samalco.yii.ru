@@ -43,16 +43,18 @@
 
       <?= $currentBranch['map']?>
 
+      </br>
+      </br>
+
+      <?= $staticBlock_2 ?>
+
+      <?= $this->render('/components/orderForm') ?>
+
+      <?= $currentPage['subdomenSeo']['text_1'] ?>
+      
     </div>
 
-    </br>
-    </br>
 
-		<?= $staticBlock_2 ?>
-
-    <?= $this->render('/components/orderForm') ?>
-
-    <?= $currentPage['subdomenSeo']['text_1'] ?>
 
 	</div>
 

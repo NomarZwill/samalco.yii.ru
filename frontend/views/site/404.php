@@ -42,7 +42,7 @@
 	
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   var yaParams = {URL: document.location.href};
   window.onload = function() {yaCounter9939076.reachGoal('error404', yaParams)}
-</script>
+</script> -->
