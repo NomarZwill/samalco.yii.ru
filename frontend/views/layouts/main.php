@@ -63,9 +63,9 @@ AppAsset::register($this);
                         <?php
                             foreach (Subdomen::find()->orderBy(['sort_index' => SORT_ASC])->all() as $subdomen){
                                 if ($subdomen->alias !== ''){
-                                    echo '<li class="b-dropdown__item"><a class="b-dropdown__link " href="http://' . $subdomen->alias . '.dev.samalco.ru">' . $subdomen->name . '</a></li>';
+                                    echo '<li class="b-dropdown__item"><a class="b-dropdown__link " href="https://' . $subdomen->alias . '.samalco.ru">' . $subdomen->name . '</a></li>';
                                 } else {
-                                    echo '<li class="b-dropdown__item"><a class="b-dropdown__link " href="http://dev.samalco.ru">' . $subdomen->name . '</a></li>';
+                                    echo '<li class="b-dropdown__item"><a class="b-dropdown__link " href="https://samalco.ru">' . $subdomen->name . '</a></li>';
                                 }
                             }
                         ?>
@@ -92,7 +92,7 @@ AppAsset::register($this);
                     <a class="<?= stristr(Yii::$app->request->url, 'alyuminievye_pokovki_i_shtampovki') ? 'active' : 'noactive' ?>" href="/katalog/alyuminievye_pokovki_i_shtampovki/">Штамповка</a>
 				</div>
 
-					<a class="<?= stristr(Yii::$app->request->url, 'teh_doc') ? 'active' : 'noactive' ?>" href="http://dev.samalco.ru/teh_doc/">Техническая документация</a>
+					<a class="<?= stristr(Yii::$app->request->url, 'teh_doc') ? 'active' : 'noactive' ?>" href="https://samalco.ru/teh_doc/">Техническая документация</a>
 					<a class="<?= stristr(Yii::$app->request->url, 'delivery') ? 'active' : 'noactive' ?>" href="/delivery/">Доставка</a>
 					<a class="<?= stristr(Yii::$app->request->url, 'kontact') ? 'active' : 'noactive' ?>" href="/kontact/">Контакты</a>
 

@@ -9,26 +9,34 @@ echo <<<XML
         <url>
             <loc>$host</loc>
         </url>
-        <url>
-            <loc>$host/teh_doc/</loc>
-        </url>
 XML;
-
-        foreach (Pages::find()->where(['parent_id' => 2])->all() as $page){
+        if ($main_subdomain){
             echo <<<XML
-            <url>
-                <loc>http://samalco.ru/teh_doc/$page->alias/</loc>
-            </url>
+                <url>
+                    <loc>https://samalco.ru/teh_doc/</loc>
+                </url>
             XML;
+        }
 
-            foreach (Pages::find()->where(['parent_id' => $page->id])->all() as $pageSecondLevel){
+        if ($main_subdomain){
+
+            foreach (Pages::find()->where(['parent_id' => 2])->all() as $page){
                 echo <<<XML
                 <url>
-                    <loc>http://samalco.ru/teh_doc/$page->alias/$pageSecondLevel->alias/</loc>
+                    <loc>https://samalco.ru/teh_doc/$page->alias/</loc>
                 </url>
                 XML;
+
+                foreach (Pages::find()->where(['parent_id' => $page->id])->all() as $pageSecondLevel){
+                    echo <<<XML
+                    <url>
+                        <loc>https://samalco.ru/teh_doc/$page->alias/$pageSecondLevel->alias/</loc>
+                    </url>
+                    XML;
+                }
             }
         }
+
         echo <<<XML
         <url>
             <loc>$host/katalog/</loc>
@@ -95,16 +103,17 @@ XML;
             <loc>$host/kontact/</loc>
         </url>
         <url>
-            <loc>http://samalco.ru/agreement/</loc>
-        </url>
-        <url>
             <loc>$host/filialy/</loc>
-        </url>
-        <url>
-            <loc>$host/cart/</loc>
         </url>
         XML;
 
+        if ($main_subdomain){
+            echo <<<XML
+                <url>
+                    <loc>https://samalco.ru/agreement/</loc>
+                </url>
+            XML;
+        }
 
 echo <<<XML
     </urlset>

@@ -17,7 +17,7 @@ class Module extends \yii\base\Module
     public function init()
     {
         $subdomen = explode('.', $_SERVER['HTTP_HOST'])[0];
-        if ($subdomen != 'dev'){ //поправить на samalco при релизе
+        if ($subdomen != 'samalco'){
             Yii::$app->params['subdomen'] = $subdomen;
 
             $subdomenModel = Subdomen::find()
