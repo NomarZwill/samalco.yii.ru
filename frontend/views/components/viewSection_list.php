@@ -1,6 +1,12 @@
 <div class="exclamation">Все сплавы, которых нет в наличии, <a class="exclamation_link">доступны под заказ</a></div>
 
 <?php
+  $currentSession = Yii::$app->session;
+
+  if (!$currentSession->isActive){
+    $currentSession->open();
+  }
+
   $categoryNameList = [
     'alloy' => 'Сплав',
     'depth' => 'Толщина',
@@ -74,14 +80,14 @@
       $quantity = $_POST['quantity'];
       $real_price = (!empty($_POST['real_price'])) ? $_POST['real_price'] : false;
       $params = 'Размеры -';
-      if  ($_POST['width'] !== '') $params.= ' Ширина ' .$_POST['width']. ' мм,';
-      if  ($_POST['length'] !== '') $params.= ' Длина ' .$_POST['length']. ' мм,';
-      if  ($_POST['depth'] !== '') $params.= ' Толщина ' .$_POST['depth']. ' мм,';
-      if  ($_POST['diameter'] !== '') $params.= ' Диаметр ' .$_POST['diameter']. ' мм,';
+      if  (isset($_POST['width']) && $_POST['width'] !== '') $params.= ' Ширина ' .$_POST['width']. ' мм,';
+      if  (isset($_POST['length']) && $_POST['length'] !== '') $params.= ' Длина ' .$_POST['length']. ' мм,';
+      if  (isset($_POST['depth']) && $_POST['depth'] !== '') $params.= ' Толщина ' .$_POST['depth']. ' мм,';
+      if  (isset($_POST['diameter']) && $_POST['diameter'] !== '') $params.= ' Диаметр ' .$_POST['diameter']. ' мм,';
       $params.= '<br>';
       // if  ($_POST['plating'] !== '') $params.= ' Плакировка - ' .$_POST['plating']. ',';
-      if  ($_POST['curing'] !== '') $params.= ' Термообработка - ' .$_POST['curing']. ',';
-      $params.= ' ГОСТ - ' .$_POST['gost']; 
+      if  (isset($_POST['curing']) && $_POST['curing'] !== '') $params.= ' Термообработка - ' .$_POST['curing']. ',';
+      $params.= ' ГОСТ - ' . $_POST['gost']; 
       $servername = "localhost";
       $username = "root";
       $password = "chf54ntgn4c45g7";
@@ -211,15 +217,36 @@
     if ($filter === 2) {
 
       if ($sliceParam == $categoryName){
+        $isProfil = false;
+        if (strripos(urldecode(Yii::$app->request->url), 'alyuminievye_profili') !== false){
+          $isProfil = true;
+        }
 
         foreach ($categoryList as $key => $value){
-  
-          if (mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) == $currentSlice->alias){
-            echo '<span class="active">' . $value . '</span>';
+          if ($categoryName === 'width' && $isProfil){
+            if (mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)).'w' == $currentSlice->alias){
+              echo '<span class="active">' . $value . '</span>';
+            } else {
+              echo '<span>';
+              echo '<a href="' . $baseHref . $alias . '/' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . 'w/">' . $value . '</a>';
+              echo '</span>';
+            }
+          } elseif ($categoryName === 'height' && $isProfil){
+            if (mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)).'ht' == $currentSlice->alias){
+              echo '<span class="active">' . $value . '</span>';
+            } else {
+              echo '<span>';
+              echo '<a href="' . $baseHref . $alias . '/' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . 'ht/">' . $value . '</a>';
+              echo '</span>';
+            }
           } else {
-            echo '<span>';
-            echo '<a href="' . $baseHref . $alias . '/' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
-            echo '</span>';
+            if (mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) == $currentSlice->alias){
+              echo '<span class="active">' . $value . '</span>';
+            } else {
+              echo '<span>';
+              echo '<a href="' . $baseHref . $alias . '/' . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
+              echo '</span>';
+            }
           }
         }
       } else {
@@ -262,9 +289,10 @@
               }
 
             } else {
-              $href = str_replace($GETParamsList[$categoryName] , mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref);
+              $param = array_search($categoryName, $getParamsMapping).'=';
+              $href = str_replace($param.$GETParamsList[$categoryName] , $param.mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)), $thishref);
             }
-              echo '<span><a href="' . $href . '">' . $value . '</a></span>'; 
+              echo '<span data-test="'.$categoryName.'"><a href="' . $href . '">' . $value . '</a></span>'; 
           }
         } else {
           if ($categoryName == 'width_st'){
@@ -280,9 +308,25 @@
     if ($filter === 0){
 
       foreach ($categoryList as $key => $value){
-        echo '<span>';
-        echo '<a href="' . $thishref . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
-        echo '</span>';
+
+        $isProfil = false;
+        if (strripos(urldecode(Yii::$app->request->url), 'alyuminievye_profili') !== false){
+          $isProfil = true;
+        }
+
+        if ($categoryName === 'width' && $isProfil){
+          echo '<span>';
+          echo '<a href="' . $thishref . $value . 'w/">' . $value . '</a>';
+          echo '</span>';
+        } elseif ($categoryName === 'height' && $isProfil){
+          echo '<span>';
+          echo '<a href="' . $thishref . $value . 'ht/">' . $value . '</a>';
+          echo '</span>';
+        } else {
+          echo '<span>';
+          echo '<a href="' . $thishref . mb_strtolower(($value === 'без т/о' ? 'bez_to' : $value)) . '/">' . $value . '</a>';
+          echo '</span>';
+        }
       }
     }
 

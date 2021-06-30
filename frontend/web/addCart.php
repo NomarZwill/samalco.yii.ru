@@ -11,8 +11,109 @@ if ($_POST) {
 		$quantity = $_POST['quantity'];
 		$real_price = (!empty($_POST['real_price'])) ? $_POST['real_price'] : false;
 
-		if (!empty($_POST['weight'])){$weight = $_POST['weight'];} else {$weight = '';}
+		if (!empty($_POST['weight'])){
+			$weight = $_POST['weight'];
+		} else {
+			$weight = '';
+		}
 		$params = '';
+
+		if ($_POST['category'] == "Алюминиевый тавр"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+
+			if (isset($_POST['curing']) && $_POST['curing'] != ''){ 
+				$params.= ' Термообработка: ' .$_POST['curing']. '. <br>';
+			}
+			
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+
+			if ($_POST['depth'] != ''){ 
+				$params.= ' Толщина ' .$_POST['depth']. ' мм,';
+			}
+
+			if ($_POST['height'] != ''){ 
+				$params.= ' Высота ' .$_POST['height']. ' мм,';
+			}
+
+			if ($_POST['width'] != ''){ 
+				$params.= ' Ширина ' .$_POST['width']. ' мм,';
+			}
+
+			if ($_POST['length'] != ''){ 
+				$params.= ' Длина ' .$_POST['length']. ' мм,';
+			}
+
+			$params .= '</span>';
+		}
+
+		if ($_POST['category']=="Алюминиевый швеллер"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
+			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
+			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
+			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
+			$params .= '</span>';
+		}
+
+		if ($_POST['category']=="Алюминиевый двутавр"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
+			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
+			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
+			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
+			$params .= '</span>';
+		}
+
+		if ($_POST['category']=="Алюминиевый уголок"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
+			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
+			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
+			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
+			$params .= '</span>';
+		}
+
+		if ($_POST['category']=="Прямоугольный профиль"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
+			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
+			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
+			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
+			$params .= '</span>';
+		}
+
+		if ($_POST['category']=="Алюминиевые листы"){
+			$params.= '<span class="alloy_name">';
+			$params.= 'Сплав: '.$_POST['alloy'].'.';
+
+			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
+			$params.= '</span>';
+			$params .= '<span class="dimensions"> Размеры: ';
+
+			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
+			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
+			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
+			if  ($_POST['gost'] != ''){ $params.= ' '.$_POST['gost'] . '.'; }
+			$params .= '</span>';
+		}
 
 		if ($_POST['category']=="Алюминиевые трубы"){ 
 			$params.= '<span class="alloy_name">';
@@ -29,20 +130,6 @@ if ($_POST) {
 
 			$params .= '</span>';  
 		}
-		if ($_POST['category']=="Алюминиевые листы"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			if  ($_POST['gost'] != ''){ $params.= ' '.$_POST['gost'] . '.'; }
-			$params .= '</span>';
-		}
 
 		if ($_POST['category']=="Алюминиевые прутки"){
 			$params.= '<span class="alloy_name">';
@@ -57,7 +144,8 @@ if ($_POST) {
 			if  ($_POST['gost'] != ''){ $params.= ' '.$_POST['gost'] . '.'; }
 			$params .= '</span>';
 		}
-		if($_POST['category']=="Алюминиевые ленты" || $_POST['category']=="Алюминиевые плиты"){ 
+		
+		if($_POST['category']=="Алюминиевая лента" || $_POST['category']=="Алюминиевые плиты"){ 
 			$params.= '<span class="alloy_name">';
 			$params.= 'Сплав: '.$_POST['alloy'].'.';
 			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '</span>. <br>';}
@@ -67,66 +155,7 @@ if ($_POST) {
 			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
 			$params .= '</span>';
 		}
-		if($_POST['category']=="Алюминиевые тавры"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			$params .= '</span>';
-		}
-		if($_POST['category']=="Алюминиевые швеллеры"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			$params .= '</span>';
-		}
-		if($_POST['category']=="Алюминиевые двутавры"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			$params .= '</span>';
-		}
-		if($_POST['category']=="Алюминиевые уголки"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			$params .= '</span>';
-		}
-		if($_POST['category']=="Алюминиевые прямоугольники"){
-			$params.= '<span class="alloy_name">';
-			$params.= 'Сплав: '.$_POST['alloy'].'.';
-			if  (isset($_POST['curing']) && $_POST['curing'] != ''){ $params.= ' Термообработка: ' .$_POST['curing']. '. <br>';}
-			$params.= '</span>';
-			$params .= '<span class="dimensions"> Размеры: ';
-			if  ($_POST['depth'] != ''){ $params.= ' Толщина ' .$_POST['depth']. ' мм,';}
-			if  ($_POST['height'] != ''){ $params.= ' Высота ' .$_POST['height']. ' мм,';}
-			if  ($_POST['width'] != ''){ $params.= ' Ширина ' .$_POST['width']. ' мм,';}
-			if  ($_POST['length'] != ''){ $params.= ' Длина ' .$_POST['length']. ' мм,';}
-			$params .= '</span>';
-		}
+		
 		mysqli_query($mysqli, "INSERT INTO cart_session_state (`session`, `name`, `alloy`, `params`, `quantity`, `weight`, `real_price`) VALUES ('$session', '$category', '$alloy', '$params', '$quantity', '$weight', '$real_price')");
 	}
 	header('Content-type: application/json');

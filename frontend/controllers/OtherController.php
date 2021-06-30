@@ -119,7 +119,7 @@ class OtherController extends Controller
     if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
         $this->view->title = $seo['subdomenSeo']['title'];
     } elseif(isset($seo['title'])){
-        $this->view->title = $seo['title'];
+        $this->view->title = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $seo['title']);
     } else {
         $this->view->title = false;
     }
@@ -127,7 +127,7 @@ class OtherController extends Controller
     if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
         $this->view->params['desc'] = $seo['subdomenSeo']['description'];
     } elseif(isset($seo['title'])){
-        $this->view->params['desc'] = $seo['description'];
+        $this->view->params['desc'] = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $seo['description']);
     } else {
         $this->view->params['desc'] = false;
     }

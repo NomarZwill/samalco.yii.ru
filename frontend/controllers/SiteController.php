@@ -51,6 +51,15 @@ class SiteController extends Controller
         ->with('extraContent')
         ->all();  
 
+        if (stripos(urldecode(Yii::$app->request->url), '?') !== false){
+            $this->view->params['robots'] = true;
+        }
+
+        //         echo '<pre>';
+        // print_r(urldecode(Yii::$app->request->url));
+        // exit;
+
+
         return $this->render('404.php', [
             'katalogPage' => $katalogPage,
         ]);
@@ -76,25 +85,28 @@ Sitemap: https://' . $subdomen_alias . 'samalco.ru/sitemap.xml';
 
     private function setSeo($seo)
     {
+
+        // $orderProcedure = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $orderProcedure->content);
+
         if (isset($seo['subdomenSeo']['title']) && $seo['subdomenSeo']['title'] !== ''){
             $this->view->title = $seo['subdomenSeo']['title'];
         } elseif(isset($seo['title'])){
-            $this->view->title = $seo['title'];
+            $this->view->title = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $seo['title']);
         } else {
             $this->view->title = false;
         }
 
         if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
             $this->view->params['desc'] = $seo['subdomenSeo']['description'];
-        } elseif(isset($seo['title'])){
-            $this->view->params['desc'] = $seo['description'];
+        } elseif(isset($seo['description'])){
+            $this->view->params['desc'] = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $seo['description']);
         } else {
             $this->view->params['desc'] = false;
         }
 
         if (isset($seo['subdomenSeo']['keywords'])){
             $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
-        } elseif(isset($seo['title'])){
+        } elseif(isset($seo['keywords'])){
             $this->view->params['kw'] = $seo['keywords'];
         } else {
             $this->view->params['kw'] = false;

@@ -112,7 +112,7 @@ class KatalogController extends Controller
     $this->setSeo($this->replacePatterns($currentPage));
 
     // echo '<pre>';
-    // print_r($tableData);
+    // print_r($subSliceList);
     // exit;
 
     return $this->render('slice', array(
@@ -237,7 +237,8 @@ class KatalogController extends Controller
 
 
     if (count((array)$paramsList) === 4){
-      $this->setSeo($this->replacePatternsForSlicesTwoParams($currentSlice, $paramsList), false);
+      // $this->setSeo($this->replacePatternsForSlicesTwoParams($currentSlice, $paramsList), false);
+      $this->setSeo($this->replacePatternsForSlicesTwoParams($currentSlice, $paramsList), true); // вернуть индексирование, как починю фильтр
       $currentPage->header = '';
     } else {
       $this->setSeo($this->replacePatterns($currentPage), true);

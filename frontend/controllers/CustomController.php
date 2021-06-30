@@ -24,21 +24,35 @@ class CustomController extends Controller
   {
     return $this->render('index.php');
   }
-
   public function actionCustom()
   {
-    foreach (Slices::find()->all() as $slice){
-
-      if ($slice->parent_alias === '' || $slice->parent_alias === 'alyuminievye_profili'){
-        $slice->header = '**singular_name** **param_name** **param_value** **second_param_name** **second_param_value** в **subdomen_name_dec**';
-        $slice->title = '**singular_name** **param_name** **param_value** **second_param_name** **second_param_value** купить в **subdomen_name_dec** оптом';
-        $slice->description = '**plural_name** **param_name** **param_value** **second_param_name** **second_param_value** в наличии и под заказ. **singular_name** **param_value** **second_param_value** купить оптом с доставкой.';
-        $slice->keywords = '**singular_name** **param_name** **param_value** **second_param_name** **second_param_value** **subdomen_name**';
-        // $slice->save();
+    $i = 0;
+    $oldLinkList = [];
+    foreach (Slices::find()->where(['parent_alias' => ['dvutavr', 'pryamougolnik', 'shveller', 'tavr', 'ugolok']])->all() as $slice){
+      if (strripos($slice->params, 'depth') !== false){
+        $i++;
+        // $slice->delete();
       }
+
+      // if (strripos($slice->params, 'width') !== false && strripos($slice->alias, 'w') !== false){
+
+      //   $oldLink = '/katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . str_replace('w', '', $slice->alias) . '/';
+      //   if (array_search($oldLink, $oldLinkList) === false) {
+      //     echo 'rewrite ^/katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . str_replace('w', '', $slice->alias) . '/$ /katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . $slice->alias . '/ permanent;<br>';
+      //     array_push($oldLinkList, $oldLink);
+      //     $i++;
+      //   }
+      // }
+
+
+
+
     }
 
     echo "конец";
+    echo '<pre>';
+    echo $i;
+    // print_r($warningList);
     exit;
   }
 

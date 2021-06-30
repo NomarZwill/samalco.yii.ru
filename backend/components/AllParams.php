@@ -55,8 +55,8 @@ class AllParams
 					],
 				'profil_dvutavr' => [
 						'alloy' => ['АД0', 'АД1', 'Амц', 'Амг2', 'Амг3', 'Амг5', 'Амг6', '1561', 'АВ', 'Д1', 'Д16', 'Д16ч', 'Д19', 'Д19ч', 'Д20', 'Д21', 'ВД1', 'В95', 'В93', 'В95пч', 'В95оч', 'В93пч', 'В93оч', '1915','1925', 'АК4', 'АК4-1', 'АК6', 'АК6ч', 'АК8', '1980', '1163', '1933', '1973', '1201'],
-						'height' => ['3', '5', '10', '15', '20', '50', '80', '100', '130', '150', '200', '275'],
-						'width' => ['6', '10', '15', '20', '30', '40', '50', '100', '150', '200', '250', '300', '350'],
+						'height' => ['3', '10', '15', '20', '30', '40', '50', '100', '200', '300', '340'],
+						'width' => ['4', '10', '20', '50', '100', '150', '200', '250', '300', '350', '400', '450', '480'],
 						'curing' => ['без т/о', 'М', 'Т', 'Т1'],
 						'length' => ['1000', '2000', '3000', '4000', '5000', '6000', '7000', '8000', '9000'],
 						'depth' => ['1', '5', '10', '15', '20', '25', '30', '40', '50', '55', '60', '70']
@@ -190,9 +190,14 @@ class AllParams
 					return false;
 				}
 			} else {
-				$search_array = array_map('mb_strtoupper', $filterValueList[$getParamsMapping[$param]]);
 
-				if (!in_array(mb_strtoupper($value), $search_array)){
+				if (isset($filterValueList[$getParamsMapping[$param]])){
+					$search_array = array_map('mb_strtoupper', $filterValueList[$getParamsMapping[$param]]);
+	
+					if (!in_array(mb_strtoupper($value), $search_array)){
+						return false;
+					}
+				} else {
 					return false;
 				}
 			}

@@ -48,6 +48,7 @@
             'currentItem' => $currentItem,
             'currentSlice' => $currentSlice,
             'is_root_slice' => $is_root_slice,
+            'is_profil' => $is_profil,
           ]);
 
           echo $is_profil ? ($currentSlice['subdomenSeo']['text_3'] . '</br>' . $currentSlice['subdomenSeo']['text_4']) : '';
@@ -64,6 +65,7 @@
             'currentItem' => $currentItem,
             'currentSlice' => $currentSlice,
             'is_root_slice' => $is_root_slice,
+            'is_profil' => $is_profil,
           ]);
 
           echo !$is_profil ? ($currentSlice['subdomenSeo']['text_2'] . '</br>') : ($currentSlice['subdomenSeo']['text_3'] . '</br>' . $currentSlice['subdomenSeo']['text_4']);

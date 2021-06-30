@@ -79,7 +79,6 @@ if ($_POST) {
     }
 }
 
-
 $products = mysqli_query($link, "SELECT * FROM cart_session_state WHERE `session` = '".$session."'");
 
 if (mysqli_num_rows($products)==0) {
@@ -123,20 +122,20 @@ if (mysqli_num_rows($products)==0) {
 
 		$id = (!empty($prod['id'])) ? $prod['id'] : false;
 		$weight = (!empty($prod['weight'])) ? $prod['weight'] : false;
-		$quantity = (!empty($prod['quantity']) && !empty($weight)) ? intval(round($prod['quantity']/$weight)) : false;
+		$quantity = (!empty($prod['quantity']) && !empty($weight)) ? intval(round($prod['quantity'] / $weight)) : false;
 		$price = (!empty($prod['real_price'])) ? floatval($prod['real_price']) : false;
 		//if($prod['name'] == 'Алюминиевые прутки') { $price = $price/1000;}
-		$total_price = ($price && $weight) ? floatval($price)*floatval($weight) : false;
+		$total_price = ($price && $weight) ? floatval($price) * floatval($weight) : false;
 		$total_price = (!empty($prod['total_price'])) ? floatval($prod['total_price']) : $total_price;
-		$SUM_PRICE = ($total_price) ? intval(round($SUM_PRICE))+intval(round($total_price)) : $SUM_PRICE;
+		$SUM_PRICE = ($total_price) ? intval(round($SUM_PRICE)) + intval(round($total_price)) : $SUM_PRICE;
 		$currency = ($price) ? '<span class="currency">&nbsp;руб.</span>' : '';
 		$price_formated = ($price) ? priceFormat($price) : 'под заказ';
 		$total_price_formated = ($total_price) ? priceFormat($total_price) : 'под заказ';
 		$quant_type = 'кг';
 		
 		if(!empty($prod['total_price'])) {
-			$val_kg = round($total_price/$price,2);
-			$val_sht = $val_pm = intval(round($total_price/($price*$weight)));
+			$val_kg = round($total_price / $price, 2);
+			$val_sht = $val_pm = intval(round($total_price / ($price * $weight)));
 		} else {
 			$val_kg = $weight;
 			$val_sht = $val_pm = 1;
@@ -156,7 +155,7 @@ if (mysqli_num_rows($products)==0) {
 		echo 	'</div>';
 		echo 	'<div class="prod_quantity param_wrap">';
 		
-		if($prod['name'] == 'Алюминиевые ленты') {
+		if ($prod['name'] == 'Алюминиевая лента') {
 			echo 	'<input type="text" class="prod_quantity_value hidden" value="'.$val_kg.'" min="'.$weight.'" max="999999" maxlength="8" data-type="kg" data-name="quantity_kg" />';
 			echo 	'<input type="text" class="prod_quantity_value" value="'.$val_pm.'" min="1" max="999999" maxlength="8" data-type="p_m" data-name="quantity_pm" />';
 			echo 	'<span class="prod_quantity_type" data-type="kg">'.$quant_type.'</span>';
@@ -205,7 +204,7 @@ if (mysqli_num_rows($products)==0) {
 		echo 	'<span class="currency">&nbsp;руб.</span>';
 		echo '</div>';
 	}
-	echo 	'<input type="hidden" name="sum_price" value="'.$SUM_PRICE.'"/>';
+	echo 	'<input type="hidden" name="sum_price" value="'.$SUM_PRICE.'" data-preliminary-cost/>';
 	echo '</div>';
 	
  

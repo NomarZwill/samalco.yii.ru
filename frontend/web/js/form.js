@@ -608,6 +608,7 @@ $(document).ready(function() {
             }
         });
         $('.sum_price_value').text(addCommas(sum_price));
+        $('[data-preliminary-cost]').attr('value', sum_price);
 
 
         if(price_1kg) {
