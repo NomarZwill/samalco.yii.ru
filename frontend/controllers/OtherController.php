@@ -63,6 +63,13 @@ class OtherController extends Controller
     
     $breadcrumbs = Breadcrumbs::getBreadcrumbs();
 
+    $currentPage->title = str_replace('**subdomen**', (Yii::$app->params['subdomen_alias'] != '' ? (Yii::$app->params['subdomen_alias'] . '.') : ''), $currentPage->title);
+    $currentPage->description = str_replace('**subdomen**', (Yii::$app->params['subdomen_alias'] != '' ? (Yii::$app->params['subdomen_alias'] . '.') : ''), $currentPage->description);
+        //         echo '<pre>';
+        // print_r($currentPage);
+        // exit;
+
+
     $this->setSeo($currentPage);
 
     return $this->render('agreement', array(
@@ -126,7 +133,7 @@ class OtherController extends Controller
 
     if (isset($seo['subdomenSeo']['description']) && $seo['subdomenSeo']['description'] !== ''){
         $this->view->params['desc'] = $seo['subdomenSeo']['description'];
-    } elseif(isset($seo['title'])){
+    } elseif(isset($seo['description'])){
         $this->view->params['desc'] = str_replace('**subdomen_dec**', Yii::$app->params['subdomen_dec'], $seo['description']);
     } else {
         $this->view->params['desc'] = false;
@@ -134,7 +141,7 @@ class OtherController extends Controller
 
     if (isset($seo['subdomenSeo']['keywords'])){
         $this->view->params['kw'] = $seo['subdomenSeo']['keywords'];
-    } elseif(isset($seo['title'])){
+    } elseif(isset($seo['keywords'])){
         $this->view->params['kw'] = $seo['keywords'];
     } else {
         $this->view->params['kw'] = false;

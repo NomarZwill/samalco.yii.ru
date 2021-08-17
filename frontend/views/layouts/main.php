@@ -148,7 +148,7 @@ AppAsset::register($this);
         <div class="footer_left">
 
             <p>Copyrigth 2007-<?php echo date('Y') ?>, Самарская алюминиевая компания</p>
-            <a href="/agreement/">Политика конфиденциальности</a>
+            <a href="https://samalco.ru/agreement/">Политика конфиденциальности</a>
 
         </div>
 

@@ -206,6 +206,11 @@ class KatalogController extends Controller
     $paramsList = json_decode($currentSlice->params);
     $paramsList->subdomen = Yii::$app->params['subdomen_alias'] === '' ? 'moscow' : Yii::$app->params['subdomen_alias'];
     $tableData = ItemsParams::getMultiparamsSlice($paramsList);
+
+    if ($tableData === false){
+			throw new NotFoundHttpException();
+    }
+
     $allParams = new AllParams();
 
     if (strripos($_SERVER['REQUEST_URI'], 'alyuminievye_profili')){

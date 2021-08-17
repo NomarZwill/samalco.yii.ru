@@ -96,7 +96,7 @@
         <div class="form-group">
           <label class="form-check-label">
             <input type="checkbox" class="form-check-input" name="terms" checked data-required>
-            Я согласен на обработку <a href="/agreement/">моих персональных данных</a>
+            Я согласен на обработку <a href="https://samalco.ru/agreement/">моих персональных данных</a>
           </label>
         </div>
       </div>

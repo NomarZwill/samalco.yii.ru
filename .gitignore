@@ -35,3 +35,7 @@ phpunit.phar
 /.vagrant
 
 /DB_backups
+
+/frontend/config
+/common/config
+/backend/config

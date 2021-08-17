@@ -14,6 +14,10 @@ class SiteController extends Controller
 {
     public function actionIndex()
     {
+        if ($_SERVER['REQUEST_URI'] === '/?_ym_debug=1' || $_SERVER['REQUEST_URI'] === '/?from=https://samara.cataloxy.ru/firms/www.samalco.ru.htm'){
+            throw new \yii\web\NotFoundHttpException();
+        }
+
         $currentPage = Pages::find()
             ->where(['id' => 1])
             ->with('subdomenSeo')
@@ -29,7 +33,7 @@ class SiteController extends Controller
         $this->setSeo($currentPage);
 
         // echo '<pre>';
-        // print_r($currentPage['title']);
+        // print_r($_SERVER['REQUEST_URI']);
         // exit;
 
         return $this->render('index', array(

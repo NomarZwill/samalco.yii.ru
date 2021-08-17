@@ -148,10 +148,17 @@ class ItemsParams extends \yii\db\ActiveRecord
             'S' => 'section'
         ];
 
+        $currentParam = null;
+
         foreach (Yii::$app->request->get() as $key => $value){
 
             if ($key != 'q' && $key != 'slice'){
-                $currentParam = $getParamsMapping[$key];
+
+                if (isset($getParamsMapping[$key])){
+                    $currentParam = $getParamsMapping[$key];
+                } else {
+                    return false;
+                }
 
                 if ($value === 'шестигранный'){
                     $paramsList->$currentParam = 'шестигранный (ШГ)';
