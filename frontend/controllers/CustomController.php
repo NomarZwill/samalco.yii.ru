@@ -26,32 +26,9 @@ class CustomController extends Controller
   }
   public function actionCustom()
   {
-    $i = 0;
-    $oldLinkList = [];
-    foreach (Slices::find()->where(['parent_alias' => ['dvutavr', 'pryamougolnik', 'shveller', 'tavr', 'ugolok']])->all() as $slice){
-      if (strripos($slice->params, 'depth') !== false){
-        $i++;
-        // $slice->delete();
-      }
-
-      // if (strripos($slice->params, 'width') !== false && strripos($slice->alias, 'w') !== false){
-
-      //   $oldLink = '/katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . str_replace('w', '', $slice->alias) . '/';
-      //   if (array_search($oldLink, $oldLinkList) === false) {
-      //     echo 'rewrite ^/katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . str_replace('w', '', $slice->alias) . '/$ /katalog/alyuminievye_profili/' . $slice->parent_alias . '/' . $slice->alias . '/ permanent;<br>';
-      //     array_push($oldLinkList, $oldLink);
-      //     $i++;
-      //   }
-      // }
-
-
-
-
-    }
 
     echo "конец";
     echo '<pre>';
-    echo $i;
     // print_r($warningList);
     exit;
   }
@@ -216,6 +193,11 @@ class CustomController extends Controller
     //       $newSlice->parent_alias = 'pryamougolnik';
     //       $newSlice->name = $value1;
     //       $newSlice->params = '{"type":"profil_pryamougolnik"' . ',"' . $paramName . '":"' . $value1 . '"}';
+          // $newSlice->header = "**singular_name** **param_name** **param_value** в **subdomen_name_dec**";
+          // $newSlice->title = "**singular_name** **param_name** **param_value** цена в **subdomen_name_dec**, купить **plural_name** **param_name** **param_value** оптом";
+          // $newSlice->description = "**plural_name** **param_name** **param_value** в **subdomen_name_dec** в наличии и под заказ. **singular_name** **param_name** **param_value** купить оптом с доставкой по выгодным ценам.";
+          // $newSlice->keywords = "**singular_name** **param_name** **param_value** **subdomen_name**, купить **plural_name** **param_name** **param_value**";
+
     //       $newSlice->save();
     //     }
     //   }

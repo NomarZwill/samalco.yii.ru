@@ -213,6 +213,17 @@ if ($table == 'lists') {
   paramChunkAlloy($arrAlloys[$table]['alloy'], 'alloy', 'Сплав', $density, $prefix);
   getCalcBtn($prefix);
   echo '</div>';
+} else if ($table == 'lists_ribbed') {
+  getCalcTitle('Расчет массы листов');
+  scriptChunk('Масса листа', 'кг');
+  echo '<div '. $id_anchor .' class="calcform">';
+  paramChunk($arrAlloys[$table]['width'], 'width', 'Ширина, мм', $prefix);
+  paramChunk($arrAlloys[$table]['depth'], 'depth', 'Толщина, мм', $prefix);
+  paramChunk($arrAlloys[$table]['length'], 'length', 'Длина, мм', $prefix);
+  asort($arrAlloys[$table]['alloy']);
+  paramChunkAlloy($arrAlloys[$table]['alloy'], 'alloy', 'Сплав', $density, $prefix);
+  getCalcBtn($prefix);
+  echo '</div>';
 } else if ($table == 'plates') {
   getCalcTitle('Расчет массы плит');
   scriptChunk('Масса плиты', 'кг');

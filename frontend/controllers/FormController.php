@@ -200,39 +200,39 @@ class FormController extends Controller
       $contexts = [
         'default' => [
           'subject' => 'Заявка с сайта',
-          'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          // /var/www/samalco.yii.ru/frontend/web
           // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'ext' => [
           'subject' => 'Заявка с сайта',
-          'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          // /var/www/samalco.yii.ru/frontend/web
           // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'catalog' => [
           'subject' => 'Вопрос по наличию и ценам',
-          'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          // /var/www/samalco.yii.ru/frontend/web
           // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'popup' => [
           'subject' => 'Заявка с сайта',
           'type' => 'popup',
-           'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+           // /var/www/samalco.yii.ru/frontend/web
           // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ],
     
         'cart' => [
           'subject' => 'Заявка из корзины',
           'type' => 'cart',
-          'recipients' => ['shaposhnikov@samalco.ru','kostikova@liderpoiska.ru','irinasablina@liderpoiska.ru'],
+          // /var/www/samalco.yii.ru/frontend/web
           // 'recipients' => ['artm@liderpoiska.ru', 'irinasablina@liderpoiska.ru', 'kostikova@liderpoiska.ru'],
-          // 'recipients' => ['artm@liderpoiska.ru'],
+          'recipients' => ['artm@liderpoiska.ru'],
         ]
       ];
     

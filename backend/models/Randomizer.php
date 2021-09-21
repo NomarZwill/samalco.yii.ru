@@ -34,7 +34,7 @@ class Randomizer
     # MySQL parametrs
     $commonData['servername'] = "localhost";
     $commonData['username'] = "root";
-    $commonData['password'] = "chf54ntgn4c45g7";
+    $commonData['password'] = "LP_db_";
     $commonData['dbname'] = "samalco.yii.ru";
 
     # All subdomains
@@ -43,6 +43,7 @@ class Randomizer
 
     # Alloys
     $alloys_lists = $this->allParams->arrAlloys['lists']['alloy'];
+    $alloys_lists_ribbed = $this->allParams->arrAlloys['lists_ribbed']['alloy'];
     $alloys_plates = $this->allParams->arrAlloys['plates']['alloy'];
     $alloys_tubes = $this->allParams->arrAlloys['tubes']['alloy'];
     $alloys_tavrs = $this->allParams->arrAlloys['profils']['profil_tavr']['alloy'];
@@ -53,16 +54,17 @@ class Randomizer
     $alloys_tapes = $this->allParams->arrAlloys['tapes']['alloy'];
     $alloys_rods = $this->allParams->arrAlloys['rods']['alloy'];
 
-    $this->updateTable($alloys_lists, 'lists', 		1, 1000, 1, 220, 280, 1, $commonData);
-    $this->updateTable($alloys_plates, 'plates', 		1, 1000, 1, 180, 220, 1, $commonData);
-    $this->updateTable($alloys_dvutavrs, 'profil_dvutavr', 	1, 1000, 1, 110, 150, 1, $commonData);
-    $this->updateTable($alloys_pryamougolniki, 'profil_pryamougolnik', 1, 500, 1, 230, 260, 1, $commonData);
-    $this->updateTable($alloys_shvellers, 'profil_shveller', 1, 1000, 1, 110, 150, 1, $commonData);
-    $this->updateTable($alloys_tavrs, 'profil_tavr', 		1, 1000, 1, 110, 150, 1, $commonData);
-    $this->updateTable($alloys_ugolki, 'profil_ugolok', 		1, 1000, 1, 110, 150, 1, $commonData);
-    $this->updateTable($alloys_rods, 'rods', 	300, 1500, 1, 220, 250, 1, $commonData);
-    $this->updateTable($alloys_tapes, 'tapes', 	300, 1500, 1, 175, 220, 1, $commonData);
-    $this->updateTable($alloys_tubes, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
+    // $this->updateTable($alloys_lists, 'lists', 		1, 1000, 1, 220, 280, 1, $commonData);
+    $this->updateTable($alloys_lists_ribbed, 'lists_ribbed', 		100, 3000, 1, 220, 280, 1, $commonData);
+    // $this->updateTable($alloys_plates, 'plates', 		1, 1000, 1, 180, 220, 1, $commonData);
+    // $this->updateTable($alloys_dvutavrs, 'profil_dvutavr', 	1, 1000, 1, 110, 150, 1, $commonData);
+    // $this->updateTable($alloys_pryamougolniki, 'profil_pryamougolnik', 1, 500, 1, 230, 260, 1, $commonData);
+    // $this->updateTable($alloys_shvellers, 'profil_shveller', 1, 1000, 1, 110, 150, 1, $commonData);
+    // $this->updateTable($alloys_tavrs, 'profil_tavr', 		1, 1000, 1, 110, 150, 1, $commonData);
+    // $this->updateTable($alloys_ugolki, 'profil_ugolok', 		1, 1000, 1, 110, 150, 1, $commonData);
+    // $this->updateTable($alloys_rods, 'rods', 	300, 1500, 1, 220, 250, 1, $commonData);
+    // $this->updateTable($alloys_tapes, 'tapes', 	300, 1500, 1, 175, 220, 1, $commonData);
+    // $this->updateTable($alloys_tubes, 'tubes', 		1, 1000, 1, 110, 150, 1, $commonData);
 
 
     $end_time = microtime(true);

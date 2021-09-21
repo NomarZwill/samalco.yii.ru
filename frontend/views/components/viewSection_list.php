@@ -59,6 +59,8 @@
   
   if (stripos($thishref, 'alyuminievye_profili') !== false) {
     $baseHref = current(explode('alyuminievye_profili', $thishref)) . 'alyuminievye_profili/';
+  } elseif (stripos($thishref, 'alyuminievye_listy/riflenye') !== false) {
+    $baseHref = current(explode('alyuminievye_listy', $thishref)) . 'alyuminievye_listy/';
   } else {
     $baseHref = current(explode('katalog', $thishref)) . 'katalog/';
   }

@@ -65,6 +65,10 @@ return [
                 ['pattern'=>'/katalog/alyuminieviy_profnastil/','route'=>'katalog/profnastil', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievye_pokovki_i_shtampovki/','route'=>'katalog/shtampovki', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievaya_shina/','route'=>'katalog/shina', 'suffix'=>'/'],
+
+                ['pattern'=>'/katalog/alyuminievye_listy/<slice:riflenye>','route'=>'katalog/slice', 'suffix'=>'/'],
+                ['pattern'=>'/katalog/alyuminievye_listy/<slice1:riflenye>/<slice2:[\w\-.]+>','route'=>'katalog/slice-from-param', 'suffix'=>'/'],
+
                 ['pattern'=>'/katalog/alyuminievye_profili/<slice1:[\w-]+>/<slice2:[\w\-.]+>','route'=>'katalog/slice-from-param', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievye_profili/<slice:[\w-]+>','route'=>'katalog/slice', 'suffix'=>'/'],
                 ['pattern'=>'/katalog/alyuminievye_profili/','route'=>'katalog/profili', 'suffix'=>'/'],

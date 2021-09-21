@@ -9,7 +9,8 @@ exit;
 // $file['profil_ugolok'] = __DIR__."/profil_ugolok.csv";
 // $file['rods'] = __DIR__."/rods.csv";
 // $file['tapes'] = __DIR__."/tapes.csv";
-$file['tubes'] = __DIR__."/tubes.csv";
+// $file['tubes'] = __DIR__."/tubes.csv";
+$file['lists_ribbed'] = __DIR__."/lists_ribbed.csv";
 
 // $fieds['lists'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
 // $fieds['plates'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
@@ -20,11 +21,12 @@ $file['tubes'] = __DIR__."/tubes.csv";
 // $fieds['profil_ugolok'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
 // $fieds['rods'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
 // $fieds['tapes'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
-$fieds['tubes'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
+// $fieds['tubes'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
+$fieds['lists_ribbed'] = "alloy;heatTreatement;depth;width;height;lenght;diameter;section;gostTemp";
 
 $servername = "localhost";
 $username = "root";
-$password = "chf54ntgn4c45g7";
+$password = "LP_db_";
 $dbname = "samalco.yii.ru";
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die(mysql_error());
 if (!$conn->set_charset("utf8mb4")) {
@@ -51,7 +53,7 @@ foreach($file as $key => $value)
 		for($i=0;$i<count($d);$i++)
 			$sql[] = "'" . $d[$i] . "'";
 			
-		$sql_exec = "INSERT INTO `all_items` (`type`, `alloy`, `curing`, `depth`, `width`, `height`, `length`, `diameter`, `section`, `gost`) VALUES ('tubes', " . implode(",", $sql) . ")";	
+		$sql_exec = "INSERT INTO `all_items` (`type`, `alloy`, `curing`, `depth`, `width`, `height`, `length`, `diameter`, `section`, `gost`) VALUES ('lists_ribbed', " . implode(",", $sql) . ")";	
 		mysqli_query($conn, $sql_exec) or die("SQL ERROR: ".mysql_error()."<hr/>".$sql_exec);
 		// exit;
 		unset($sql_exec, $sql, $d);

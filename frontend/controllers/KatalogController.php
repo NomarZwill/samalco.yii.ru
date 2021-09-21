@@ -59,7 +59,9 @@ class KatalogController extends Controller
 
   public function actionSlice($slice)
   {
-    if (!Slices::find()->where(['alias' => $slice, 'parent_alias' => ['', 'alyuminievye_profili']])->exists()){
+    // exit;
+    if (!Slices::find()->where(['alias' => $slice, 'parent_alias' => ['', 'alyuminievye_profili']])->exists()
+     && !Slices::find()->where(['alias' => 'riflenye', 'parent_alias' => ['alyuminievye_listy']])->exists()){
       throw new \yii\web\NotFoundHttpException();
     }
   
@@ -112,7 +114,7 @@ class KatalogController extends Controller
     $this->setSeo($this->replacePatterns($currentPage));
 
     // echo '<pre>';
-    // print_r($subSliceList);
+    // print_r($currentItem);
     // exit;
 
     return $this->render('slice', array(
@@ -133,6 +135,7 @@ class KatalogController extends Controller
 
   public function actionSliceFromParam($slice1, $slice2)
   {
+    // exit;
     if (!strripos(Yii::$app->request->url, '?') === false){
       return $this->actionMultiparamsSlice($slice1);
     }
@@ -253,10 +256,12 @@ class KatalogController extends Controller
     // print_r($currentPage);
     // exit;
 
-    $currentSlice['subdomenSeo']['text_1'] = '';
-    $currentSlice['subdomenSeo']['text_2'] = '';
-    $currentSlice['subdomenSeo']['text_3'] = '';
-    $currentSlice['subdomenSeo']['text_4'] = '';
+    if (isset($currentSlice['subdomenSeo'])){
+      $currentSlice['subdomenSeo']['text_1'] = '';
+      $currentSlice['subdomenSeo']['text_2'] = '';
+      $currentSlice['subdomenSeo']['text_3'] = '';
+      $currentSlice['subdomenSeo']['text_4'] = '';
+    }
 
     return $this->render('slice', array(
       'tableData' => $tableData,
